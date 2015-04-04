@@ -70,22 +70,22 @@ ini_set('max_execution_time', 300);
 //echo '</div>';
 
 
-//echo '<div>';
-//       echo 'third '  ;   
-//        $command = "tt.py";
-//         
-//        $pid = popen($command,"r");
-// 
-//        while( !feof( $pid ) )
-//            {
-//                echo fread($pid, 256);
-//                flush();
-//                ob_flush();
-//                usleep(100000);
-//            }
-//        pclose($pid);
-//
-//echo '</div>';
+echo '<div>';
+       echo 'third '  ;   
+        $command = "tt.py";
+         
+        $pid = popen($command,"r");
+ 
+        while( !feof( $pid ) )
+            {
+                echo fread($pid, 256);
+                flush();
+                ob_flush();
+                usleep(100000);
+            }
+        pclose($pid);
+
+echo '</div>';
 
 echo '<div>';
         $command = "i.py";
