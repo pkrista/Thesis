@@ -224,7 +224,7 @@ def main (pdf_doc, pdf_pwd, images_folder):
     """Process each of the pages in this pdf file and return a list of strings representing the text found in each page"""
     result = with_pdf(pdf_doc, _parse_pages, pdf_pwd, *tuple([images_folder]))
     
-    print '*NEWPAGE*'.join(result)
+    print '**NEWPAGE**'.join(result)
 
 try:
     main(pdf_doc='../uploads/Joga.pdf', pdf_pwd='', images_folder='../image')

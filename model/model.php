@@ -40,7 +40,7 @@
 //            ); 
             
             #http://php.net/manual/en/class.directoryiterator.php       
-            $dir    = 'C:/xampp/htdocs/TheProject/uploads/';           
+            $dir    = 'C:/xampp/htdocs/ThesisProject/uploads/';           
             $iterator = new DirectoryIterator($dir);
             
             

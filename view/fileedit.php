@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+require_once('../controller/fileeditController.php');
+
 //file name
 $filename = $_GET['name']; 
 echo "File name: ".$filename."\n";
@@ -102,6 +104,14 @@ echo '<div>';
                 usleep(100000);
             }
         pclose($pid);
-
-        echo $big_string;
+        
+//        require_once('../controller/fileeditController.php');
+//        func1('Hello', 'world');
+        
+        //Call fileedit controller. send it 
+        $obj = new fileeditController($big_string);
+//        echo "Print :".$obj->display();
+        $obj->display();
+        
+        
 echo '</div>';
