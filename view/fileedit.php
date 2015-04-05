@@ -18,35 +18,35 @@ ini_set('max_execution_time', 300);
 ?>
 
 <!--link to css-->
-<link rel="stylesheet" href="css/fileedit.css" type="text/css"> 
+<link rel="stylesheet" href="../css/fileedit.css" type="text/css"> 
 
-<div >
+<!--<div >
     <textarea id="1" rows="10" cols="100" class="filedisplay" id="filedisplay">
-         <?php 
+-->         <?php 
             #http://bytes.com/topic/python/answers/801623-calling-python-code-inside-php
-            #http://blog.idealmind.com.br/desenvolvimento-web/php/how-to-execute-python-script-from-php-and-show-output-on-browser/
-               
-            
-            $path = "../uploads/".$filename;
-            
-            $command = "hi.py $path";
-         
-            $pid = popen($command,"r");
- 
+//            #http://blog.idealmind.com.br/desenvolvimento-web/php/how-to-execute-python-script-from-php-and-show-output-on-browser/
+//               
+//            
+//            $path = "../uploads/".$filename;
+//            
+//            $command = "hi.py $path";
+//         
+//            $pid = popen($command,"r");
+// 
+//
+//            
+//            while( !feof( $pid ) )
+//            {
+//                echo fread($pid, 256);
+//                flush();
+//                ob_flush();
+//                usleep(100000); //milions os a second
+//            }
+//            pclose($pid);
 
-            
-            while( !feof( $pid ) )
-            {
-                echo fread($pid, 256);
-                flush();
-                ob_flush();
-                usleep(100000); //milions os a second
-            }
-            pclose($pid);
-
-         ?> 
+         ?> <!--
     </textarea>
-</div>
+</div>-->
 
 <!--test-->
 
@@ -89,8 +89,10 @@ ini_set('max_execution_time', 300);
 //
 //echo '</div>';
 
-echo '<div>';
-        $command = "i.py";
+echo '<div id="divi" class="divi">';
+        
+        $path = "../uploads/".$filename;
+        $command = "i.py $path";
          
         $pid = popen($command,"r");
 
@@ -111,7 +113,15 @@ echo '<div>';
         //Call fileedit controller. send it 
         $obj = new fileeditController($big_string);
 //        echo "Print :".$obj->display();
-        $obj->display();
+        $pdf_array = $obj->display();
+        
+        //Print 2d array
+        foreach ($pdf_array as $id){
+            echo '</br> NEW page </br>';
+            foreach($id as $key => $val){
+                echo '</br> </br>'.$val;
+            }
+        }
         
         
 echo '</div>';

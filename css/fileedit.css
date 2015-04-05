@@ -1,5 +1,24 @@
-div{
+.ddd {
+    float:left;
+    border: 2px solid #a1a1a1;
+    border-radius: 25px;
+} 
+.dddQ {
+    float:left;
+    border: 2px solid #a1a1a1;
+    border-radius: 25px;
+    width: 70%;
+} 
+.dddA {
+    float:left;
+    border: 2px solid #a1a1a1;
+    border-radius: 25px;
+    width: 15%;
+} 
 
+div.divi {
+    border: 2px solid #a1a1a1;
+    width: 90%;
 }
 
 textarea { height: auto; }

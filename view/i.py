@@ -196,7 +196,7 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
         new_v = []
         for el in v:
             new_v.append(el.replace('\n',' ')) # of </br> instead of space
-        text_content.append('**PARAGRAPH**'.join(new_v))
+        text_content.append('**OBJECT**'.join(new_v))
     return '**OBJECT**'.join(text_content)
 
 ###
@@ -227,7 +227,8 @@ def main (pdf_doc, pdf_pwd, images_folder):
     print '**NEWPAGE**'.join(result)
 
 try:
-    main(pdf_doc='../uploads/Joga.pdf', pdf_pwd='', images_folder='../image')
+    path = sys.argv[1]
+    main(pdf_doc=path, pdf_pwd='', images_folder='../image')
 except Exception as e:
     print '</br>'
     print e
