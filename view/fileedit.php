@@ -115,13 +115,60 @@ echo '<div id="divi" class="divi">';
 //        echo "Print :".$obj->display();
         $pdf_array = $obj->display();
         
-        //Print 2d array
-        foreach ($pdf_array as $id){
-            echo '</br> NEW page </br>';
-            foreach($id as $key => $val){
-                echo '</br> </br>'.$val;
+        //How many pages (start from 0)
+        $pages_count = substr_count($big_string, '**NEWPAGE**');
+        
+        
+        //For getting page number
+        if(isset($_GET['page'])) { 
+            $curr_page = $_GET['page'];
+            $pre_page = $_GET['page']-1; 
+            $next_page = $_GET['page']+1;  
+            if($curr_page > 0 && $curr_page != $pages_count){
+                //If the current page is not the last one and the first one
+                echo "<a href='?name=$filename&page=$pre_page' ><<<</a> "; 
+                echo "<a href='?name=$filename&page=$next_page' >>>></a> <br>";
             }
+            elseif ($curr_page > 0 && $curr_page == $pages_count) {
+                //If current page is the last one
+                echo "<a href='?name=$filename&page=$pre_page' ><<<</a> <br>"; 
+            }
+            else{
+                echo "<a href='?name=$filename&page=$next_page' >>>></a> <br>";
+            }
+        } 
+        else { 
+            //If the page is first one then allow just go to next page
+            $curr_page = 0;
+            $next_page = 1; 
+            
+            echo "<a href='?name=$filename&page=$next_page' >>>></a> <br>";
         }
         
+
+        
+        //Print page by page
+        $p=0;
+        while(!empty($pdf_array[$curr_page][$p]) ){                   
+           echo  $pdf_array[$curr_page][$p];
+           $p++;
+        }
+        
+//            //Print 2d array
+//            foreach ($pdf_array as $id){                    
+//                    
+//                foreach($id as $key => $val){
+//                    echo $val;
+//                }
+//
+//            }
         
 echo '</div>';
+
+?>
+
+<div>
+    <form>
+  
+    </form>
+</div>
