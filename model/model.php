@@ -7,26 +7,26 @@
  */
 
     include_once'model/file.php'; 
-    include_once 'config/database.php';
+//    include_once 'config/database.php';
     
     class Model { 
 //        protected $db;
         
         function __construct() {
             //start connection
-            $db = new database();
+//            $db = new database();
          
 //            //select data from db
 //            $stmt = $db->prepare("select * from course");
 //            print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
 //            
 //            print $result;
-            
-                $sql = "SELECT * FROM course";
-                foreach ($db->query($sql) as $row)
-                    {
-                    echo $row["ID"] ." - ". $row["Name"] ."<br/>";
-                    }
+//            
+//                $sql = "SELECT * FROM course";
+//                foreach ($db->query($sql) as $row)
+//                    {
+//                    echo $row["ID"] ." - ". $row["Name"] ."<br/>";
+//                    }
 
         }
         

@@ -5,16 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once('../controller/savefileController.php');
 require_once('../controller/fileeditController.php');
 
 //file name
 $filename = $_GET['name']; 
 echo "File name: ".$filename."\n";
-
 //set maximum execution time to 5 min (from 30 seconds default)
 ini_set('max_execution_time', 300);
 
+
+//Chack 
 ?>
 
 <!--link to css-->
@@ -149,10 +150,14 @@ echo '<div id="divi" class="divi">';
         
         //Print page by page
         $p=0;
-        while(!empty($pdf_array[$curr_page][$p]) ){                   
-           echo  $pdf_array[$curr_page][$p];
+        while(!empty($pdf_array[$curr_page][$p]) ){ 
+           echo '<br> <div class="ddd"> <br>'
+             . $pdf_array[$curr_page][$p]
+             . '<div class="dddA" contenteditable="true"> Answer div </div>'
+             . '<br> </div> <br>';
            $p++;
         }
+        
         
 //            //Print 2d array
 //            foreach ($pdf_array as $id){                    
@@ -168,7 +173,25 @@ echo '</div>';
 ?>
 
 <div>
-    <form>
-  
+    <form method="post">
+    <input value="Save" type="submit" name="save_data"/>
     </form>
 </div>
+<?php
+
+
+if($_GET){
+    if(isset($_GET['save_data'])){
+        echo 'ONE';
+    }
+}
+
+
+if(isset($_POST['save_data'])){
+    echo 'YYESSS <br>';
+    //Call fileedit controller. send it 
+    $obj = new savefileController($pdf_array, $filename, $pages_count);
+    // echo "Print :".$obj->display();
+    $pdf_array = $obj->save_in_db();
+}
+?>

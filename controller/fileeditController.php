@@ -83,18 +83,12 @@ class fileeditController {
                 //If object is image give diferent id
                 if((substr_count($object, '<img src='))>0){
                     $pages_array[$i][$k] = 
-                        '<div class="ddd">'
-                            . '<div class="dddP" id="'.$k.'" contenteditable="true">'.$object.'</div> '
-                            . '<div class="dddA" id="'.$k.'" contenteditable="true"> Answer div </div>'
-                        . '</div>';
+                        '<div class="dddP" id="'.$k.'" contenteditable="true">'.$object.'</div> ';
                 }
                 else{
                     //put all page in array if the string is longer than 4
                     $len > 3 ? $pages_array[$i][$k] = 
-                        '<div class="ddd">'
-                            . '<div class="dddQ" id="'.$k.'" contenteditable="true">'.$object.'</div> '
-                            . '<div class="dddA" id="'.$k.'" contenteditable="true"> Answer div </div>'
-                        . '</div>': false;
+                        '<div class="dddQ" id="'.$k.'" contenteditable="true">'.$object.'</div> ': false;
                 }
 
                 //cut off the tacken string and page seperator
