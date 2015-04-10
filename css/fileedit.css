@@ -16,24 +16,28 @@ div.dddQ {
     margin: 5px;
 } 
 div.dddA {
-    float:left;
+    float:right;
     border: 2px solid #a1a1a1;
     border-radius: 25px;
 
     width:30%;
     
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
 } 
 div.dddP {
     float:left;
-    border: 2px solid #a1a1a1;
+    border: 2px solid black;
     border-radius: 25px;
 
-    width:60%;
+    width:30%;
     
     padding: 5px;
     margin: 5px;   
+}
+
+div.divid {
+    visibility: hidden;
 }
 
 div.divi {

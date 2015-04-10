@@ -9,7 +9,7 @@
 #http://php.net/manual/en/features.file-upload.post-method.php
 #http://www.w3schools.com/php/php_file_upload.asp
 
-$my_folder = "C:/xampp/htdocs/TheProject/uploads/";
+$my_folder = "C:/xampp/htdocs/ThesisProject/uploads/";
 
 if($_FILES["file"]["tmp_name"] != null){
     copy($_FILES["file"]["tmp_name"],$my_folder.$_FILES["file"]["name"]);

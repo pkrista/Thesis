@@ -58,4 +58,10 @@ class savefileController {
     }
     
     
+    ###
+    ### Generate inserts and insert data into database
+    ###
+    
+    // 1 - insert into db when upload file
+    //
 }
