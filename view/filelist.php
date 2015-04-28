@@ -60,9 +60,4 @@
         </textarea>
     </div>-->
     
-</div>  
-
-<!--<div>
-    <img src="image/0_Im2.png" />
-    
-</div>-->
+</div>

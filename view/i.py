@@ -177,7 +177,7 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
 #            saved_file = save_image(lt_obj, page_number, images_folder)
             if saved_file:
             # use html style <img /> tag to mark the position of the image within the text
-                text_content.append('<img src="'+str(images_folder)+'/'+str(saved_file[0])+'" height="70" width="70"/>')
+                text_content.append('<img src="'+str(images_folder)+'/'+str(saved_file[0])+'" ') #height="70" width="70"/>
 
             else:
                 print >> sys.stderr, "error saving image on page", page_number, lt_obj.__repr__

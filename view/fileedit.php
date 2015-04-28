@@ -9,6 +9,8 @@ require_once('../controller/savefileController.php');
 require_once('../controller/fileeditController.php');
 
 ?>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 
 /**
@@ -43,14 +45,20 @@ function loadXMLDoc() {
  *
  */
 function dragStart(ev) {
-    var parnode = ev.target.parentNode;
-    if(parnode.id == 'pid'){
+//    var parnode = ev.target.parentNode;
+    if(ev.target.id == 'pid'){
         ev.dataTransfer.effectAllowed='move';
         ev.target.style.opacity = "0.4";
-        ev.target.parentNode.style.opacity = "0.4";
-        ev.dataTransfer.setData("Text", ev.target.id); 
+//        ev.target.parentNode.style.opacity = "0.4";
+//        ev.dataTransfer.setData("Text", ev.target.id); 
+        var dt = ev.dataTransfer;
+        dt.mozSetDataAt("image/png", stream, 0);
+        dt.mozSetDataAt("application/x-moz-file", file, 0);
+        dt.setData("Text", ev.target.id); 
+        dt.setData("text/uri-list", imageurl);
+        dt.setData("text/plain", imageurl);
     }
-    
+
     
 //    ev.dataTransfer.effectAllowed='move';
 //    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));   
@@ -70,10 +78,9 @@ function dragEnd(ev){
 //    document.getElementById(ev.target.id).innerHTML = "";
 //    document.getElementById(ev.target.id).style.visibility='hidden';
 //    ev.target.id.parentNode.id;
-    var parnode = ev.target.parentNode;
-    if(parnode.id == 'pid'){
-        parnode.style.visibility='hidden';
-        ev.target.style.opacity = "1";
+//    var parnode = ev.target.parentNode;
+    if(ev.target.id == 'pid'){
+        ev.target.style.visibility='hidden';
      }
     
     
@@ -81,34 +88,41 @@ function dragEnd(ev){
 }
 
 function drop(ev) {
+    ev.target.style.background = "";
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
     
-   ev.preventDefault();
-   var data = ev.dataTransfer.getData("Text");
-   ev.target.appendChild(document.getElementById(data));
- 
-   
-//   var data=ev.originalEvent.dataTransfer.getData("Text");
+
+//    dragged.parentNode.removeChild( dragged );
+//    ev.target.appendChild( dragged );
+//    
+//    
+//   ev.target.style.border = "";
+//   ev.preventDefault();
+//   var data = ev.dataTransfer.getData('Text');
 //   ev.target.appendChild(document.getElementById(data));
 //   ev.stopPropagation();
-//   return false;
 }
 
 function allowDrop(ev) {
     ev.preventDefault();
-    ev.target.style.border = "4px dotted green";
 }
 
-function mouseDown(object) {
-       object.style.border = "4px dotted green";
+function dragEnter(event) {
+    if ( event.target.className == "ddd" ) {
+        event.target.style.border = "3px dotted red";
+    }
 }
 
-function mouseUp(object) {
-      object.style.border = "2px solid #a1a1a1";
+function dragLeave(event) {
+    if ( event.target.className == "ddd" ) {
+        event.target.style.border = "";
+    }
 }
-
-
 
 </script>
+</head>
 
 <?php
         
@@ -118,8 +132,6 @@ echo "File name: ".$filename."\n";
 //set maximum execution time to 5 min (from 30 seconds default)
 ini_set('max_execution_time', 300);
 
-
-//Chack 
 ?>
 
 <!--link to css-->
@@ -130,16 +142,11 @@ ini_set('max_execution_time', 300);
 -->         <?php 
             #http://bytes.com/topic/python/answers/801623-calling-python-code-inside-php
 //            #http://blog.idealmind.com.br/desenvolvimento-web/php/how-to-execute-python-script-from-php-and-show-output-on-browser/
-//               
-//            
+
 //            $path = "../uploads/".$filename;
-//            
 //            $command = "hi.py $path";
-//         
 //            $pid = popen($command,"r");
-// 
-//
-//            
+
 //            while( !feof( $pid ) )
 //            {
 //                echo fread($pid, 256);
@@ -148,7 +155,6 @@ ini_set('max_execution_time', 300);
 //                usleep(100000); //milions os a second
 //            }
 //            pclose($pid);
-
          ?> <!--
     </textarea>
 </div>-->
@@ -159,62 +165,93 @@ ini_set('max_execution_time', 300);
 
 echo '<div id="divi" class="divi">';
         
-        $path = "../uploads/".$filename;
-        $command = "i.py $path";
-         
-        $pid = popen($command,"r");
+//        $path = "../uploads/".$filename;
+//        $command = "i.py $path";
+//         
+//        $pid = popen($command,"r");
+//
+//        $big_string = '';
+//
+//        while( !feof( $pid ) )
+//            {
+//                $big_string .= fread($pid, 256);
+//                flush();
+//                ob_flush();
+//                usleep(100000);
+//            }
+//        pclose($pid);
+//        
+////        require_once('../controller/fileeditController.php');
+////        func1('Hello', 'world');
+//        
+//        //Call fileedit controller. send it 
+//        $obj = new fileeditController($big_string);
+////        echo "Print :".$obj->display();
+//        $pdf_array = $obj->display();
+//       
+//        //How many pages (start from 0)
+//        $pages_count = substr_count($big_string, '**NEWPAGE**');
+        
+    include_once("../controller/getbiglistController.php"); 
 
-        $big_string = '';
-
-        while( !feof( $pid ) )
-            {
-                $big_string .= fread($pid, 256);
-                flush();
-                ob_flush();
-                usleep(100000);
-            }
-        pclose($pid);
-        
-//        require_once('../controller/fileeditController.php');
-//        func1('Hello', 'world');
-        
-        //Call fileedit controller. send it 
-        $obj = new fileeditController($big_string);
-//        echo "Print :".$obj->display();
-        $pdf_array = $obj->display();
-        
-        //How many pages (start from 0)
-        $pages_count = substr_count($big_string, '**NEWPAGE**');
-        
-        $curr_page = 0;
+    $curr_page = 0;
         
         //For getting page number
-        if(isset($_GET['page'])) { 
-            $curr_page = $_GET['page'];
-            $pre_page = $_GET['page']-1; 
-            $next_page = $_GET['page']+1;  
-            if($curr_page > 0 && $curr_page != $pages_count){
-                //If the current page is not the last one and the first one
-                echo "<a href='?name=$filename&page=$pre_page' ><<<</a> "; 
-                echo "<a href='?name=$filename&page=$next_page' >>>></a> <br>";
-            }
-            elseif ($curr_page > 0 && $curr_page == $pages_count) {
-                //If current page is the last one
-                echo "<a href='?name=$filename&page=$pre_page' onclick='loadXMLDoc()'><<<</a> <br>"; 
-            }
-            else{
-                echo "<a href='?name=$filename&page=$next_page' onclick='loadXMLDoc()'>>>></a> <br>";
-            }
-        } 
-        else { 
+        if(!isset($_GET['page'])) { 
             //If the page is first one then allow just go to next page
             $curr_page = 0;
             $next_page = 1;
             echo "<a href='?name=$filename&page=$next_page' onclick='loadXMLDoc()'>>>></a> <br>";
+        } 
+        else { 
+            $curr_page = $_GET['page'];
+            $pre_page = $_GET['page']-1; 
+            $next_page = $_GET['page']+1;  
+            
+            $ar = array("one", "Two");
+            //test
+            
+            
+            if($curr_page > 0 && $curr_page != $pages_count){
+                //If the current page is not the last one and the first one
+                echo "<a href='?name=$filename&page=$pre_page' ><<<</a> "; 
+                echo "<a href='?name=$filename&page=$next_page' >>>></a> <br>";
+//                echo count($pdf_array[$curr_page-1]);
+                echo "11<br>";
+//                print_r($pdf_array[$curr_page-1]) ;
+                echo "22<br> ";
+//                $pdf_array[$curr_page-1] = array_splice($pdf_array[$curr_page-1], 4);
+                print_r(array_replace($pdf_array[$curr_page-1],array_splice($pdf_array[$curr_page-1], 4)));
+                echo "33<br>";
+//                echo count($pdf_array[$curr_page-1]);
+//                print_r($pdf_array[$curr_page-1]) ;
+
+            }
+            elseif ($curr_page > 0 && $curr_page == $pages_count) {
+                //If current page is the last one
+                echo "<a href='?name=$filename&page=$pre_page' onclick='loadXMLDoc()'><<<</a> <br>"; 
+//                echo count($pdf_array[$curr_page-1]);
+                echo "111<br>";
+//                print_r($pdf_array[$curr_page-1]) ;
+                echo "222<br>";
+//                $pdf_array[$curr_page-1] = array_splice($pdf_array[$curr_page-1], 4);
+                print_r(array_replace($pdf_array[$curr_page-1],array_splice($pdf_array[$curr_page-1], 4)));
+                echo "33<br> <br>";
+//                echo count($pdf_array[$curr_page-1]);
+//                print_r($pdf_array[$curr_page-1]) ;
+                
+                print_r(array_replace($pdf_array[$curr_page-1],array_splice($pdf_array[$curr_page-1], 4)));
+                echo "44<br> <br>";
+            }
+            else{
+                echo "<a href='?name=$filename&page=$next_page' onclick='loadXMLDoc()'>>>></a> <br>";
+            }
         }
         
-   
-    
+        echo "<div> Page number: ".$curr_page."</div>";
+//        print_r($pdf_array);
+        
+        
         //Print page by page
         $p=0;
         while(!empty($pdf_array[$curr_page][$p]) ){ 
@@ -222,19 +259,19 @@ echo '<div id="divi" class="divi">';
             
             if((substr_count($pdf_array[$curr_page][$p], '<img src='))>0){
 //            if(startsWith($pdf_array[$curr_page][$p], '<img src=')){
-                echo '<div class="dddP" id="pid" data-id ="P'.$id.'" onclick="myFunction(this)"'
-                        . 'draggable="true" '
-                        . 'ondragstart="dragStart(event)" ondragend="dragEnd(event)">' 
-                .$pdf_array[$curr_page][$p]
-                . '</div>';
+                echo $pdf_array[$curr_page][$p]
+                . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
+                . 'ondragstart="dragStart(event)" ondragend="dragEnd(event)" '
+                        . 'class="dddP" id="pid" />';
                 $p++;
             }
             else{
                 echo '<br> <div class="ddd" id="qid" data-id="Q'.$id.'" '
                         . 'contenteditable="true" id="I'.$p.' ondrop="drop(event)" '
                         . 'onclick="myFunction(this)"'
-                        . 'onmousedown="mouseDown(this)" onmouseup="mouseUp(this)"'
-                        . 'ondragover="allowDrop(event)"> <br>'
+                        . 'ondragover="allowDrop(event)" '
+                        . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"> '
+                        . '<br>'
                   . $pdf_array[$curr_page][$p]
                   . '<div class="dddA" id="aid" data-id="A'.$id.'" '
                         . 'onclick="myFunction(this)"'
@@ -274,42 +311,4 @@ if(isset($_POST['save_data'])){
     // echo "Print :".$obj->display();
     $pdf_array = $obj->save_in_db();
 }
-
-//echo '<div>';
-//  
-//    echo 'second';
-//        $path = "../uploads/".$filename;
-//            
-//        $command = "test.py $path";
-//         
-//        $pid = popen($command,"r");
-// 
-//        while( !feof( $pid ) )
-//            {
-//                echo fread($pid, 256);
-//                flush();
-//                ob_flush();
-//                usleep(100000);
-//            }
-//        pclose($pid);
-//
-//echo '</div>';
-
-
-//echo '<div>';
-//       echo 'third '  ;   
-//        $command = "tt.py";
-//         
-//        $pid = popen($command,"r");
-// 
-//        while( !feof( $pid ) )
-//            {
-//                echo fread($pid, 256);
-//                flush();
-//                ob_flush();
-//                usleep(100000);
-//            }
-//        pclose($pid);
-//
-//echo '</div>';
 ?>
