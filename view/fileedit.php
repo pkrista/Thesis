@@ -10,7 +10,7 @@ require_once('../controller/fileeditController.php');
 
 ?>
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
 
 /**
@@ -121,8 +121,38 @@ function dragLeave(event) {
     }
 }
 
+//
+//test tes tes
+//
+function getalldataTosend(){
+    var myDivUL = document.getElementById("divi").getElementsByTagName('div');
+    for (var i = 0; i < myDivUL.length; i++) { 
+        var status = myDivUL[i].getAttribute("data-id"); 
+        console.log(status);
+    }   
+    console.log("______________");
+    alert("Yo first");
+    
+    
+    $('#divi').find("div").each(function( index ) {
+        var element = $( this );
+        if(element.is('div')){
+           console.log( index + ": " + $( this ).attr('data-id'));
+           console.log( index + ": " + $( this ).text()); 
+        
+            var $id = element.attr('class');
+            console.log($id);
+        }        
+    });
+}
+
 </script>
 </head>
+
+
+<!-- tes tes tes -->
+<button type="submit" id="but" onclick= "return getalldataTosend()"
+        >Click Me!</button> 
 
 <?php
         
