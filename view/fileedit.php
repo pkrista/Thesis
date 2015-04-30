@@ -11,142 +11,7 @@ require_once('../controller/fileeditController.php');
 ?>
 <head>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript">
-
-/**
- * To get id of div P - picture A - answer Q - question
- * @param {type} - P or A or Q
- * @param {id} the id of the div
- */
-function myFunction(object) {
-    var id = object.getAttribute("data-id");
-    var type = id.charAt(0);
-    
-    if(type === 'P'){
-           alert('Image id - '+id); 
-    }
-    else if(type === 'A'){
-        alert('Answer id - '+id); 
-    }
-    else if(type === 'Q'){
-        alert('Question id - '+id); 
-    }
-    
-}
-
-    
-function loadXMLDoc() {
-    //Thete needs to be function to store array everytime change pages
-    document.write('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-}
-
-/**
- * For drag and Drop 
- *
- */
-function dragStart(ev) {
-//    var parnode = ev.target.parentNode;
-    if(ev.target.id == 'pid'){
-        ev.dataTransfer.effectAllowed='move';
-        ev.target.style.opacity = "0.4";
-//        ev.target.parentNode.style.opacity = "0.4";
-//        ev.dataTransfer.setData("Text", ev.target.id); 
-        var dt = ev.dataTransfer;
-        dt.mozSetDataAt("image/png", stream, 0);
-        dt.mozSetDataAt("application/x-moz-file", file, 0);
-        dt.setData("Text", ev.target.id); 
-        dt.setData("text/uri-list", imageurl);
-        dt.setData("text/plain", imageurl);
-    }
-
-    
-//    ev.dataTransfer.effectAllowed='move';
-//    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));   
-//    // Change the opacity of the draggable element
-//    ev.target.style.opacity = "0.4";
-//    ev.dataTransfer.setDragImage(ev.target,0,0);
-//    return true;
-    
-}
-
-function dragEnd(ev){
-//    ev.document.getElementById(ev.target.id).empty();
-//    
-//    // Change the opacity of the draggable element
-//    ev.target.style.opacity = "1";
-    
-//    document.getElementById(ev.target.id).innerHTML = "";
-//    document.getElementById(ev.target.id).style.visibility='hidden';
-//    ev.target.id.parentNode.id;
-//    var parnode = ev.target.parentNode;
-    if(ev.target.id == 'pid'){
-        ev.target.style.visibility='hidden';
-     }
-    
-    
-    
-}
-
-function drop(ev) {
-    ev.target.style.background = "";
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-    
-
-//    dragged.parentNode.removeChild( dragged );
-//    ev.target.appendChild( dragged );
-//    
-//    
-//   ev.target.style.border = "";
-//   ev.preventDefault();
-//   var data = ev.dataTransfer.getData('Text');
-//   ev.target.appendChild(document.getElementById(data));
-//   ev.stopPropagation();
-}
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function dragEnter(event) {
-    if ( event.target.className == "ddd" ) {
-        event.target.style.border = "3px dotted red";
-    }
-}
-
-function dragLeave(event) {
-    if ( event.target.className == "ddd" ) {
-        event.target.style.border = "";
-    }
-}
-
-//
-//test tes tes
-//
-function getalldataTosend(){
-    var myDivUL = document.getElementById("divi").getElementsByTagName('div');
-    for (var i = 0; i < myDivUL.length; i++) { 
-        var status = myDivUL[i].getAttribute("data-id"); 
-        console.log(status);
-    }   
-    console.log("______________");
-    alert("Yo first");
-    
-    
-    $('#divi').find("div").each(function( index ) {
-        var element = $( this );
-        if(element.is('div')){
-           console.log( index + ": " + $( this ).attr('data-id'));
-           console.log( index + ": " + $( this ).text()); 
-        
-            var $id = element.attr('class');
-            console.log($id);
-        }        
-    });
-}
-
-</script>
+<script src="../js/one.js" type="text/javascript"></script>
 </head>
 
 
@@ -192,7 +57,7 @@ ini_set('max_execution_time', 300);
 <!--test-->
 
 <?php
-
+include_once("../controller/getbiglistController.php"); 
 echo '<div id="divi" class="divi">';
         
 //        $path = "../uploads/".$filename;
@@ -222,8 +87,6 @@ echo '<div id="divi" class="divi">';
 //        //How many pages (start from 0)
 //        $pages_count = substr_count($big_string, '**NEWPAGE**');
         
-    include_once("../controller/getbiglistController.php"); 
-
     $curr_page = 0;
         
         //For getting page number
@@ -291,22 +154,27 @@ echo '<div id="divi" class="divi">';
 //            if(startsWith($pdf_array[$curr_page][$p], '<img src=')){
                 echo $pdf_array[$curr_page][$p]
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
-                . 'ondragstart="dragStart(event)" ondragend="dragEnd(event)" '
+                . ' draggable="true" ondragstart="drag(event)"'
                         . 'class="dddP" id="pid" />';
                 $p++;
             }
             else{
                 echo '<br> <div class="ddd" id="qid" data-id="Q'.$id.'" '
-                        . 'contenteditable="true" id="I'.$p.' ondrop="drop(event)" '
+                        . 'contenteditable="true" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
-                        . 'ondragover="allowDrop(event)" '
-                        . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"> '
+                        . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
+                        . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
                         . '<br>'
                   . $pdf_array[$curr_page][$p]
                   . '<div class="dddA" id="aid" data-id="A'.$id.'" '
                         . 'onclick="myFunction(this)"'
                         . 'contenteditable="true"> Answer div </div>'
-                  . '<br> </div> <br>';
+                  . '<br> '
+                        . '<div id="div1" class="dddI" '
+//                        . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
+                            . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"'
+                            . '></div>'
+                        . '</div> <br>';
                 $p++;
             }
         }
@@ -320,8 +188,7 @@ echo '<div id="divi" class="divi">';
 //                }
 //
 //            }
-        
-echo '</div>';
+ 
 
 ###
 ### To save data

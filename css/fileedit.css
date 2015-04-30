@@ -1,11 +1,11 @@
-[draggable=true] {
+/*[draggable=true] {
     -khtml-user-drag: element;
     -webkit-user-drag: element;
     -khtml-user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
     margin-top: 50px;
-}
+}*/
 
 div.ddd {
     width:98%;
@@ -34,20 +34,23 @@ div.dddA {
     padding: 5px;
     margin: 10px;
 } 
-div.dddP {
-    float:left;
-    border: 2px solid black;
-    border-radius: 25px;
-
-    width:30%;
+/*Style for the div where to drop image in the question*/
+div.dddI {
+/*    width: 20px;
+    height: 20px;*/
+/*    border: 1px solid #aaaaaa;*/
     
-    padding: 5px;
-    margin: 5px;   
-}
-
-div.divid {
+    max-width: 350px;
+    max-height: 350px;
+    
     visibility: hidden;
 }
+/*Style for images*/
+img.dddP{
+    max-width: 350px;
+    max-height: 350px;
+}
+
 
 div.divi {
     width:90%;

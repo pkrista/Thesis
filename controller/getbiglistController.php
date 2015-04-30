@@ -1,8 +1,8 @@
 <?php
 
 /* 
- *
- * 
+ * Get data out of PDF file
+ * using Python project pdfminer
  */
 
 require_once('../controller/fileeditController.php');
