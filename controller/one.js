@@ -1,7 +1,5 @@
 /**
- * For draging and dropping elements
- * 
- * 
+ * To drag and drop elements
  */    
 
 function allowDrop(ev) {
@@ -12,6 +10,7 @@ function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
 
+//Drop img element to last element in divi div that is other div that stores img
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -19,8 +18,8 @@ function drop(ev) {
     ev.target.style.border = "";
 }
 
+//ON drag enter make object borders in diferent colour
 function dragEnter(event) {
-
     if(event.target.className === "ddd" ){
         var imgDiv = event.target.lastChild;
         event.target.style.border = "3px dotted red";
@@ -64,20 +63,17 @@ function loadXMLDoc() {
     document.write('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
 }
 
+
+//Load first page when open document
+$( document ).ready(function() {
+    $("#divi").load('../controller/printdivController.php');
+});    
 /**
  * Function tu turn pages and refresh the cintent
  * collect values from div to create new 2d array
  * and dysplay next or previous page
  */
-function getalldataTosend(){
-    var myDivUL = document.getElementById("divi").getElementsByTagName('div');
-    for (var i = 0; i < myDivUL.length; i++) { 
-        var status = myDivUL[i].getAttribute("data-id"); 
-        console.log(status);
-    }   
-    console.log("______________");
-    alert("Yo first");
-    
+function getalldataTosend(direction){  
     var pageArray = [];
     
     $('#divi').find("div").each(function( index ) {
@@ -90,9 +86,7 @@ function getalldataTosend(){
 //           console.log( index + ": " + $( this ).attr('data-id'));
 //            console.log( index + ": " + $( this ).text()); 
 //            console.log(element.html());
-            
-            
-            
+        
 //            var $id = element.attr('class');
 //            console.log($id);
 //            console.log("DIV");
@@ -101,25 +95,34 @@ function getalldataTosend(){
 //                var element = $( this );
 //                var $id = element.attr('class');
 //                console.log($id);
-//                
-//                
+              
 //            });
-        }   
-    });
-    console.log(pageArray);
-    $.ajax({
-        url: '../controller/arrayeditController.php',
-        type: 'post',
-        async: true,
-        data: {
-            page: pageArray
-        },
-        success: function(data){
-            //alert(res);
-//            $('GOOD').html(res);
-            console.log('GOOD');
-            console.log(data);
+        }
+        else if(element.is('#pid')){
+            pageArray.push(element.html());
         }
     });
+    console.log(pageArray);
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: '../controller/arrayeditController.php',
+        data: { page: pageArray, direction: direction}
+      })
+        .done(function( msg ) {
+          console.log("LLLLLLLLL");
+          console.log(msg);
+          $("#divi").load('../controller/printdivController.php');
+
+        });
 }
 
+//To change pages
+function nextPage(){
+    getalldataTosend('next');
+}
+//To change pages
+function prePage(){
+    getalldataTosend('pre');
+}

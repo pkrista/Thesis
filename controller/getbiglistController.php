@@ -7,6 +7,8 @@
 
 require_once('../controller/fileeditController.php');
 
+$filename = $_SESSION['filename'];
+
 $path = "../uploads/".$filename;
 $command = "i.py $path";
 
@@ -35,3 +37,10 @@ $pdf_array = $obj->display();
 $pages_count = substr_count($big_string, '**NEWPAGE**');
 
 //return $pdf_arrayy;
+
+//Set session variable (2d array)
+$_SESSION['pdf_array'] = $pdf_array;
+
+$_SESSION['pages_count'] = $pages_count;
+
+$_SESSION['cur_page'] = 0;

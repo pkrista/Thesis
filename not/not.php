@@ -117,3 +117,25 @@
 //    ev.preventDefault();
 //}
 
+//From file edit
+//<div >
+//    <textarea id="1" rows="10" cols="100" class="filedisplay" id="filedisplay">
+//         <?php 
+            #http://bytes.com/topic/python/answers/801623-calling-python-code-inside-php
+//            #http://blog.idealmind.com.br/desenvolvimento-web/php/how-to-execute-python-script-from-php-and-show-output-on-browser/
+
+//            $path = "../uploads/".$filename;
+//            $command = "hi.py $path";
+//            $pid = popen($command,"r");
+
+//            while( !feof( $pid ) )
+//            {
+//                echo fread($pid, 256);
+//                flush();
+//                ob_flush();
+//                usleep(100000); //milions os a second
+//            }
+//            pclose($pid);
+//         ?> <!--
+    </textarea>
+</div>-->

@@ -1,4 +1,5 @@
-<?php
+<?php 
+session_start();
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -10,3 +11,4 @@ include_once("controller/controller.php");
   
 $controller = new Controller();  
 $controller->invoke();
+
