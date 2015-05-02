@@ -76,6 +76,16 @@ $( document ).ready(function() {
 function getalldataTosend(direction){  
     var pageArray = [];
     
+    $('#divi').find('img').each(function( index ){
+        
+        var element = $( this );
+        var image = '<img src="'+(element.attr("src"))+'"';
+
+//        hdnImg.html();
+        pageArray.push(image);
+//console.log(image);
+    });
+    
     $('#divi').find("div").each(function( index ) {
         var element = $( this );
         
@@ -97,9 +107,6 @@ function getalldataTosend(direction){
 //                console.log($id);
               
 //            });
-        }
-        else if(element.is('#pid')){
-            pageArray.push(element.html());
         }
     });
     console.log(pageArray);

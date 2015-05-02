@@ -1,5 +1,6 @@
 <?php 
 session_start();
+$cur_page = $_SESSION['cur_page'];
 
 /* 
  * 
@@ -7,7 +8,9 @@ session_start();
  *
  */
 
-if($_SESSION['print']=='combined'){
+
+if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
+//if($_SESSION['print']=='combined'){
         //Print page by page
     $p=0;
     while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p]) ){ 
@@ -38,6 +41,32 @@ if($_SESSION['print']=='combined'){
                     . '</div> <br>';
             $p++;
         }
+    }
+}
+else{
+    $p=0;
+    while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p]) ){ 
+        $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
+        
+        if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
+            echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+            . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
+            . ' draggable="true" ondragstart="drag(event)"'
+                    . 'class="dddP" id="pid" />';
+            $p++;
+        }      
+        else{
+            echo '<div class="ddd" id="qid" data-id="Q'.$id.'" '
+                . 'contenteditable="true" id="I'.$p.'" '
+                . 'onclick="myFunction(this)"'
+                . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
+                . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
+
+            . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+            . '</div> <br>';
+        $p++;
+        }
+
     }
 }
 
