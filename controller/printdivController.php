@@ -7,7 +7,6 @@ session_start();
  *
  */
 
-
 if($_SESSION['print']=='combined'){
         //Print page by page
     $p=0;
