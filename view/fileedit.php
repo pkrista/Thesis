@@ -19,7 +19,7 @@ session_start();
 ?>
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="../controller/one.js" type="text/javascript"></script>
+    <script src="../js/one.js" type="text/javascript"></script>
 </head>
 <?php
       
@@ -175,11 +175,7 @@ echo '</div>';
 ### To save data
 ###
 
-echo '<div>
-        <form method="post">
-            <input value="Save" type="submit" name="save_data"/>
-        </form>
-    </div>';
+echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > >> </button> ';
 
 
 //if(isset($_POST['save_data'])){

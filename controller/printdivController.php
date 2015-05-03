@@ -1,22 +1,22 @@
 <?php 
 session_start();
 $cur_page = $_SESSION['cur_page'];
-
+$pdf_array =$_SESSION['pdf_array'];
 /* 
  * 
  * 
  *
  */
 
-
 if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
-//if($_SESSION['print']=='combined'){
-        //Print page by page
+    //Print page by page
     $p=0;
     while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p]) ){ 
         $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
 
-        if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
+//        if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
+        if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+
             echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
             . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
             . ' draggable="true" ondragstart="drag(event)"'
@@ -35,41 +35,53 @@ if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
                     . 'onclick="myFunction(this)"'
                     . 'contenteditable="true"> Answer div </div>'
                     . '<div id="div1" class="dddI" '
-    //                        . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
                         . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"'
                         . '></div>'
                     . '</div> <br>';
             $p++;
+            //Picture's element in div1/dddI class is changed in one.js (id=pic1 class=dddI)
         }
     }
 }
 else{
     $p=0;
-    while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p]) ){ 
+    while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p])){ 
         $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
         
-        if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
-            echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-            . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
-            . ' draggable="true" ondragstart="drag(event)"'
-                    . 'class="dddP" id="pid" />';
-            $p++;
-        }      
-        else{
-            echo '<div class="ddd" id="qid" data-id="Q'.$id.'" '
-                . 'contenteditable="true" id="I'.$p.'" '
-                . 'onclick="myFunction(this)"'
-                . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
-                . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
+        if(substr_count(($_SESSION['pdf_array'][$cur_page][$p]), '**RENEW**') > 0){
+            echo '<div class="ddh" id="qid"'
+                    . ' data-id="Q'.$id.'" id="I'.$p.'" >'
+                    .$_SESSION['pdf_array'][$_SESSION['cur_page']][$p].'</div>';
+//            echo '<div class="ddh" id="qid" data-id="Q'.$id.'" id="I'.$p.'" > '
+//                . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+//                . '</div> <br>';
 
-            . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-            . '</div> <br>';
-        $p++;
+            $p++;
+        }
+        else{
+//            if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
+            if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+                echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+                . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
+                . ' draggable="true" ondragstart="drag(event)"'
+                        . 'class="dddP" id="pid" />';
+                $p++;
+            }      
+            else{
+                echo '<div class="ddd" id="qid" data-id="Q'.$id.'" '
+                    . 'contenteditable="true" id="I'.$p.'" '
+                    . 'onclick="myFunction(this)"'
+                    . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
+                    . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
+
+                . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+                . '</div> <br>';
+            $p++;
+            }
         }
 
     }
 }
-
 
 
 // To change pages

@@ -13,16 +13,26 @@ $direction = $_POST['direction'];
 
 $cur_page = $_SESSION['cur_page'];
 
+$count;
+//How match need to be deleted
+if((count($_SESSION['pdf_array'][$cur_page])-count($pageArray)) < 0){
+    $count = 0;
+}
+else{
+    $count = (count($_SESSION['pdf_array'][$cur_page])-count($pageArray));
+}
+
 
 if(!$pageArray){
     print 'Empty';
     
 }
 else{ 
-    if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') >0){
-        print_r('RENEW YES');
-            //replace array with array
-            array_splice($_SESSION['pdf_array'][$cur_page], 0, (count($_SESSION['pdf_array'][$cur_page])-count($pageArray)));
+    if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') > 0){
+
+        
+        //replace array with array
+        array_splice($_SESSION['pdf_array'][$cur_page], 0, $count);
     
         $i = 0;
         while(!empty($_SESSION['pdf_array'][$cur_page][$i])){
@@ -31,11 +41,9 @@ else{
         }
     }
     else{
-        print_r('RENEW NO');
         
-//        $_SESSION['pdf_array'][$cur_page][0] = 'RENEW';
         //replace array with array
-        array_splice($_SESSION['pdf_array'][$cur_page], 0, (count($_SESSION['pdf_array'][$cur_page])-count($pageArray)));
+        array_splice($_SESSION['pdf_array'][$cur_page], 0, $count);
     
         $i = 0;
         while(!empty($_SESSION['pdf_array'][$cur_page][$i])){
@@ -43,7 +51,7 @@ else{
             $i++;
         }
         //Add last element to know that this array is changed
-        array_push($_SESSION['pdf_array'][$cur_page], "**RENEW**");   
+        array_push($_SESSION['pdf_array'][$cur_page],'**RENEW**');   
     }   
     
     //Change page session variable

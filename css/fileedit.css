@@ -14,6 +14,16 @@ div.ddd {
     padding: 5px; 
     margin: 5px;
 } 
+/*To make RENEW div hidden*/
+div.ddh {
+/*    width:98%;
+    float:left;
+    border: 2px solid #a1a1a1;
+    padding: 5px; 
+    margin: 5px;*/
+    /*visibility: hidden;*/
+    display: none;
+}
 div.dddQ {
     float:left;
     border: 2px solid #a1a1a1;
@@ -50,6 +60,10 @@ img.dddP{
     max-width: 350px;
     max-height: 350px;
 }
+img.dddI{
+    max-width: 350px;
+    max-height: 350px;
+}
 
 
 div.divi {
@@ -70,5 +84,20 @@ div.divi {
 textarea { height: auto; }
 
 .filedisplay {
+
+}
+
+/*For Big Saving button*/
+
+.btnSave {
+    background-color: greenyellow;
+    float: left;
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    
+    width: 100px;
+    height: 100px;
 
 }

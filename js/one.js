@@ -16,6 +16,18 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     ev.target.lastChild.appendChild(document.getElementById(data));
     ev.target.style.border = "";
+    
+    //Change images id and class to images that was dregged into question
+    $('#divi').find("img").each(function( index ) {
+        var element = $( this );
+        var par = element.parent();
+        
+        if(par.is('#div1')){
+            element.removeClass('dddP').addClass('dddI');
+            element.prop('id', 'pic1');
+        }
+
+    });
 }
 
 //ON drag enter make object borders in diferent colour
@@ -76,15 +88,19 @@ $( document ).ready(function() {
 function getalldataTosend(direction){  
     var pageArray = [];
     
-    $('#divi').find('img').each(function( index ){
+   
+    $('#divi').find("img").each(function( index ) {
+//    $('#pid').each(function( index ){
         
         var element = $( this );
-        var image = '<img src="'+(element.attr("src"))+'"';
+        if(element.is('.dddP') && $( this ).is(":visible") ){
+            var image = '<img src="'+(element.attr("src"))+'"';
+            pageArray.push(image);
+        }
 
-//        hdnImg.html();
-        pageArray.push(image);
-//console.log(image);
     });
+
+//console.log($('#divi').html());
     
     $('#divi').find("div").each(function( index ) {
         var element = $( this );
@@ -92,7 +108,7 @@ function getalldataTosend(direction){
         if(element.is('#qid')){
             // get everyting from div question in html format and put in array
             pageArray.push(element.html());
-            
+
 //           console.log( index + ": " + $( this ).attr('data-id'));
 //            console.log( index + ": " + $( this ).text()); 
 //            console.log(element.html());
@@ -117,8 +133,7 @@ function getalldataTosend(direction){
         url: '../controller/arrayeditController.php',
         data: { page: pageArray, direction: direction}
       })
-        .done(function( msg ) {
-          console.log("LLLLLLLLL");
+        .success(function( msg ) {
           console.log(msg);
           $("#divi").load('../controller/printdivController.php');
 
@@ -132,4 +147,11 @@ function nextPage(){
 //To change pages
 function prePage(){
     getalldataTosend('pre');
+}
+
+
+
+//To save data
+function saveData(){
+    
 }
