@@ -9,8 +9,10 @@ session_start();
     include_once('../controller/getbiglistController.php');
     require_once('../controller/fileeditController.php');
     
+
     $fileName = $_POST['fName'];
     $exerSeperator = $_POST['exSep'];
+ 
     
     //$pdf_array = $_SESSION['pdf_array'];
     //$pages_count = $_SESSION['pages_count'];
@@ -26,7 +28,8 @@ session_start();
     <script src="../js/one.js" type="text/javascript"></script>
 </head>-->
 
-<link rel="stylesheet" href="css/fileedit.css" type="text/css">
+<link rel="stylesheet" href="css/foundation.css" type="text/css">
+
 
 <?php
       
@@ -37,7 +40,8 @@ session_start();
     ini_set('max_execution_time', 300);
 
 
-echo '<div id="divi" class="divi">';
+//echo '<div id="divi" class="large-12 columns">';
+//echo '<div class="panel">';
 //    $pdf_array = $_SESSION['pdf_array'];
 //    $cur_page = $_SESSION['cur_page'];
 //    $filename = $_GET['name'];
@@ -171,13 +175,13 @@ echo '<div id="divi" class="divi">';
 //    echo '<button type="submit" id="but" onclick= "return prePage()" > >> </button> ';
 //}
 //
-include_once('../controller/printdivController.php');
-echo '</div>';
+//include_once('../controller/printdivController.php');
+//echo '</div>';
 
 ###
 ### To save data
 ###
 
-echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > Save </button> ';
-
+//echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > Save </button> ';
+//echo '</div>';
 ?>

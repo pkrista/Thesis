@@ -1,5 +1,4 @@
 <?php 
-
 session_start();
 $cur_page = $_SESSION['cur_page'];
 $pdf_array = $_SESSION['pdf_array'];
@@ -8,7 +7,14 @@ $pdf_array = $_SESSION['pdf_array'];
  * 
  *
  */
+?>
+<link rel="stylesheet" href="css/fileedit.css" type="text/css">
 
+<div id="divi" class="large-12 columns">
+    <div class="large-12 columns"> 
+        
+
+<?php
 if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
     //Print page by page
     $p=0;
@@ -21,18 +27,18 @@ if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
             echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
             . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
             . ' draggable="true" ondragstart="drag(event)"'
-                    . 'class="dddP" id="pid" />';
+                    . 'class="callout panel" id="pid" />';
             $p++;
         }
         else{
-            echo '<div class="ddd" id="qid" data-id="Q'.$id.'" '
+            echo '<div class="callout panel" id="qid" data-id="Q'.$id.'" '
                     . 'contenteditable="true" id="I'.$p.'" '
                     . 'onclick="myFunction(this)"'
                     . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                     . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
 
               . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-              . '<div class="dddA" id="aid" data-id="A'.$id.'" '
+              . '<div class="callout panel" id="aid" data-id="A'.$id.'" '
                     . 'onclick="myFunction(this)"'
                     . 'contenteditable="true"> Answer div </div>'
                     . '<div id="div1" class="dddI" '
@@ -65,11 +71,11 @@ else{
                 echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                 . ' draggable="true" ondragstart="drag(event)"'
-                        . 'class="dddP" id="pid" />';
+                        . 'class="callout panel" id="pid" />';
                 $p++;
             }      
             else{
-                echo '<div class="ddd" id="qid" data-id="Q'.$id.'" '
+                echo '<div class="callout panel" id="qid" data-id="Q'.$id.'" '
                     . 'contenteditable="true" id="I'.$p.'" '
                     . 'onclick="myFunction(this)"'
                     . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
@@ -84,9 +90,15 @@ else{
     }
 }
 
+?>
+    
+    </div>
+    <div class="row">
+    <div class="large-12 columns"> 
+<?php
 
 // To change pages
-
+echo '<br>';
 if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
     echo '<button type="submit" id="but" onclick= "nextPage()" > >> </button> ';
 }
@@ -97,3 +109,13 @@ if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']
 if($_SESSION['cur_page'] == $_SESSION['pages_count']){
     echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> ';
 }
+?>
+    </div>
+    </div>
+  
+
+
+<?php
+echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > Save </button> ';
+?>
+</div>

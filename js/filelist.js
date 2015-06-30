@@ -9,6 +9,9 @@ function setExerciseSeperator(fileName) {
 
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
 
+    var elem = document.getElementById('filesListandupload');
+    $(elem).hide();
+    
     $.ajax({
         async: true,
         method: 'post',
@@ -17,13 +20,18 @@ function setExerciseSeperator(fileName) {
       })
         .success(function( msg ) {
             var result = msg;
-            alert(msg);
-            document.getElementById("filesListandupload").innerHTML = msg;
+//            alert(msg);
+//            document.getElementById("filesListandupload").innerHTML = msg;
+                loadFileContent();
+                loadPageofHTML();
         });
 }
 
 
-
+function loadFileContent(){
+//    $("#divi").load('controller/printdivController.php');
+    $("#eeee").load('controller/printdivController.php');
+}
 
 
 
@@ -155,7 +163,7 @@ function getalldataTosend(direction){
     $( '#divi' ).find('img, div').each(function( index ) {
         var element = $( this );
         
-        if(element.is('.dddP') && $( this ).is(":visible") ){
+        if(element.is('#pid') && $( this ).is(":visible") ){
             var image = '<img src="'+(element.attr("src"))+'"';
             pageArray.push(image);
             console.log(image);
@@ -183,7 +191,9 @@ function getalldataTosend(direction){
 }
 
 function loadPageofHTML(){
-    $("#divi").load('controller/printdivController.php');
+//    $("#divi").load('controller/printdivController.php');
+    $("#eeee").load('controller/printdivController.php');
+//    $("#divi").load('view/fileedit.php');
 }
 
 
