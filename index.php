@@ -7,8 +7,10 @@ session_start();
  * and open the template in the editor.
  */
 
+echo '<div> Yes it is here the div header is here </div><br>';
+
+
 include_once("controller/controller.php");  
   
 $controller = new Controller();  
 $controller->invoke();
-

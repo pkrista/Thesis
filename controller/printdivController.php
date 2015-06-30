@@ -1,7 +1,8 @@
 <?php 
+
 session_start();
 $cur_page = $_SESSION['cur_page'];
-$pdf_array =$_SESSION['pdf_array'];
+$pdf_array = $_SESSION['pdf_array'];
 /* 
  * 
  * 
@@ -87,7 +88,7 @@ else{
 // To change pages
 
 if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
-    echo '<button type="submit" id="but" onclick= "return nextPage()" > >> </button> ';
+    echo '<button type="submit" id="but" onclick= "nextPage()" > >> </button> ';
 }
 if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
     echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> '

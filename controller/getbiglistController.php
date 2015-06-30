@@ -7,10 +7,14 @@
 
 require_once('../controller/fileeditController.php');
 
+ //set maximum execution time to 5 min (from 30 seconds default)
+ ini_set('max_execution_time', 300);
+
 $filename = $_SESSION['filename'];
 
 $path = "../uploads/".$filename;
-$command = "i.py $path";
+//$command = "i.py $path";
+$command = "itest.py $path";
 
 $pid = popen($command,"r");
 
@@ -25,18 +29,21 @@ while( !feof( $pid ) )
     }
 pclose($pid);
 
-//        require_once('../controller/fileeditController.php');
-//        func1('Hello', 'world');
+///test
+//print_r($big_string);
+
 
 //Call fileedit controller. send it 
 $obj = new fileeditController($big_string);
 //        echo "Print :".$obj->display();
 $pdf_array = $obj->display();
 
+//to test
+//print_r($pdf_array);
+
 //How many pages (start from 0)
 $pages_count = substr_count($big_string, '**NEWPAGE**');
 
-//return $pdf_arrayy;
 
 //Set session variable (2d array)
 $_SESSION['pdf_array'] = $pdf_array;
@@ -44,3 +51,4 @@ $_SESSION['pdf_array'] = $pdf_array;
 $_SESSION['pages_count'] = $pages_count;
 
 $_SESSION['cur_page'] = 0;
+

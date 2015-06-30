@@ -150,8 +150,59 @@ function prePage(){
 }
 
 
-
 //To save data
 function saveData(){
+    //first save current page
+    var pageArray = [];
+    var direction = 'next';
     
+    $('#divi').find("img").each(function( index ) {
+//    $('#pid').each(function( index ){
+        alert('Pictures that are not connected t excersises will not be saved');
+//        var element = $( this );
+//        if(element.is('.dddP') && $( this ).is(":visible") ){
+//            var image = '<img src="'+(element.attr("src"))+'"';
+//            pageArray.push(image);
+//        }
+
+    });
+    
+    $('#divi').find("div").each(function( index ) {
+        var element = $( this );
+        
+        if(element.is('#qid')){
+            // get everyting from div question in html format and put in array
+            pageArray.push(element.html());
+        }
+    });
+    console.log(pageArray);
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: '../controller/arrayeditController.php',
+        data: { page: pageArray, direction: direction}
+      })
+        .success(function( msg ) {
+          console.log(msg);
+          console.log('did it');
+//          $("#divi").load('../controller/printdivController.php');
+
+        });
+    
+    
+    
+    console.log('Saving data');
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: '../controller/savefileController.php',
+        data: { page: 'Yello'}
+      })
+        .success(function( msg ) {
+          console.log(msg);
+//          $("#divi").load('../controller/savefileController.php');
+
+        });
 }

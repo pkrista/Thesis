@@ -11,7 +11,7 @@
 //        echo $param1 . ', ' . $param2;
 //    }
 ?>
-<link rel="stylesheet" href="../css/fileedit.css" type="text/css"> 
+<link rel="stylesheet" href="css/fileedit.css" type="text/css"> 
 <?php
 class fileeditController { 
  
@@ -21,7 +21,7 @@ class fileeditController {
     $this->big_string = $big_string;
     }
     
-    function display() {
+    function display() {        
         return $this->get_pages_info();  
     }
     
@@ -72,9 +72,10 @@ class fileeditController {
         $block_count = substr_count($page, '**OBJECT**');
         
 //        $page_array() = array();
-        
-        for($k=0;$k<=$block_count;$k++){
-            if($k <> $block_count){
+        $column = 0;
+        for($k=0; $k<=$block_count; $k++){
+            
+            if($k != $block_count){
                 //cut object
                 $object = strchr($page,'**OBJECT**',true);
                 //the leght of cutted string
@@ -82,25 +83,34 @@ class fileeditController {
                 
                 //If object is image give diferent id
                 if((substr_count($object, '<img src='))>0){
-                    $pages_array[$i][$k] = $object;
+                    $pages_array[$i][$column] = $object;
 //                        '<div class="dddP" id="'.$k.'" contenteditable="true">'.$object.'</div> ';
+                    $column++; 
                 }
-                else{
-                    //put all page in array if the string is longer than 4
-                    $len > 3 ? $pages_array[$i][$k] = $object : false;
-//                        '<div class="dddQ" id="'.$k.'" contenteditable="true">'.$object.'</div> ': false;
+                //if object is not empty
+                else if ($len > 3){
+                    $pages_array[$i][$column] = $object;
+                    $column++; 
                 }
+//                else{
+//                    //put all page in array if the string is longer than 4
+//                    $len > 1 ? $pages_array[$i][$k] = $object : false;
+////                        '<div class="dddQ" id="'.$k.'" contenteditable="true">'.$object.'</div> ': false;
+//                }
 
                 //cut off the tacken string and page seperator
                 $page = substr($page, $len+10); //11 = **OBJECT**
             }
-            else{
+            else {
                 //the leght of cutted string
                 $len = strlen($page);
+                if($len > 3){
+                    $pages_array[$i][$column] = $page;
+                }
 //                if($len > 3){
 //                    $pages_array[$i][$k] = $page;
 //                }
-                $len > 3 ? $pages_array[$i][$k] = $page: false;
+//                $len > 1 ? $pages_array[$i][$k] = $page: false;
             }
         }
         return $pages_array;

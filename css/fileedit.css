@@ -7,7 +7,7 @@
     margin-top: 50px;
 }*/
 
-div.ddd {
+#qid {
     width:98%;
     float:left;
     border: 2px solid #a1a1a1;
@@ -24,17 +24,8 @@ div.ddh {
     /*visibility: hidden;*/
     display: none;
 }
-div.dddQ {
-    float:left;
-    border: 2px solid #a1a1a1;
-    border-radius: 25px;
 
-    width:60%;
-    
-    padding: 5px;
-    margin: 5px;
-} 
-div.dddA {
+#aid{
     float:right;
     border: 2px solid #a1a1a1;
     border-radius: 25px;
@@ -45,7 +36,7 @@ div.dddA {
     margin: 10px;
 } 
 /*Style for the div where to drop image in the question*/
-div.dddI {
+#div1 {
 /*    width: 20px;
     height: 20px;*/
 /*    border: 1px solid #aaaaaa;*/
@@ -56,14 +47,14 @@ div.dddI {
     visibility: hidden;
 }
 /*Style for images*/
-img.dddP{
+#pid{
     max-width: 350px;
     max-height: 350px;
 }
-img.dddI{
+/*img.dddI{
     max-width: 350px;
     max-height: 350px;
-}
+}*/
 
 
 div.divi {

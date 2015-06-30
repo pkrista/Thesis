@@ -6,33 +6,35 @@ session_start();
  * 
  * 
  */
-    require_once('../controller/savefileController.php');
+    include_once('../controller/getbiglistController.php');
     require_once('../controller/fileeditController.php');
-    include_once("../controller/getbiglistController.php");
-
+    
+    $fileName = $_POST['fName'];
+    $exerSeperator = $_POST['exSep'];
+    
     //$pdf_array = $_SESSION['pdf_array'];
     //$pages_count = $_SESSION['pages_count'];
-    $_SESSION['cur_page'] = 0;
-    $cur_page = $_SESSION['cur_page'];
-    $_SESSION['filename'] = $_GET['name'];
+//    $_SESSION['cur_page'] = 0;
+//    $cur_page = $_SESSION['cur_page'];
+    //$_SESSION['filename'] = $_GET['name'];
+    $_SESSION['filename'] = $fileName;
     $_SESSION['print']='combined';
+    $_SESSION['direction']='next';
 ?>
-<head>
+<!--<head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="../js/one.js" type="text/javascript"></script>
-</head>
+</head>-->
+
+<link rel="stylesheet" href="css/fileedit.css" type="text/css">
+
 <?php
       
     //file name
-    $filename = $_SESSION['filename']; 
-    echo "File name: ".$filename."\n";
+    echo "File name: ".$fileName."\n";
 
     //set maximum execution time to 5 min (from 30 seconds default)
     ini_set('max_execution_time', 300);
-
-    //link to css
-    echo '<link rel="stylesheet" href="../css/fileedit.css" type="text/css">';
-
 
 
 echo '<div id="divi" class="divi">';
@@ -169,20 +171,13 @@ echo '<div id="divi" class="divi">';
 //    echo '<button type="submit" id="but" onclick= "return prePage()" > >> </button> ';
 //}
 //
+include_once('../controller/printdivController.php');
 echo '</div>';
 
 ###
 ### To save data
 ###
 
-echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > >> </button> ';
+echo '<button type="submit" class="btnSave" id="btnSave" onclick= "return saveData()" > Save </button> ';
 
-
-//if(isset($_POST['save_data'])){
-//    echo 'YYESSS <br>';
-//    //Call fileedit controller. send it 
-//    $obj = new savefileController($pdf_array, $filename, $pages_count);
-//    // echo "Print :".$obj->display();
-//    $pdf_array = $obj->save_in_db();
-//}
 ?>

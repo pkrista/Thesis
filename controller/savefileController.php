@@ -1,28 +1,46 @@
 <?php
-
+session_start(); 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 
 include_once '../config/theasisDB.php';
+$filename = $_SESSION['filename'];
+$pdf_arrey = $_SESSION['pdf_array'];
+$page_nr = 0;
 
-class savefileController { 
+
+$o = 0; //Obejct
+while(!empty($pdf_arrey[$page_nr][$o])){
+    print $o;
+    $object = $pdf_arrey[$page_nr][$o];
+    $o++;
+
+    //Get all elements out of object
+    generateQuery($page_nr, $object);
+}
     
-    private $big_string;
-    private $filename;
-    private $pages_count;
+function generateQuery($page_nr, $object){
     
-    function __construct($big_string, $filename, $pages_count) {
-        
-    $this->big_string = $big_string;
-    $this->filename = $filename;
-    $this->pages_count = $pages_count;
+//    print $object;
+    print '____';
+    
+    $answMatch = array();
+    $questMatch = array();
+    $imgMatch = array();
+    preg_match_all('/(.*?)<div class="dddA"[^>]*>(.*?)</div>/', $object, $answMatch);
+//    preg_match_all('#(.*?)<<div class="dddA"[^>]*>#', $object, $questMatch);
+//    preg_match_all('#(.*?)<<div class="dddA"[^>]*>#', $object, $questMatch);
+    print_r($answMatch);
+//    print_r($questMatch);
     
     
-    }
+    preg_match_all('#<div class="dddA" id="aid"[^>]*>(.*?)</div>#', $object, $matches);
     
+}
+
     function save_in_db(){
         $bstring = $this->big_string;
          
@@ -55,8 +73,9 @@ class savefileController {
                 {
                 echo $row["file_id"] ." - ". $row["name"] ."<br/>";
                 }
-    }
     
+    print 'TTT';
+    }
     
     ###
     ### Generate inserts and insert data into database
@@ -64,4 +83,3 @@ class savefileController {
     
     // 1 - insert into db when upload file
     //
-}
