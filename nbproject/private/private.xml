@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ThesisProject/js/one.js</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/view/filelist.php</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/js/filelist.js</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/controller/arrayeditController.php</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/view/itest.py</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/printdivController.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/index.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/css/fileedit.css</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/css/filelist.css</file>
             <file>file:/C:/xampp/htdocs/ThesisProject/view/fileedit.php</file>
         </group>
     </open-files>

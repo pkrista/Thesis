@@ -19,9 +19,14 @@ session_start();
 //    $_SESSION['cur_page'] = 0;
 //    $cur_page = $_SESSION['cur_page'];
     //$_SESSION['filename'] = $_GET['name'];
-    $_SESSION['filename'] = $fileName;
+    
     $_SESSION['print']='combined';
     $_SESSION['direction']='next';
+    
+    //From filelist.php when the file is open
+    $_SESSION['filename'] = $fileName;
+    $_SESSION['exSeperator']=$exerSeperator;
+    
 ?>
 <!--<head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

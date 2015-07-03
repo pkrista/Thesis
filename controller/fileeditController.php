@@ -16,9 +16,13 @@
 class fileeditController { 
  
     private $big_string;
+    private $exSep;
+    
     
     function __construct($big_string) {
     $this->big_string = $big_string;
+    $this->exSep = $_SESSION['exSeperator'];
+    
     }
     
     function display() {        

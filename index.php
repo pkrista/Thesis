@@ -20,14 +20,12 @@ session_start();
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
    <div class="row">
-      <div class="large-12 columns">
       	<div class="panel">
 	        <h3>Welcome!</h3>
       	</div>
-      </div>
     </div>
 
-<div class="large-12 columns" id="eeee">
+<div class="row" id="eeee">
 </div>
 
 <?php

@@ -27,10 +27,10 @@ function setExerciseSeperator(fileName) {
         });
 }
 
-
 function loadFileContent(){
-//    $("#divi").load('controller/printdivController.php');
+
     $("#eeee").load('controller/printdivController.php');
+
 }
 
 
