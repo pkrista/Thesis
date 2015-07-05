@@ -27,7 +27,7 @@ function exInOnePage($pages_array, $exeSeparator){
     
     $newArrayString = array();
     //To set marck to exercises that are in two pages
-//    $newArrayString = exOnTwoPages($pages_array, $exeSeparator, $pages);
+    exOnTwoPages($pages_array, $exeSeparator, $pages);
     
     for($p=0;$p<$pages;$p++){ //$p page
         $execountInPage = count($pages_array[$p]);
@@ -46,10 +46,18 @@ function exInOnePage($pages_array, $exeSeparator){
                     $newArrayString[$p][$exerNR] = $pages_array[$p][$e];
                     $exerNR++;
                 }
-                else if($e>0){
-                    $exerText = $newArrayString[$p][$e-1];
-                    $exerText = $exerText.'<br>'.$pages_array[$p][$e];
-                    $newArrayString[$p][$exerNR-1] = $exerText;
+                else if($e!=0){
+                    //$exerText = $newArrayString[$p][$e-1];
+//                    $exerText = $exerText.'<br>'.$pages_array[$p][$e];
+                    //$newArrayString[$p][$exerNR-1] = $exerText;
+                    $newArrayString[$p][$exerNR-1] .= ' <br> ';
+                    $newArrayString[$p][$exerNR-1] .= $pages_array[$p][$e];
+//                    $value .= 'd';
+                    
+                    //test
+                    echo 'Paga: ' . $p;
+                    echo 'Ex' . $e;
+                    
                 }
                 else{
                     //exercise started in previous page
@@ -74,10 +82,10 @@ function exInOnePage($pages_array, $exeSeparator){
                  * excersise_23 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis efficitur nunc.
                  * excersise Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis efficitur nunc.
                  */
-                $output = array();
-                preg_match('/^'.$exeSeparator.'(_|.|\s{0,}|\w)\d{0,100}\s{0,}(.*)/i', $pages_array[$p][$e], $output);
+//                $output = array();
+//                preg_match('/^'.$exeSeparator.'(_|.|\s{0,}|\w)\d{0,100}\s{0,}(.*)/i', $pages_array[$p][$e], $output);
 
-//                $output = getExerText($exeSeparator, $pages_array[$p][$e]);
+                $output = getExerText($exeSeparator, $pages_array[$p][$e]);
                 
                 // Check is exercise continius in this object or starts in next one
                 if(strlen($output[2]) > 3){ //except seperator there is other text
@@ -127,8 +135,13 @@ function exOnTwoPages($pages_array, $exeSeparator, $pages){
 
         $e = 0;
         
-        if($pages_array[$p][$e]){
-            
+        $output = getExerText($exeSeparator, $pages_array[$p][$e]);
+        
+        if($output){
+          echo "it is"  ;
+        }
+        else {
+            echo "NO";
         }
         
     }
