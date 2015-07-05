@@ -268,7 +268,7 @@ function saveData(){
 
 
 /*
- * For sscreen
+ * For screen resizing
  *  if screen is small make pictures bigger
  */
 

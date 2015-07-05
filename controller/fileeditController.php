@@ -6,10 +6,6 @@
  * and open the template in the editor.
  */
 
-//    function func1($param1, $param2)
-//    {
-//        echo $param1 . ', ' . $param2;
-//    }
 ?>
 <link rel="stylesheet" href="css/fileedit.css" type="text/css"> 
 <?php
@@ -46,7 +42,6 @@ class fileeditController {
             $var = test($pages_array, $this->exSep);
             $pages_array = $var;
         }
-        
         return $pages_array;
     }
     
@@ -61,11 +56,7 @@ class fileeditController {
                 //the leght of cutted string
                 $len = strlen($part);
                 //put all page in array if the string is longer than 4
-//                $len > 3 ? $pages_array[$i] = $part: false;
                 $len > 3 ? $pages_array = $this->get_page_info($part, $i, $pages_array): false;
-//                if($len > 3){
-//                    $pages_array = $this->get_page_info($part, $i, $pages_array);
-//                }
                 
                 //cut off the tacken string and page seperator
                 $bstring = substr($bstring, $len+11); //11 = **NEWPAGE**
@@ -120,10 +111,6 @@ class fileeditController {
                 if($len > 3){
                     $pages_array[$i][$column] = $page;
                 }
-//                if($len > 3){
-//                    $pages_array[$i][$k] = $page;
-//                }
-//                $len > 1 ? $pages_array[$i][$k] = $page: false;
             }
         }
         

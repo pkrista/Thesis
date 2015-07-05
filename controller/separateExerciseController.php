@@ -27,7 +27,7 @@ function exInOnePage($pages_array, $exeSeparator){
     
     $newArrayString = array();
     //To set marck to exercises that are in two pages
-    exOnTwoPages($pages_array, $exeSeparator, $pages);
+    //exOnTwoPages($pages_array, $exeSeparator, $pages);
     
     for($p=0;$p<$pages;$p++){ //$p page
         $execountInPage = count($pages_array[$p]);
@@ -46,22 +46,13 @@ function exInOnePage($pages_array, $exeSeparator){
                     $newArrayString[$p][$exerNR] = $pages_array[$p][$e];
                     $exerNR++;
                 }
-                else if($e!=0){
-                    //$exerText = $newArrayString[$p][$e-1];
-//                    $exerText = $exerText.'<br>'.$pages_array[$p][$e];
-                    //$newArrayString[$p][$exerNR-1] = $exerText;
+                else if($e!=0){ //append exercises in one (from one page)
                     $newArrayString[$p][$exerNR-1] .= ' <br> ';
-                    $newArrayString[$p][$exerNR-1] .= $pages_array[$p][$e];
-//                    $value .= 'd';
-                    
-                    //test
-                    echo 'Paga: ' . $p;
-                    echo 'Ex' . $e;
-                    
+                    $newArrayString[$p][$exerNR-1] .= $pages_array[$p][$e];  
                 }
                 else{
                     //exercise started in previous page
-                    $newArrayString[$p][$exerNR] = $pages_array[$p][$e];
+                    $newArrayString[$p][$exerNR] = '**PREpage**'.$pages_array[$p][$e];
                     $exerNR++;
                 }
             }
@@ -127,24 +118,20 @@ function getExerText($exeSeparator, $exercise){
  * If yes it is made as one in one page
  * or something like that
  */
-function exOnTwoPages($pages_array, $exeSeparator, $pages){
- 
-    for($p=1;$p<$pages;$p++){ //$p page
-        //$p starts from 1 becouse I will check if the first exercise in all pages (except first)
-        // starts with exercise seperator
-
-        $e = 0;
-        
-        $output = getExerText($exeSeparator, $pages_array[$p][$e]);
-        
-        if($output){
-          echo "it is"  ;
-        }
-        else {
-            echo "NO";
-        }
-        
-    }
-    
-    return $pages_array;
-}
+//function exOnTwoPages($pages_array, $exeSeparator, $pages){
+// 
+//    for($p=1;$p<$pages;$p++){ //$p page
+//        //$p starts from 1 becouse I will check if the first exercise in all pages (except first)
+//        // starts with exercise seperator
+//        $e = 0;
+//        $output = getExerText($exeSeparator, $pages_array[$p][$e]);
+//        
+//        if($output){
+//          echo "it is"  ;
+//        }
+//        else {
+//            echo "NO";
+//        } 
+//    }
+//    return $pages_array;
+//}

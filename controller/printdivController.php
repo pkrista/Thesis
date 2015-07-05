@@ -21,7 +21,8 @@ $pdf_array = $_SESSION['pdf_array'];
             $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
 
     //        if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
-            if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+//            if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+            if(substr_startswith($pdf_array[$_SESSION['cur_page']][$p], '<img src=')){
 
                 echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
@@ -29,10 +30,19 @@ $pdf_array = $_SESSION['pdf_array'];
                         . 'class="large-6 medium-6 columns" id="pid"  '
                         . 'style="background: #000080; margin-bottom: 1.25rem; float:left"/>';
                 $p++;
-            }
+            }            
             else{
+                if(substr_startswith($pdf_array[$_SESSION['cur_page']][$p], '**PREpage**')){
+                    $combined = 'yes';
+                    // cut the **PREpage** off
+                    $_SESSION['pdf_array'][$_SESSION['cur_page']][$p] = substr($pdf_array[$_SESSION['cur_page']][$p], 11); // **PREpage**
+                }
+                else{
+                    $combined = 'no';
+                }
+                
                 echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
-                        . 'contenteditable="true" id="I'.$p.'" '
+                        . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                         . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
@@ -61,15 +71,11 @@ $pdf_array = $_SESSION['pdf_array'];
                 echo '<div class="ddh" id="qid"'
                         . ' data-id="Q'.$id.'" id="I'.$p.'" >'
                         .$_SESSION['pdf_array'][$_SESSION['cur_page']][$p].'</div>';
-    //            echo '<div class="ddh" id="qid" data-id="Q'.$id.'" id="I'.$p.'" > '
-    //                . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-    //                . '</div> <br>';
-
                 $p++;
             }
             else{
-    //            if((substr_count($_SESSION['pdf_array'][$_SESSION['cur_page']][$p], '<img src='))>0){
-                if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+//                if(substr($pdf_array[$_SESSION['cur_page']][$p], 0, 9) === '<img src='){
+                if(substr_startswith($pdf_array[$_SESSION['cur_page']][$p], '<img src=')){
                     echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                     . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                     . ' draggable="true" ondragstart="drag(event)"'
@@ -89,7 +95,6 @@ $pdf_array = $_SESSION['pdf_array'];
                 $p++;
                 }
             }
-
         }
     }
 
@@ -126,3 +131,8 @@ $pdf_array = $_SESSION['pdf_array'];
     </div>
 </div>
 
+<?php
+//http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+function substr_startswith($haystack, $needle) {
+    return substr($haystack, 0, strlen($needle)) === $needle;
+}
