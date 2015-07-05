@@ -24,8 +24,7 @@ else{
 
 
 if(!$pageArray){
-    print 'Empty';
-    
+    print 'Empty error in arrayeditController.php';
 }
 else{ 
     if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') > 0){

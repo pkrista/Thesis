@@ -1,18 +1,22 @@
 <?php 
 session_start(); 
+ unset($_SESSION['exSeperator']);
+ unset($_SESSION['filename']);
+ unset($_SESSION['direction']);
 
 /* 
  * 
  * 
  * 
- */
-    include_once('../controller/getbiglistController.php');
-    require_once('../controller/fileeditController.php');
-    
+ */    
 
-    $fileName = $_POST['fName'];
-    $exerSeperator = $_POST['exSep'];
- 
+$fileName = $_POST['fName'];
+$exerSeperator = $_POST['exSep'];
+
+echo ' First ';
+echo $fileName;
+echo ' ';
+echo $exerSeperator;
     
     //$pdf_array = $_SESSION['pdf_array'];
     //$pages_count = $_SESSION['pages_count'];
@@ -20,13 +24,13 @@ session_start();
 //    $cur_page = $_SESSION['cur_page'];
     //$_SESSION['filename'] = $_GET['name'];
     
-    $_SESSION['print']='combined';
-    $_SESSION['direction']='next';
+$_SESSION['print']='combined';
+$_SESSION['direction']='next';
     
     //From filelist.php when the file is open
-    $_SESSION['filename'] = $fileName;
-    $_SESSION['exSeperator']=$exerSeperator;
-    
+$_SESSION['filename'] = $_POST['fName'];
+$_SESSION['exSeperator']= $_POST['exSep'];
+
 ?>
 <!--<head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -37,14 +41,15 @@ session_start();
 
 
 <?php
-      
+  
     //file name
     echo "File name: ".$fileName."\n";
 
     //set maximum execution time to 5 min (from 30 seconds default)
     ini_set('max_execution_time', 300);
 
-
+    include_once('../controller/getbiglistController.php');
+        
 //echo '<div id="divi" class="large-12 columns">';
 //echo '<div class="panel">';
 //    $pdf_array = $_SESSION['pdf_array'];
@@ -67,7 +72,6 @@ session_start();
 //            }
 //        pclose($pid);
 //        
-////        require_once('../controller/fileeditController.php');
 ////        func1('Hello', 'world');
 //        
 //        //Call fileedit controller. send it 

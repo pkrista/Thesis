@@ -47,7 +47,7 @@ div#div1 {
     visibility: hidden;
 }
 /*Style for images*/
-img#pid{
+#pid{
     max-width: 40%;
     max-height: auto;
 }

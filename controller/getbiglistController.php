@@ -5,7 +5,6 @@
  * using Python project pdfminer
  */
 
-require_once('../controller/fileeditController.php');
 
  //set maximum execution time to 5 min (from 30 seconds default)
  ini_set('max_execution_time', 300);
@@ -29,10 +28,7 @@ while( !feof( $pid ) )
     }
 pclose($pid);
 
-///test
-//print_r($big_string);
-
-
+require_once('../controller/fileeditController.php');
 //Call fileedit controller. send it 
 $obj = new fileeditController($big_string);
 //        echo "Print :".$obj->display();

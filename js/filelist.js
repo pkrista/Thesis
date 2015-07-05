@@ -20,6 +20,7 @@ function setExerciseSeperator(fileName) {
       })
         .success(function( msg ) {
             var result = msg;
+        console.log(result);
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
                 loadFileContent();
@@ -264,3 +265,27 @@ function saveData(){
 
         });
 }
+
+
+/*
+ * For sscreen
+ *  if screen is small make pictures bigger
+ */
+
+$(window).resize(function() {
+
+  if ($(this).width() < 500) {
+    $('#divi').find("img").each(function( index ) {
+        var element = $( this );
+        element.css({"max-width":"100%"});
+    });
+
+  } else {
+    $('#divi').find("img").each(function( index ) {
+        var element = $( this );
+        element.css({"max-width":"40%"});
+    });
+
+    }
+});
+

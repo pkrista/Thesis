@@ -30,6 +30,7 @@ class fileeditController {
     }
     
     function get_pages_info(){
+       
         $bstring = $this->big_string;
         
         //count how meny times **NEWPAGE** appears
@@ -37,6 +38,14 @@ class fileeditController {
   
         //array that stores content of all page        
         $pages_array = $this->found_data($pages_count, $bstring);
+        
+        //If exerice seperator variabe wasn't set then don't try to separate exercises
+        if(strlen($this->exSep)!=0 && $this->exSep != ' '){
+       
+            require_once('separateExerciseController.php');
+            $var = test($pages_array, $this->exSep);
+            $pages_array = $var;
+        }
         
         return $pages_array;
     }
@@ -117,6 +126,7 @@ class fileeditController {
 //                $len > 1 ? $pages_array[$i][$k] = $page: false;
             }
         }
+        
         return $pages_array;
     }
 } 

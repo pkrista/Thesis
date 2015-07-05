@@ -198,7 +198,7 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
 #
 #            else:
 #                print >> sys.stderr, "error saving image on page", page_number, lt_obj.__repr__
-        elif isinstance(lt_obj, LTTextBox):
+        elif isinstance(lt_obj, LTTextBox): # or isinstance(lt_obj, LTTextLine):
             # text, so arrange is logically based on its column width
 #            page_text = update_page_text_hash(page_text, lt_obj)
 #            print ' LTTextBox '
@@ -207,6 +207,7 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
             
             page_text = update_page_text_hash(page_text, lt_obj, lt_TEXT_cont)
             D = update_page_hash(D, lt_obj, lt_TEXT_cont)
+
 
     sorted_x = sorted(D.items(), key=operator.itemgetter(0))
     sorted_x.reverse()

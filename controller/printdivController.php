@@ -10,7 +10,8 @@ $pdf_array = $_SESSION['pdf_array'];
 ?>
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 
-<div id="divi" class="large-12 columns">
+<div class="large-12">
+    <div id="divi" class="large-12">
 
     <?php
     if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
@@ -25,24 +26,27 @@ $pdf_array = $_SESSION['pdf_array'];
                 echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                 . ' draggable="true" ondragstart="drag(event)"'
-                        . 'class="large-6 medium-6 columns" id="pid"  style="background: #000080"/>';
+                        . 'class="large-6 medium-6 columns" id="pid"  '
+                        . 'style="background: #000080; margin-bottom: 1.25rem; float:left"/>';
                 $p++;
             }
             else{
-                echo '<div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
+                echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
                         . 'contenteditable="true" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
-                        . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
+                        . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
+                        . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
 
                   . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-                  . '<div class="large-12 columns callout panel" id="aid" data-id="A'.$id.'" '
+                  . '<div class="large-4 medium-4 columns callout panel" id="aid" data-id="A'.$id.'" '
                         . 'onclick="myFunction(this)"'
-                        . 'contenteditable="true"> Answer div </div>'
+                        . 'contenteditable="true"'
+                        . 'style="float: right; margin-bottom: 0.2rem;"> Answer div </div>'
                         . '<div id="div1" class="dddI" '
                             . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"'
                             . '></div>'
-                        . '</div> <br>';
+                        . '</div> ';
                 $p++;
                 //Picture's element in div1/dddI class is changed in one.js (id=pic1 class=dddI)
             }
@@ -69,18 +73,19 @@ $pdf_array = $_SESSION['pdf_array'];
                     echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                     . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                     . ' draggable="true" ondragstart="drag(event)"'
-                            . 'class="large-6 medium-6 columns" id="pid"  style="background: #000080"/>';
+                            . 'class="large-6 medium-6 columns" id="pid"  '
+                            . 'style="background: #000080; margin-bottom: 1.25rem"/>';
                     $p++;
                 }      
                 else{
-                    echo '<div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
+                    echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
                         . 'contenteditable="true" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                         . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '
 
                     . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-                    . '</div> <br>';
+                    . '</div>';
                 $p++;
                 }
             }
@@ -90,28 +95,28 @@ $pdf_array = $_SESSION['pdf_array'];
 
     ?>
     
-</div>
+    </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        <?php
+    <div class="row">
+        <div class="large-12 columns">
+            <?php
 
-        // To change pages
-        echo '<br>';
-        if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
-            echo '<button type="submit" id="but" onclick= "nextPage()" > >> </button> ';
-        }
-        if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
-            echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> '
-            . '<button type="submit" id="but" onclick= "return nextPage()" > >> </button> ';
-        }
-        if($_SESSION['cur_page'] == $_SESSION['pages_count']){
-            echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> ';
-        }
-        ?>
+            // To change pages
+            echo '<br>';
+            if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
+                echo '<button type="submit" id="but" onclick= "nextPage()" > >> </button> ';
+            }
+            if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
+                echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> '
+                . '<button type="submit" id="but" onclick= "return nextPage()" > >> </button> ';
+            }
+            if($_SESSION['cur_page'] == $_SESSION['pages_count']){
+                echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> ';
+            }
+            ?>
+        </div>
     </div>
 </div>
-
 
 <div class="row">
     <div class="large-12 columns">
