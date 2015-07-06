@@ -8,11 +8,7 @@
 
 function test($pages_array, $exeSeparator){
     // Based on procided value I need to seperate exercse from exercise
-    
     $arrayLongExeFix = exInOnePage($pages_array, $exeSeparator);
-    
-    print_r($pages_array);
-    
     return $arrayLongExeFix;
 }
 

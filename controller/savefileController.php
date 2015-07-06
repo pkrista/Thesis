@@ -10,6 +10,12 @@ include_once '../config/theasisDB.php';
 $filename = $_SESSION['filename'];
 $pdf_arrey = $_SESSION['pdf_array'];
 $page_nr = 0;
+$pages = count($pdf_arrey, 0);
+
+print_r($pdf_arrey);
+echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+
+
 
 
 $o = 0; //Obejct
@@ -19,7 +25,7 @@ while(!empty($pdf_arrey[$page_nr][$o])){
     $o++;
 
     //Get all elements out of object
-    generateQuery($page_nr, $object);
+//    generateQuery($page_nr, $object);
 }
     
 function generateQuery($page_nr, $object){

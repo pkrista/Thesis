@@ -20,6 +20,7 @@ function setExerciseSeperator(fileName) {
       })
         .success(function( msg ) {
             var result = msg;
+    //Test
         console.log(result);
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
@@ -167,12 +168,19 @@ function getalldataTosend(direction){
         if(element.is('#pid') && $( this ).is(":visible") ){
             var image = '<img src="'+(element.attr("src"))+'"';
             pageArray.push(image);
-            console.log(image);
+//            console.log(image);
         }
         if(element.is('#qid')){
             // get everyting from div question in html format and put in array
-            pageArray.push(element.html());
-            console.log(element.html());
+
+            //put marck that exercise is combined with one in previous page
+//            console.log(element.data("combined"));
+            if(element.data("combined") === 'yes'){
+                pageArray.push('**PREpage**'+element.html());
+            }
+            else{
+                pageArray.push(element.html());
+            }
         }
         
       });
@@ -215,57 +223,79 @@ function saveData(){
     var pageArray = [];
     var direction = 'next';
     
-    $('#divi').find("img").each(function( index ) {
-//    $('#pid').each(function( index ){
-        alert('Pictures that are not connected t excersises will not be saved');
+//    $('#divi').find("img").each(function( index ) {
+////    $('#pid').each(function( index ){
+//        alert('Pictures that are not connected t excersises will not be saved');
+////        var element = $( this );
+////        if(element.is('.dddP') && $( this ).is(":visible") ){
+////            var image = '<img src="'+(element.attr("src"))+'"';
+////            pageArray.push(image);
+////        }
+//
+//    });
+//    
+//    $('#divi').find("div").each(function( index ) {
 //        var element = $( this );
-//        if(element.is('.dddP') && $( this ).is(":visible") ){
-//            var image = '<img src="'+(element.attr("src"))+'"';
-//            pageArray.push(image);
+//        
+//        if(element.is('#qid')){
+//            // get everyting from div question in html format and put in array
+//            pageArray.push(element.html());
 //        }
+//    });
 
-    });
-    
-    $('#divi').find("div").each(function( index ) {
+    $( '#divi' ).find('img, div').each(function( index ) {
         var element = $( this );
         
+        if(element.is('#pid') && $( this ).is(":visible") ){
+            var image = '<img src="'+(element.attr("src"))+'"';
+            pageArray.push(image);
+//            console.log(image);
+        }
         if(element.is('#qid')){
             // get everyting from div question in html format and put in array
-            pageArray.push(element.html());
+            //put marck that exercise is combined with one in previous page
+//            console.log(element.data("combined"));
+            if(element.data("combined") === 'yes'){
+                pageArray.push('**PREpage**'+element.html());
+            }
+            else{
+                pageArray.push(element.html());
+            }
         }
-    });
+        
+      });
+    console.log('Saving Data aray');
     console.log(pageArray);
+    console.log('Saving Data end');
     
     $.ajax({
         async: true,
         method: 'post',
-        url: '../controller/arrayeditController.php',
+        url: 'controller/arrayeditController.php',
         data: { page: pageArray, direction: direction}
       })
         .success(function( msg ) {
-          console.log(msg);
+//          console.log(msg);
           console.log('did it');
-//          $("#divi").load('../controller/printdivController.php');
+//            window.location.reload();
+//            $("#eeee").load('controller/savefileController.php');
 
         });
-    
-    
-    
-    console.log('Saving data');
     
     $.ajax({
         async: true,
         method: 'post',
-        url: '../controller/savefileController.php',
+        url: 'controller/savefileController.php',
         data: { page: 'Yello'}
       })
         .success(function( msg ) {
+          console.log('went into save file');
           console.log(msg);
+  
 //          $("#divi").load('../controller/savefileController.php');
 
         });
 }
-
 
 /*
  * For screen resizing
@@ -289,3 +319,38 @@ $(window).resize(function() {
     }
 });
 
+
+/*
+ * To delete DIV
+ * 
+ */
+
+ function deleteDiv(elem) {
+   var parent = elem.parentNode;
+   
+   // if the ok button is clicked, result will be true (boolean)
+    var result = confirm( "Delete?" );
+    if ( result ) {
+        //if next element is image delete it also
+        var nextElement = parent.nextElementSibling;
+        
+        while(nextElement !== null && nextElement.tagName === 'IMG'){
+            nextElement.remove();
+            
+            nextElement = parent.nextElementSibling;
+            console.log(nextElement);
+        }
+        
+        // the user clicked ok
+        parent.remove();
+    } else {
+        // the user clicked cancel or closed the confirm dialog.
+    }
+        
+//    console.log(parent.tagName);
+//    
+//    var nextElement = parent.nextElementSibling;
+//    
+//    console.log(nextElement.tagName);
+  
+}

@@ -1,0 +1,80 @@
+/*-------------------------
+    Simple reset
+--------------------------*/
+
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+/*----------------------------
+    The file upload form
+-----------------------------*/
+
+#drop{
+    padding: 40px 50px;
+    text-align: center;
+}
+
+#drop input{
+    display:none;
+}
+
+#upload ul{
+    list-style:none;
+    margin:0 -30px;
+    border-top:1px solid #2b2e31;
+    border-bottom:1px solid #3d4043;
+}
+
+#upload ul li{
+
+    border-top:1px solid #3d4043;
+    border-bottom:1px solid #2b2e31;
+    padding:2px;
+    height: 54px;
+
+    position: relative;
+}
+
+#upload ul li input{
+    display: none;
+}
+
+#upload ul li p{
+    overflow: hidden;
+    position: absolute;
+    left: 30%;
+}
+
+#upload ul li i{
+    color:#7f7f7f;
+    display:block;
+}
+
+#upload ul li canvas{
+    left: 5%;
+    position: absolute;
+}
+
+#upload ul li span{
+    height: 12px;
+    width: 15px;
+    
+    background: url('../img/icons.png') no-repeat;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    cursor:pointer;
+}
+
+#upload ul li.working span{
+    height: 16px;
+    background-position: 0 -12px;
+}
+
+#upload ul li.error p{
+    color:red;
+}

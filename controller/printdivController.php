@@ -47,7 +47,11 @@ $pdf_array = $_SESSION['pdf_array'];
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                         . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
                         . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
-
+                        . '<a onclick="deleteDiv(this)" style="right: 0.25rem;
+                                                        font-size: 1.375rem;
+                                                        position: absolute;
+                                                        right: -20px;
+                                                        top: -20px"> × </a>'
                   . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                   . '<div class="large-4 medium-4 columns callout panel" id="aid" data-id="A'.$id.'" '
                         . 'onclick="myFunction(this)"'
@@ -62,13 +66,16 @@ $pdf_array = $_SESSION['pdf_array'];
             }
         }
     }
+    
+    
+    
     else{
         $p=0;
         while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p])){ 
             $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
 
             if(substr_count(($_SESSION['pdf_array'][$cur_page][$p]), '**RENEW**') > 0){
-                echo '<div class="ddh" id="qid"'
+                echo '<div class="ddh" data-combined="" id="qid"'
                         . ' data-id="Q'.$id.'" id="I'.$p.'" >'
                         .$_SESSION['pdf_array'][$_SESSION['cur_page']][$p].'</div>';
                 $p++;
@@ -84,8 +91,18 @@ $pdf_array = $_SESSION['pdf_array'];
                     $p++;
                 }      
                 else{
+                    
+                    if(substr_startswith($pdf_array[$_SESSION['cur_page']][$p], '**PREpage**')){
+                        $combined = 'yes';
+                        // cut the **PREpage** off
+                        $_SESSION['pdf_array'][$_SESSION['cur_page']][$p] = substr($pdf_array[$_SESSION['cur_page']][$p], 11); // **PREpage**
+                    }
+                    else{
+                        $combined = 'no';
+                    }
+                    
                     echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
-                        . 'contenteditable="true" id="I'.$p.'" '
+                        . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                         . 'ondrop="drop(event)" ondragover="allowDrop(event)"> '

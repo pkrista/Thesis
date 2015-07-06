@@ -146,27 +146,33 @@ def to_bytestring (s, enc='utf-8'):
 #            return s.encode(enc)
 
 def update_page_hash (h, lt_obj, lt_obj_content):
-    x = lt_obj.bbox[3]
-    h[x] = [lt_obj_content]
+    #  http://stackoverflow.com/questions/27946677/use-pdfminer-coordinates-for-text-highlighting-on-page-jpeg-files
+    x0 = lt_obj.bbox[0] # the distance from the left page border to the left character border
+    x1 = lt_obj.bbox[3] # the distance from the bottom page border to the top character border
+
+    key_found = False
+    
+    #If multipla items are in one line, then put them together in one line (one object)
+    # Othervise in the Hashmap will be stored just last one
+    for k, v in h.items():
+        hash_x1 = k
+        if x1 == hash_x1:
+            key_found = True
+            g = v[0]+' '+lt_obj_content
+#            v.append(lt_obj_content)
+            h[k] = [g]
+
+    if not key_found:
+        h[x1] = [lt_obj_content]
     return h
 
 def update_page_text_hash (h, lt_obj, lt_obj_content, pct=0.2):
     """Use the bbox x0,x1 values within pct% to produce lists of associated text within the hash"""
 #  http://stackoverflow.com/questions/27946677/use-pdfminer-coordinates-for-text-highlighting-on-page-jpeg-files
-    x0 = lt_obj.bbox[0]
-    x1 = lt_obj.bbox[3]
+    x0 = lt_obj.bbox[0] # the distance from the left page border to the left character border
+    x1 = lt_obj.bbox[3] # the distance from the bottom page border to the top character border
     
     key_found = False
-#    for k, v in h.items():
-#        hash_x0 = k[0]
-#        if x0 >= (hash_x0 * (1.0-pct)) and (hash_x0 * (1.0+pct)) >= x0:
-#            hash_x1 = k[1]
-#            if x1 >= (hash_x1 * (1.0-pct)) and (hash_x1 * (1.0+pct)) >= x1:
-#                # the text inside this LT* object was positioned at the same
-#                # width as a prior series of text, so it belongs together
-#                key_found = True
-#                v.append(lt_obj_content)
-#                h[k] = v
     if not key_found:
         # the text, based on width, is a new series,
         # so it gets its own series (entry in the hash)
@@ -190,7 +196,7 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
 #            lt_IMG_cont = '<img src="'+str(images_folder)+'/'+str(saved_file[0])+'" '
             lt_IMG_cont = '<img src="image/'+str(saved_file[0])+'" '
             
-            page_text = update_page_text_hash(page_text, lt_obj, lt_IMG_cont)
+#            page_text = update_page_text_hash(page_text, lt_obj, lt_IMG_cont)
             D = update_page_hash(D, lt_obj, lt_IMG_cont)
 #            if saved_file:
 #            # use html style <img /> tag to mark the position of the image within the text
@@ -199,19 +205,20 @@ def parse_lt_objs (lt_objs, page_number, images_folder, text=[]):
 #            else:
 #                print >> sys.stderr, "error saving image on page", page_number, lt_obj.__repr__
         elif isinstance(lt_obj, LTTextBox): # or isinstance(lt_obj, LTTextLine):
+#        elif isinstance(lt_obj, LTTextBox) or isinstance(lt_obj, LTTextLine):
             # text, so arrange is logically based on its column width
 #            page_text = update_page_text_hash(page_text, lt_obj)
 #            print ' LTTextBox '
             
-            lt_TEXT_cont = to_bytestring(lt_obj.get_text())
             
-            page_text = update_page_text_hash(page_text, lt_obj, lt_TEXT_cont)
-            D = update_page_hash(D, lt_obj, lt_TEXT_cont)
+            lt_TEXT_cont = to_bytestring(lt_obj.get_text())
 
+#            page_text = update_page_text_hash(page_text, lt_obj, lt_TEXT_cont)
+            D = update_page_hash(D, lt_obj, lt_TEXT_cont)
 
     sorted_x = sorted(D.items(), key=operator.itemgetter(0))
     sorted_x.reverse()
-
+    
     for k, v in sorted_x:
         new_v = []
         for el in v:

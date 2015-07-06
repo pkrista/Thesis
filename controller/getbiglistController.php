@@ -28,6 +28,8 @@ while( !feof( $pid ) )
     }
 pclose($pid);
 
+echo $big_string;
+
 require_once('../controller/fileeditController.php');
 //Call fileedit controller. send it 
 $obj = new fileeditController($big_string);
