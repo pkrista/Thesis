@@ -44,8 +44,20 @@ $(function(){
 
             });
 
-            // Automatically upload the file once it is added to the queue
-            var jqXHR = data.submit();
+             // Automatically upload the file once it is added to the queue
+            var jqXHR = data.submit().success(function(result, textStatus, jqXHR){
+
+                    var json = JSON.parse(result);
+                    var status = json['status'];
+
+                    if(status == 'error'){
+                            data.context.addClass('error');
+                    }
+
+                    setTimeout(function(){
+                            data.context.fadeOut('slow');
+                    },3000);
+            });
         },
 
         progress: function(e, data){

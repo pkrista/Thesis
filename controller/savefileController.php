@@ -12,20 +12,52 @@ $pdf_arrey = $_SESSION['pdf_array'];
 $page_nr = 0;
 $pages = count($pdf_arrey, 0);
 
-print_r($pdf_arrey);
+//print_r($pdf_arrey);
 echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 
 
 
+for($p=0;$p<$pages;$p++){ //Page $p
+    
+    $exeCountInPage = count($pdf_arrey[$p]);
+    for($object=0;$object<$exeCountInPage;$object++){
+//        echo $pdf_arrey[$p][$object];
+//        $cutObject = preg_split("/^<a(.*?)>(.*?)<\/a>/", $pdf_arrey[$p][$object]);
+        
+//        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $cutObject);
+//        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>(.*)/", $input_line, $output_array);
+        
 
-$o = 0; //Obejct
-while(!empty($pdf_arrey[$page_nr][$o])){
-    print $o;
-    $object = $pdf_arrey[$page_nr][$o];
-    $o++;
+        //Array tp store all exercises details
+        // [0] - question
+        // [1] - answer
+        // [3] - explanation
+        // [4..] - images
+        $exercise = array();
+        
+        $output = NULL;
+        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>/", $pdf_arrey[$p][$object], $output);
+        if($output != NULL){
+            echo '<br/> YES';
+            preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
+            array_push($exercise, $QA[3], $QA[5]);
+            
+            print_r($exercise);
+            //check images
+        }
+        else{
+            echo '<br/> NO';
+            preg_match("/^\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
+//            array_push($exercise, $QA[3], $QA[5]);
+            
+            print_r($QA);
+            //check images
+        }
+    }
+}
 
-    //Get all elements out of object
-//    generateQuery($page_nr, $object);
+function getExerciseDetails(){
+    
 }
     
 function generateQuery($page_nr, $object){

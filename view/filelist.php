@@ -8,6 +8,7 @@
 //include_once("controller/pdf.php");
 ?>
 <head>
+    <meta charset="utf-8"/>
     <!--import jQuery for calling AJAX in javascript file-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/filelist.js"></script>
@@ -82,17 +83,15 @@
         </div>
     </div>
 
+<!--For Upload form-->
+<!-- JavaScript Includes -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="assets/js/jquery.knob.js"></script>
 
-<!--Mini AJAX from-->
-<!--Form tacken from http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/ --> 
-    <!-- JavaScript Includes -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="assets/js/jquery.knob.js"></script>
+<!-- jQuery File Upload Dependencies -->
+<script src="assets/js/jquery.ui.widget.js"></script>
+<script src="assets/js/jquery.iframe-transport.js"></script>
+<script src="assets/js/jquery.fileupload.js"></script>
 
-    <!-- jQuery File Upload Dependencies -->
-    <script src="assets/js/jquery.ui.widget.js"></script>
-    <script src="assets/js/jquery.iframe-transport.js"></script>
-    <script src="assets/js/jquery.fileupload.js"></script>
-
-    <!-- Our main JS file -->
-    <script src="assets/js/script.js"></script>
+<!-- Our main JS file -->
+<script src="assets/js/script.js"></script>

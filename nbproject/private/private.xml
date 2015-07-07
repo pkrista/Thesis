@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/ThesisProject/view/filelist.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/getbiglistController.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/uploadFileController.php</file>
             <file>file:/C:/xampp/htdocs/ThesisProject/js/filelist.js</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/controller/arrayeditController.php</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/controller/fileeditController.php</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/controller/savefileController.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/upload.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/assets/js/jquery.fileupload.js</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/assets/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/assets/js/script.js</file>
         </group>
     </open-files>
 </project-private>

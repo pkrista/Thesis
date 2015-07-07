@@ -28,7 +28,7 @@ while( !feof( $pid ) )
     }
 pclose($pid);
 
-echo $big_string;
+//echo $big_string;
 
 require_once('../controller/fileeditController.php');
 //Call fileedit controller. send it 

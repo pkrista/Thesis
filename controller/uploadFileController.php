@@ -13,24 +13,29 @@ include_once '../config/theasisDB.php';
 
 $my_folder = "C:/xampp/htdocs/ThesisProject/uploads/";
 
-if($_FILES["file"]["tmp_name"] != null){
+if($_FILES["file"]["tmp_name"]){
     copy($_FILES["file"]["tmp_name"],$my_folder.$_FILES["file"]["name"]);
     
     echo "File uploaded.";
-    
+    $countFiles = 0;
     $db = new theasisDB();
-    $sql = "SELECT * FROM Course";
+    $sql = "SELECT * FROM File WHERE Name='".$_FILES["file"]["name"]."'";
     foreach ($db->query($sql) as $row)
     {
-        echo $row["Course_ID"] ." - ". $row["Name"] ."<br/>";
+        $countFiles++;
     }
-    
-    $sqlInsertFile = "INSERT INTO File(Name) VALUES ('".$_FILES["file"]["name"]."')";
-    if ($db->query($sqlInsertFile)) {
-        echo "New record created successfully";
-    } else {
-        echo "Error while uploading file";
+    if($countFiles==0){
+        $sqlInsertFile = "INSERT INTO File(Name) VALUES ('".$_FILES["file"]["name"]."')";
+        if ($db->query($sqlInsertFile)) {
+            echo "New record created successfully";
+        } else {
+            echo "Error while uploading file";
+        }
     }
+    else{
+        echo "File already exist";
+    }
+
     
     
     

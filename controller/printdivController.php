@@ -41,19 +41,16 @@ $pdf_array = $_SESSION['pdf_array'];
                     $combined = 'no';
                 }
                 
-                echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
+                echo '<br><div id="qid" class="large-12 columns callout panel" data-id="Q'.$id.'" '
                         . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'
                         . 'ondrop="drop(event)" ondragover="allowDrop(event)"'
                         . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
-                        . '<a onclick="deleteDiv(this)" style="right: 0.25rem;
-                                                        font-size: 1.375rem;
-                                                        position: absolute;
-                                                        right: -20px;
-                                                        top: -20px"> × </a>'
+                        . '<a id="delDiv" onclick="deleteDiv(this)" 
+                            style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"> × </a>'
                   . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-                  . '<div class="large-4 medium-4 columns callout panel" id="aid" data-id="A'.$id.'" '
+                  . '<div id="aid" class="large-4 medium-4 columns callout panel" data-id="A'.$id.'" '
                         . 'onclick="myFunction(this)"'
                         . 'contenteditable="true"'
                         . 'style="float: right; margin-bottom: 0.2rem;"> Answer div </div>'
@@ -101,7 +98,7 @@ $pdf_array = $_SESSION['pdf_array'];
                         $combined = 'no';
                     }
                     
-                    echo '<br><div class="large-12 columns callout panel" id="qid" data-id="Q'.$id.'" '
+                    echo '<br><div id="qid" class="large-12 columns callout panel" data-id="Q'.$id.'" '
                         . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                         . 'onclick="myFunction(this)"'
                         . 'ondragenter="dragEnter(event, this)" ondragleave="dragLeave(event)"'

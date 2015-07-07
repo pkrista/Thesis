@@ -91,7 +91,7 @@ function exInOnePage($pages_array, $exeSeparator){
         }
     }
     
-    print_r($newArrayString);  
+//    print_r($newArrayString);  
     
     return $newArrayString;
 }
@@ -107,27 +107,3 @@ function getExerText($exeSeparator, $exercise){
     
     return $output;
 }
-
-
-/**
- * This function varifies if there is exercise that is on two pages
- * If yes it is made as one in one page
- * or something like that
- */
-//function exOnTwoPages($pages_array, $exeSeparator, $pages){
-// 
-//    for($p=1;$p<$pages;$p++){ //$p page
-//        //$p starts from 1 becouse I will check if the first exercise in all pages (except first)
-//        // starts with exercise seperator
-//        $e = 0;
-//        $output = getExerText($exeSeparator, $pages_array[$p][$e]);
-//        
-//        if($output){
-//          echo "it is"  ;
-//        }
-//        else {
-//            echo "NO";
-//        } 
-//    }
-//    return $pages_array;
-//}

@@ -12,11 +12,6 @@ session_start();
 
 $fileName = $_POST['fName'];
 $exerSeperator = $_POST['exSep'];
-
-echo ' First ';
-echo $fileName;
-echo ' ';
-echo $exerSeperator;
     
     //$pdf_array = $_SESSION['pdf_array'];
     //$pages_count = $_SESSION['pages_count'];

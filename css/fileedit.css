@@ -1,27 +1,5 @@
-/*[draggable=true] {
-    -khtml-user-drag: element;
-    -webkit-user-drag: element;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    cursor: pointer;
-    margin-top: 50px;
-}*/
-
-div#qid {
-    width:98%;
-    float:left;
-    border: 2px solid #a1a1a1;
-    padding: 5px; 
-    margin: 5px;
-} 
 /*To make RENEW div hidden*/
 div.ddh {
-/*    width:98%;
-    float:left;
-    border: 2px solid #a1a1a1;
-    padding: 5px; 
-    margin: 5px;*/
-    /*visibility: hidden;*/
     display: none;
 }
 
@@ -36,46 +14,15 @@ div#aid{
     margin: 10px;
 } 
 /*Style for the div where to drop image in the question*/
-div#div1 {
-/*    width: 20px;
-    height: 20px;*/
-/*    border: 1px solid #aaaaaa;*/
-    
+div#div1 {   
     max-width: 350px;
     max-height: 350px;
-    
     visibility: hidden;
 }
 /*Style for images*/
 #pid{
     max-width: 40%;
     max-height: auto;
-}
-/*img.dddI{
-    max-width: 350px;
-    max-height: 350px;
-}*/
-
-
-div.divi {
-    width:90%;
-    background-color:#f2f2e8;
-    position:relative;
-
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    padding:5px;
-
-    margin:5%;
-    overflow:hidden;
-    float:left;
-    alignment-adjust: central;
-}
-
-textarea { height: auto; }
-
-.filedisplay {
-
 }
 
 /*For Big Saving button*/
@@ -91,4 +38,11 @@ textarea { height: auto; }
     width: 100px;
     height: 100px;
 
+}
+/*Button for deleting div*/
+a#delDiv{
+    top: -20px;
+    right: -20px;
+    position: absolute;
+    font-size: 1.375rem;
 }
