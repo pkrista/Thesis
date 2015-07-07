@@ -26,8 +26,7 @@ session_start();
       	</div>
     </div>
 
-<div class="row" id="eeee">
-</div>
+<div class="row" id="eeee"></div>
 
 <?php
 include_once("controller/controller.php");  

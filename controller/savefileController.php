@@ -12,27 +12,28 @@ $pdf_arrey = $_SESSION['pdf_array'];
 $page_nr = 0;
 $pages = count($pdf_arrey, 0);
 
-//print_r($pdf_arrey);
+print_r($pdf_arrey);
 echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 
 
 
 for($p=0;$p<$pages;$p++){ //Page $p
+
+   $pageInfo = array();
+   array_push($pageInfo, $p, $p+1);
     
     $exeCountInPage = count($pdf_arrey[$p]);
     for($object=0;$object<$exeCountInPage;$object++){
-//        echo $pdf_arrey[$p][$object];
-//        $cutObject = preg_split("/^<a(.*?)>(.*?)<\/a>/", $pdf_arrey[$p][$object]);
-        
-//        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $cutObject);
-//        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>(.*)/", $input_line, $output_array);
-        
+     
 
         //Array tp store all exercises details
-        // [0] - question
-        // [1] - answer
-        // [3] - explanation
-        // [4..] - images
+        //[0] - PagePen
+        //[1] - PagePaper
+        //[2] - number
+        //[3] - question
+        //[4] - answer
+        //[5] - explanation
+        //[6..] - images
         $exercise = array();
         
         $output = NULL;
@@ -40,23 +41,62 @@ for($p=0;$p<$pages;$p++){ //Page $p
         if($output != NULL){
             echo '<br/> YES';
             preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
-            array_push($exercise, $QA[3], $QA[5]);
+            array_push($exercise, $p, $p+1, $object, $object+1, $QA[3], $QA[5]);
             
+            
+            //check images and add them to exercise
+            $img = NULL;
+            $elem = $object; $elem++;
+            preg_match("/^\s{0,}<img src=(.*)/", $pdf_arrey[$p][$elem], $img);
+            
+            while($img != NULL){
+                $object = $elem;
+                array_push($exercise, $pdf_arrey[$p][$elem]);
+                $elem++;
+                
+                $img = NULL;
+                if($elem < $exeCountInPage){
+                    preg_match("/^\s{0,}<img src=(.*)/", $pdf_arrey[$p][$elem], $img);
+                }
+            }
+           
             print_r($exercise);
-            //check images
         }
         else{
-            echo '<br/> NO';
-            preg_match("/^\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
-//            array_push($exercise, $QA[3], $QA[5]);
+            $renew = substr_count($pdf_arrey[$p][$object], '**RENEW**');
+            $img = substr_count($pdf_arrey[$p][$object], '<img src=');
+            if($renew == 0 && $img == 0){
+                echo '<br/> NO';
+//              preg_match("/^\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
+                array_push($exercise, $p, $p+1, $object, $object+1, $pdf_arrey[$p][$object], '');
             
-            print_r($QA);
-            //check images
+                //check images and add them to exercise
+                $img = NULL;
+                $elem = $object; $elem++;
+                preg_match("/^\s{0,}<img src=(.*)/", $pdf_arrey[$p][$elem], $img);
+
+                while($img != NULL){
+                    $object = $elem;
+                    array_push($exercise, $pdf_arrey[$p][$elem]);
+                    $elem++;
+
+                    $img = NULL;
+                    if($elem < $exeCountInPage){
+                        preg_match("/^\s{0,}<img src=(.*)/", $pdf_arrey[$p][$elem], $img);
+                    }
+
+
+                }
+                
+                print_r($exercise);
+                //check images
+            }
+
         }
     }
 }
 
-function getExerciseDetails(){
+function getImages(){
     
 }
     

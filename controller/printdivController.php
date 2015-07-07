@@ -12,7 +12,18 @@ $pdf_array = $_SESSION['pdf_array'];
 
 <div class="large-12">
     <div id="divi" class="large-12">
+        <label>File Name: <?php echo $_SESSION['filename']; ?></label>
+        <div class="large-4 medium-4 small-4 columns">
+            <label>Page Name</label>
+            <div id="pName" class="panel" contentEditable=true data-ph="Insert Page Name" style="padding: 0px; height: 30px">
+                <?php
+                    if(isset($_SESSION['pageinfo'][$cur_page])){
+                        print_r($_SESSION['pageinfo'][$cur_page]);
+                    }
+                ?>
+            </div>
 
+        </div>
     <?php
     if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
         //Print page by page
@@ -28,7 +39,7 @@ $pdf_array = $_SESSION['pdf_array'];
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                 . ' draggable="true" ondragstart="drag(event)"'
                         . 'class="large-6 medium-6 columns" id="pid"  '
-                        . 'style="background: #000080; margin-bottom: 1.25rem; float:left"/>';
+                        . 'style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
                 $p++;
             }            
             else{

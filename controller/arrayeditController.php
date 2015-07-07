@@ -10,8 +10,11 @@ session_start();
 
 $pageArray = $_POST['page'];
 $direction = $_POST['direction'];
+$pageInfo = $_POST['pageinfo'];
 
 $cur_page = $_SESSION['cur_page'];
+
+$_SESSION['pageinfo'][$cur_page] = $pageInfo;
 
 $count;
 //How match need to be deleted

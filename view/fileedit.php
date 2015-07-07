@@ -3,6 +3,7 @@ session_start();
  unset($_SESSION['exSeperator']);
  unset($_SESSION['filename']);
  unset($_SESSION['direction']);
+ unset($_SESSION['pageinfo']);
 
 /* 
  * 
@@ -25,6 +26,8 @@ $_SESSION['direction']='next';
     //From filelist.php when the file is open
 $_SESSION['filename'] = $_POST['fName'];
 $_SESSION['exSeperator']= $_POST['exSep'];
+
+$_SESSION['pageinfo'] = '';
 
 ?>
 <!--<head>

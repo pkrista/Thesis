@@ -138,6 +138,7 @@ function loadXMLDoc() {
  */
 function getalldataTosend(direction){  
     var pageArray = [];
+    var pageInfo = '';
 //    var element = $( this );
 //    pageArray.push(element.html());
    
@@ -182,16 +183,20 @@ function getalldataTosend(direction){
                 pageArray.push(element.html());
             }
         }
+        if(element.is('#pName')){
+            pageInfo = element.text();            
+        }
         
       });
     
-    
+    console.log(pageArray);
+    console.log(pageInfo);
     
     $.ajax({
         async: true,
         method: 'post',
         url: 'controller/arrayeditController.php',
-        data: { page: pageArray, direction: direction}
+        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
       })
         .success(function( msg ) {
           loadPageofHTML();
@@ -304,7 +309,9 @@ function saveData(){
 
 $(window).resize(function() {
 
-  if ($(this).width() < 500) {
+    console.log($(window).width());
+
+  if ($(window).width() < 800) {
     $('#divi').find("img").each(function( index ) {
         var element = $( this );
         element.css({"max-width":"100%"});
