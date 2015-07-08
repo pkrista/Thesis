@@ -14,6 +14,7 @@ $pageInfo = $_POST['pageinfo'];
 
 $cur_page = $_SESSION['cur_page'];
 
+//Put page name in page name list
 $_SESSION['pageinfo'][$cur_page] = $pageInfo;
 
 $count;

@@ -4,6 +4,7 @@ session_start();
  unset($_SESSION['filename']);
  unset($_SESSION['direction']);
  unset($_SESSION['pageinfo']);
+ unset($_SESSION['fileId']);
 
 /* 
  * 
@@ -13,6 +14,7 @@ session_start();
 
 $fileName = $_POST['fName'];
 $exerSeperator = $_POST['exSep'];
+$fileId = $_POST['fileId'];
     
     //$pdf_array = $_SESSION['pdf_array'];
     //$pages_count = $_SESSION['pages_count'];
@@ -26,6 +28,7 @@ $_SESSION['direction']='next';
     //From filelist.php when the file is open
 $_SESSION['filename'] = $_POST['fName'];
 $_SESSION['exSeperator']= $_POST['exSep'];
+$_SESSION['fileId'] = $_POST['fileId'];
 
 $_SESSION['pageinfo'] = '';
 

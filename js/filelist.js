@@ -5,8 +5,9 @@
  */
 
 
-function setExerciseSeperator(fileName) {
+function setExerciseSeperator(fileName, fileId) {
 
+    
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
 
     var elem = document.getElementById('filesListandupload');
@@ -16,7 +17,7 @@ function setExerciseSeperator(fileName) {
         async: true,
         method: 'post',
         url: 'view/fileedit.php',
-        data: { fName: fileName, exSep: exerSeperator}
+        data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
       })
         .success(function( msg ) {
             var result = msg;
@@ -139,29 +140,6 @@ function loadXMLDoc() {
 function getalldataTosend(direction){  
     var pageArray = [];
     var pageInfo = '';
-//    var element = $( this );
-//    pageArray.push(element.html());
-   
-//    $('#divi').find("img").each(function( index ) {
-////    $('#pid').each(function( index ){
-//        
-//        var element = $( this );
-//        if(element.is('.dddP') && $( this ).is(":visible") ){
-//            var image = '<img src="'+(element.attr("src"))+'"';
-////            pageArray.push(image);
-//        }
-//
-//    });
-
-//console.log($('#divi').html());
-    
-//    $('#divi').find("div").each(function( index ) {
-//        var element = $( this );
-//        
-//        if(element.is('#qid')){
-//        }
-//    });
-    
 
     $( '#divi' ).find('img, div').each(function( index ) {
         var element = $( this );
@@ -189,8 +167,8 @@ function getalldataTosend(direction){
         
       });
     
-    console.log(pageArray);
-    console.log(pageInfo);
+//    console.log(pageArray);
+//    console.log(pageInfo);
     
     $.ajax({
         async: true,
@@ -205,9 +183,8 @@ function getalldataTosend(direction){
 }
 
 function loadPageofHTML(){
-//    $("#divi").load('controller/printdivController.php');
     $("#eeee").load('controller/printdivController.php');
-//    $("#divi").load('view/fileedit.php');
+
 }
 
 
@@ -228,25 +205,6 @@ function saveData(){
     var pageArray = [];
     var direction = 'next';
     
-//    $('#divi').find("img").each(function( index ) {
-////    $('#pid').each(function( index ){
-//        alert('Pictures that are not connected t excersises will not be saved');
-////        var element = $( this );
-////        if(element.is('.dddP') && $( this ).is(":visible") ){
-////            var image = '<img src="'+(element.attr("src"))+'"';
-////            pageArray.push(image);
-////        }
-//
-//    });
-//    
-//    $('#divi').find("div").each(function( index ) {
-//        var element = $( this );
-//        
-//        if(element.is('#qid')){
-//            // get everyting from div question in html format and put in array
-//            pageArray.push(element.html());
-//        }
-//    });
 
     $( '#divi' ).find('img, div').each(function( index ) {
         var element = $( this );
@@ -267,6 +225,9 @@ function saveData(){
                 pageArray.push(element.html());
             }
         }
+        if(element.is('#pName')){
+            pageInfo = element.text();            
+        }
         
       });
     console.log('Saving Data aray');
@@ -277,13 +238,13 @@ function saveData(){
         async: true,
         method: 'post',
         url: 'controller/arrayeditController.php',
-        data: { page: pageArray, direction: direction}
+        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
       })
         .success(function( msg ) {
 //          console.log(msg);
           console.log('did it');
 //            window.location.reload();
-//            $("#eeee").load('controller/savefileController.php');
+            $("#eeee").load('controller/savefileController.php');
 
         });
     
@@ -309,20 +270,19 @@ function saveData(){
 
 $(window).resize(function() {
 
-    console.log($(window).width());
-
-  if ($(window).width() < 800) {
-    $('#divi').find("img").each(function( index ) {
-        var element = $( this );
-        element.css({"max-width":"100%"});
-    });
-
-  } else {
-    $('#divi').find("img").each(function( index ) {
-        var element = $( this );
-        element.css({"max-width":"40%"});
-    });
-
+var width = $(window).width();
+    
+    if (width < 600) {
+        $("#divi").find( "img" ).css({
+          "background-color": "red",
+          "max-width": "100%",
+        });
+    }
+    else {
+        $( '#divi').find( "img" ).css({
+        "background-color": "blue",
+        "max-width": "50%",
+        });
     }
 });
 
@@ -361,3 +321,4 @@ $(window).resize(function() {
 //    console.log(nextElement.tagName);
   
 }
+

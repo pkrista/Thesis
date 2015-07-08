@@ -7,21 +7,43 @@ session_start();
  */
 
 include_once '../config/theasisDB.php';
+$db = new theasisDB();
+    
 $filename = $_SESSION['filename'];
 $pdf_arrey = $_SESSION['pdf_array'];
+$pageInfo = $_SESSION['pageinfo'];
+
 $page_nr = 0;
 $pages = count($pdf_arrey, 0);
 
 print_r($pdf_arrey);
 echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 
+//First store all pages in page entity
+//Second store exercises
+
+$sql = "SELECT File_ID FROM File WHERE Name='".$filename."'";
+    foreach ($db->query($sql) as $row)
+    {
+        $fileID = $row['File_ID'];
+    }
+    echo $fileID;
 
 
 for($p=0;$p<$pages;$p++){ //Page $p
 
+    //First I will insert current page
+    //- find file name
+    
+    //collect all necesary info for current page
    $pageInfo = array();
    array_push($pageInfo, $p, $p+1);
+   
+   //INSERT INTO table_name (col1, col2,...) VALUES ('val1', 'val2'...);
+   //SELECT LAST_INSERT_ID();
     
+   
+   
     $exeCountInPage = count($pdf_arrey[$p]);
     for($object=0;$object<$exeCountInPage;$object++){
      

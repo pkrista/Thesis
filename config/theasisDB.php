@@ -13,7 +13,7 @@ class theasisDB extends PDO{
         try {
             $conn = new PDO('mysql:host=localhost;dbname=theasis', 'root', '');
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            print 'connected to db <br>';
+//            print 'connected to db <br>';
         } catch(PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }

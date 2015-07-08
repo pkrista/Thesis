@@ -9,13 +9,52 @@
 }
 
 
+/*-------------------------
+    General Styles
+--------------------------*/
+
+
+a, a:visited {
+    outline:none;
+    color:#389dc1;
+}
+
+a:hover{
+    text-decoration:none;
+}
+
+section, footer, header, aside{
+    display: block;
+}
+
+
 /*----------------------------
     The file upload form
 -----------------------------*/
 
+
+#upload{
+    font-family:'PT Sans Narrow', sans-serif;
+
+    width:100%;
+    max-width: 250px;
+    padding:10px;
+    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 #drop{
+
     padding: 40px 50px;
+    margin-bottom: 5px;
+    border: 20px solid rgba(0, 0, 0, 0);
+
     text-align: center;
+    text-transform: uppercase;
+
+    font-size:16px;
+    font-weight:bold;
+
 }
 
 #drop input{
@@ -25,16 +64,16 @@
 #upload ul{
     list-style:none;
     margin:0 -30px;
-    border-top:1px solid #2b2e31;
-    border-bottom:1px solid #3d4043;
+/*    border-top:1px solid #2b2e31;
+    border-bottom:1px solid #3d4043;*/
 }
 
 #upload ul li{
 
-    border-top:1px solid #3d4043;
-    border-bottom:1px solid #2b2e31;
+/*    border-top:1px solid #3d4043;
+    border-bottom:1px solid #2b2e31;*/
     padding:2px;
-    height: 54px;
+    height: 58px;
 
     position: relative;
 }
@@ -44,29 +83,34 @@
 }
 
 #upload ul li p{
+    width: 144px;
     overflow: hidden;
+    white-space: nowrap;
+    font-size: 16px;
     position: absolute;
-    left: 30%;
+    top: 20px;
+    left: 100px;
 }
 
 #upload ul li i{
-    color:#7f7f7f;
+    font-weight: normal;
+    font-style:normal;
     display:block;
 }
 
 #upload ul li canvas{
-    left: 5%;
+    top: 15px;
+    left: 32px;
     position: absolute;
 }
 
 #upload ul li span{
-    height: 12px;
     width: 15px;
-    
+    height: 12px;
     background: url('../img/icons.png') no-repeat;
     position: absolute;
     top: 50%;
-    right: 5%;
+    right: 10%;
     cursor:pointer;
 }
 

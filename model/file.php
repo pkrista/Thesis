@@ -2,14 +2,14 @@
 
 //Things to store about 
     class File {  
-        public $title;  
-        public $author;  
-        public $date;  
+        public $title;   
+        public $date; 
+        public $id;
           
-        public function __construct($title, $author, $date)    
+        public function __construct($title, $date, $id)    
         {    
             $this->title = $title;  
-            $this->author = $author;  
             $this->date = $date;  
+            $this->id = $id;
         }   
     }  

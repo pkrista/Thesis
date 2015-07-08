@@ -38,7 +38,7 @@ $pdf_array = $_SESSION['pdf_array'];
                 echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                 . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                 . ' draggable="true" ondragstart="drag(event)"'
-                        . 'class="large-6 medium-6 columns" id="pid"  '
+                        . 'class="columns" id="pid"  '
                         . 'style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
                 $p++;
             }            
@@ -94,7 +94,7 @@ $pdf_array = $_SESSION['pdf_array'];
                     echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                     . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
                     . ' draggable="true" ondragstart="drag(event)"'
-                            . 'class="large-6 medium-6 columns" id="pid"  '
+                            . 'class="large-6 columns" id="pid"  '
                             . 'style="background: #000080; margin-bottom: 1.25rem"/>';
                     $p++;
                 }      
@@ -157,6 +157,7 @@ $pdf_array = $_SESSION['pdf_array'];
 </div>
 
 <?php
+
 //http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
 function substr_startswith($haystack, $needle) {
     return substr($haystack, 0, strlen($needle)) === $needle;

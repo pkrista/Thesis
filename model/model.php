@@ -30,7 +30,7 @@
 
         }
         
-        public function getFileList()
+        public function getFileList12()
         {  
 //            // here goes some hardcoded values to simulate the database  
 //            return array(  
@@ -48,28 +48,38 @@
                 
                 if ($fileinfo->isFile()) {
                     $name = $fileinfo->getFilename();
-                    $date = date("M/D/Y", $fileinfo->getMTime());
+                    $date = date("d/m/Y", $fileinfo->getMTime());
                     $isreadable = $fileinfo->isReadable();
                     $arr[] = new File($name, $date, $isreadable);
                 }
             }
+            
+            selectAllFiles();
+            
             #http://php.net/manual/en/language.types.array.php
             return $arr;
 
             
         }  
          
-
+        function getFileList(){
+            include_once 'config/theasisDB.php';
+            $db = new theasisDB();
             
-
-
-//        public function getBook($title)  
-//        {  
-//            // we use the previous function to get all the books and then we return the requested one.  
-//            // in a real life scenario this will be done through a db select command  
-//            $allBooks = $this->getBookList();  
-//            return $allBooks[$title];  
-//        }  
+            $sql = "SELECT * FROM File";
+            foreach ($db->query($sql) as $row)
+                {
+                    $name = $row['Name'];
+                    $date = $row['Date'];
+                    $id = $row['File_ID'];
+                    
+                    $arrFile[] = new File($name, $date, $id);
+                }
+                
+                return $arrFile;
+            
+        }
+            
           
           
     } 

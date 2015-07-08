@@ -9,15 +9,17 @@
 #http://php.net/manual/en/features.file-upload.post-method.php
 #http://www.w3schools.com/php/php_file_upload.asp
 
-include_once '../config/theasisDB.php';
+
+
 
 $my_folder = "C:/xampp/htdocs/ThesisProject/uploads/";
 
 if($_FILES["file"]["tmp_name"]){
     copy($_FILES["file"]["tmp_name"],$my_folder.$_FILES["file"]["name"]);
     
-    echo "File uploaded.";
+//    echo "File uploaded.";
     $countFiles = 0;
+    include_once '../config/theasisDB.php';
     $db = new theasisDB();
     $sql = "SELECT * FROM File WHERE Name='".$_FILES["file"]["name"]."'";
     foreach ($db->query($sql) as $row)
