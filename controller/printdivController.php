@@ -18,10 +18,9 @@ $pdf_array = $_SESSION['pdf_array'];
             <div id="pName" class="panel" contentEditable=true data-ph="Insert Page Name" style="padding: 0px; height: 30px">
                 <?php
                     if(isset($_SESSION['pageinfo'][$cur_page])){
-                        print_r($_SESSION['pageinfo'][$cur_page]);
+                        echo($_SESSION['pageinfo'][$cur_page]);
                     }
-                ?>
-            </div>
+                ?></div>
 
         </div>
     <?php

@@ -244,7 +244,7 @@ function saveData(){
 //          console.log(msg);
           console.log('did it');
 //            window.location.reload();
-            $("#eeee").load('controller/savefileController.php');
+//            $("#eeee").load('controller/savefileController.php');
 
         });
     

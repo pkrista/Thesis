@@ -27,7 +27,8 @@ if($_FILES["file"]["tmp_name"]){
         $countFiles++;
     }
     if($countFiles==0){
-        $sqlInsertFile = "INSERT INTO File(Name) VALUES ('".$_FILES["file"]["name"]."')";
+        $date = date('Y-m-d H:i:s');
+        $sqlInsertFile = "INSERT INTO File(Name) VALUES ('".$_FILES["file"]["name"]." ')";
         if ($db->query($sqlInsertFile)) {
             echo "New record created successfully";
         } else {
