@@ -322,3 +322,24 @@ var width = $(window).width();
   
 }
 
+/*
+ * For dropdowm
+ */
+
+function openExplDiv(elem){
+    var nextElement = elem.nextElementSibling;
+    
+    var visibility = nextElement.style.visibility; //visibility to explanation div
+    
+    var children = elem.childNodes[1]; //arrow down/up 
+    
+    if(visibility === 'visible'){
+        nextElement.style.visibility = 'hidden';
+        children.className = 'fi-arrow-down';
+    }
+    else{
+        nextElement.style.visibility = 'visible';
+        children.className = 'fi-arrow-up';
+    }
+
+}

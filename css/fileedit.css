@@ -5,13 +5,9 @@ div.ddh {
 
 div#aid{
     float:right;
-    border: 2px solid #a1a1a1;
-    border-radius: 25px;
-
-    width:30%;
-    
+    width:30%;  
     padding: 5px;
-    margin: 10px;
+
 } 
 /*Style for the div where to drop image in the question*/
 div#div1 {   
@@ -23,22 +19,10 @@ div#div1 {
 #pid{
     max-width: 40%;
     max-height: auto;
+    margin-bottom: 2rem;
 }
 
-/*For Big Saving button*/
 
-.btnSave {
-    background-color: greenyellow;
-    float: left;
-    padding: 10px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    
-    width: 100px;
-    height: 100px;
-
-}
 /*Button for deleting div*/
 a#delDiv{
     top: -20px;
