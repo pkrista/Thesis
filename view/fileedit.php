@@ -5,13 +5,16 @@ session_start();
  unset($_SESSION['direction']);
  unset($_SESSION['pageinfo']);
  unset($_SESSION['fileId']);
+ 
+ unset($_SESSION['pages_count']);
+ unset($_SESSION['cur_page']);
 
 /* 
  * 
  * 
  * 
  */    
-
+ 
 $fileName = $_POST['fName'];
 $exerSeperator = $_POST['exSep'];
 $fileId = $_POST['fileId'];

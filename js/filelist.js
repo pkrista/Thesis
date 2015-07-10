@@ -271,7 +271,7 @@ function saveData(){
 $(window).resize(function() {
 
 var width = $(window).width();
-    
+console.log(width);    
     if (width < 600) {
         $("#divi").find( "img" ).css({
           "background-color": "red",
@@ -312,18 +312,11 @@ var width = $(window).width();
         parent.remove();
     } else {
         // the user clicked cancel or closed the confirm dialog.
-    }
-        
-//    console.log(parent.tagName);
-//    
-//    var nextElement = parent.nextElementSibling;
-//    
-//    console.log(nextElement.tagName);
-  
+    } 
 }
 
 /*
- * For dropdowm
+ * For dropdowm explanation
  */
 
 function openExplDiv(elem){

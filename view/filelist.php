@@ -40,7 +40,7 @@
 //
 //                        }  
 
-                        foreach ($files as $title => $file)  
+                        foreach ($filesNew as $title => $file)  
                         {  
 
                             echo '<tr><td><a onclick="setExerciseSeperator(\''.$file->title.'\',\''.$file->id.'\')">'

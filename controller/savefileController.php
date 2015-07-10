@@ -17,7 +17,7 @@ $fileId = $_SESSION['fileId'];
 $page_nr = 0;
 $pages = count($pdf_arrey, 0);
 
-//print_r($pdf_arrey);
+print_r($pdf_arrey);
 echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 
 //First store all pages in page entity
@@ -78,8 +78,10 @@ for($p=0;$p<$pages;$p++){ //Page $p
         $output = NULL;
         preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>/", $pdf_arrey[$p][$object], $output);
         if($output != NULL){
-            preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><div/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
-            array_push($exercise, $lastPageID, $p.$ExeNumberOnPage, $ExeNumberOnPage, $QA[3], $QA[5],'');
+//            preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)</p>/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
+//            preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\\"aid\\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)<\/p>/", $input_line, $output_array);
+            preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)<\/p>/", $pdf_arrey[$p][$object], $QA);
+            array_push($exercise, $lastPageID, $p.$ExeNumberOnPage, $ExeNumberOnPage, $QA[3], $QA[5], $QA[7]);
             
             
             //check images and add them to exercise
@@ -126,38 +128,39 @@ for($p=0;$p<$pages;$p++){ //Page $p
                 }
                 
                 print_r($exercise);
-                //check images
+
             }
 
         }
         
-        //Generate query for exercise
-        $queryInsertExercise = generateQueryExercise($exercise);
-        
-        //Insert in db exercise
-        if ($db->query($queryInsertExercise)) {
-            $lastExeID = $db->lastInsertId(); //Last insert id -> Id for current page
-            echo "New Exercise created successfully ".$lastExeID;  
-   
-            //Insert images
-            $imgObject = 6; // images starts from 6th element
-            while(isset($exercise[$imgObject])){
-                $imgQuery = "INSERT INTO image(src, Exercise_ID) VALUES('".$exercise[$imgObject]."',".$lastExeID.")";
-                
-                if ($db->query($imgQuery)) {
-                    echo "New Image created successfully ";    
-                } else {
-                    echo "Error while uploading Image";
+        if(count($exercise) >0){
+            //Generate query for exercise
+            $queryInsertExercise = generateQueryExercise($exercise);
+
+    //        Insert in db exercise
+            if ($db->query($queryInsertExercise)) {
+                $lastExeID = $db->lastInsertId(); //Last insert id -> Id for current page
+                echo "New Exercise created successfully ".$lastExeID;  
+
+                //Insert images
+                $imgObject = 6; // images starts from 6th element
+                while(isset($exercise[$imgObject])){
+                    $imgQuery = "INSERT INTO image(src, Exercise_ID) VALUES('".$exercise[$imgObject]."',".$lastExeID.")";
+
+                    if ($db->query($imgQuery)) {
+                        echo "New Image created successfully ";    
+                    } else {
+                        echo "Error while uploading Image";
+                    }
+
+                    //increase object search in exercise array
+                    $imgObject++;
                 }
-                
-                //increase object search in exercise array
-                $imgObject++;
-            }
-            
-        } else {
-            echo "Error while uploading Exercise";
-        }
 
+            } else {
+                echo "Error while uploading Exercise";
+            }
+        }
         
         //Make exercise variable +1
         $ExeNumberOnPage++;
@@ -170,7 +173,7 @@ for($p=0;$p<$pages;$p++){ //Page $p
 function generateQueryExercise($exercise){
   
     $query = "INSERT INTO exercise(Page_ID,PaperFieldID,Number,Question,Solution,Explanation)"
-            . "VALUES(".$exercise[0].",".$exercise[1].",'".$exercise[2]."','".$exercise[3]."','".$exercise[4]."','')";
+            . "VALUES(".$exercise[0].",".$exercise[1].",'".$exercise[2]."','".$exercise[3]."','".$exercise[4]."','".$exercise[5]."')";
     
     return $query;
 }

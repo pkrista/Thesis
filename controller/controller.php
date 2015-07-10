@@ -12,7 +12,8 @@ class Controller {
           
     public function invoke()  
     {          
-        $files = $this->model->getFileList();
+        $filesNew = $this->model->getFileList();
+        $filesSaved = $this->model->getFileListSaved();
         include 'view/filelist.php';
         
     }  

@@ -69,11 +69,11 @@ $pdf_array = $_SESSION['pdf_array'];
 //                        . 'contenteditable="true"'
                         . 'style="float: right;"> Answer div </div>'
                         .    '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"
-                                style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i></a>
-                                <div id="dropExplanation" class="large-4 medium-4 columns right" 
-                                style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">
-                                <p>Explanation...</p>
-                                </div>'
+                                style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i></a>'
+                                .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" 
+                                style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
+                                .'<p>Explanation...</p>'
+                                .'</div>'
                         . '<div id="div1" class="dddI" '
                             . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"'
                             . '></div>'
@@ -150,7 +150,7 @@ $pdf_array = $_SESSION['pdf_array'];
                 echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> '
                 . '<button type="submit" id="but" onclick= "return nextPage()" > >> </button> ';
             }
-            if($_SESSION['cur_page'] == $_SESSION['pages_count']){
+            if(($_SESSION['cur_page'] == $_SESSION['pages_count']) && $_SESSION['cur_page'] != 0){
                 echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> ';
             }
             ?>
