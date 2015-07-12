@@ -10,8 +10,7 @@ function setExerciseSeperator(fileName, fileId) {
     
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
 
-    var elem = document.getElementById('filesListandupload');
-    $(elem).hide();
+    hideFileListCont();
     
     $.ajax({
         async: true,
@@ -26,19 +25,57 @@ function setExerciseSeperator(fileName, fileId) {
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
                 loadFileContent();
-                loadPageofHTML();
+//                loadPageofHTML();
         });
 }
 
-function loadFileContent(){
 
+/**
+ * Open Saved file
+ * 
+ */
+
+function openSavedPDF(fileName, fileId){
+    hideFileListCont();
+    
+        $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/getPDFdataFromDB.php',
+        data: { fName: fileName, fileId: fileId}
+      })
+        .success(function( msg ) {
+            var result = msg;
+    //Test
+            console.log(result);
+            console.log("result");
+//            alert(msg);
+//            document.getElementById("filesListandupload").innerHTML = msg;
+//                loadFileContent();
+//                loadPageofHTML();
+            $("#eeee").load('controller/printStoredDivController.php');
+
+        });
+}
+
+/**
+ * load PDF exercises and images into page
+ * 
+ */
+function loadFileContent(){
     $("#eeee").load('controller/printdivController.php');
 
 }
 
 
-
-
+/**
+ * Hide the file list and file upload content
+ * 
+ */
+function hideFileListCont(){
+    var elem = document.getElementById('filesListandupload');
+    $(elem).hide();
+}
 
 /**
  * 
@@ -50,55 +87,6 @@ function loadFileContent(){
  * 
  */
 
-/**
- * To drag and drop elements
- */    
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-//Drop img element to last element in divi div that is other div that stores img
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.lastChild.appendChild(document.getElementById(data));
-    ev.target.style.border = "";
-    
-    //Change images id and class to images that was dregged into question
-    $('#divi').find("img").each(function( index ) {
-        var element = $( this );
-        var par = element.parent();
-        
-        if(par.is('#div1')){
-            element.removeClass('dddP').addClass('dddI');
-            element.prop('id', 'pic1');
-        }
-
-    });
-}
-
-//ON drag enter make object borders in diferent colour
-function dragEnter(event) {
-    if(event.target.className === "ddd" ){
-        var imgDiv = event.target.lastChild;
-        event.target.style.border = "3px dotted red";
-        if(imgDiv.className === "dddI"){
-            imgDiv.style.visibility = "visible";
-        }        
-    }
-}
-
-function dragLeave(ev) {
-    if (ev.target.className === "dddI" || ev.target.className === 'ddd' ) {
-        ev.target.style.border = "";
-        ev.target.parentNode.style.border = "";
-    }
-}
 
 /**
  * To get id of div P - picture A - answer Q - question
@@ -128,10 +116,7 @@ function loadXMLDoc() {
 }
 
 
-////Load first page when open document
-//$( document ).ready(function() {
-//    $("#divi").load('../controller/printdivController.php');
-//});    
+ 
 /**
  * Function tu turn pages and refresh the cintent
  * collect values from div to create new 2d array
@@ -177,7 +162,8 @@ function getalldataTosend(direction){
         data: { page: pageArray, direction: direction, pageinfo: pageInfo}
       })
         .success(function( msg ) {
-          loadPageofHTML();
+//          loadPageofHTML();
+            loadFileContent();
 
         });
 }
@@ -335,4 +321,58 @@ function openExplDiv(elem){
         children.className = 'fi-arrow-up';
     }
 
+}
+
+
+
+
+
+/**
+ * To drag and drop elements
+ */    
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+//Drop img element to last element in divi div that is other div that stores img
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.lastChild.appendChild(document.getElementById(data));
+    ev.target.style.border = "";
+    
+    //Change images id and class to images that was dregged into question
+    $('#divi').find("img").each(function( index ) {
+        var element = $( this );
+        var par = element.parent();
+        
+        if(par.is('#div1')){
+            element.removeClass('dddP').addClass('dddI');
+            element.prop('id', 'pic1');
+        }
+
+    });
+}
+
+//ON drag enter make object borders in diferent colour
+function dragEnter(event) {
+    if(event.target.className === "ddd" ){
+        var imgDiv = event.target.lastChild;
+        event.target.style.border = "3px dotted red";
+        if(imgDiv.className === "dddI"){
+            imgDiv.style.visibility = "visible";
+        }        
+    }
+}
+
+function dragLeave(ev) {
+    if (ev.target.className === "dddI" || ev.target.className === 'ddd' ) {
+        ev.target.style.border = "";
+        ev.target.parentNode.style.border = "";
+    }
 }

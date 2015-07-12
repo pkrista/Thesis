@@ -22,6 +22,8 @@
         <div id="filesListandupload">
         <div class="large-8 medium-8 columns" > 
             <div class="filelist" id="filelist">
+                
+                <h5 class="subheader">Unsaved Files</h4>
                 <table>  
                     <tbody>
                         <tr>
@@ -31,15 +33,7 @@
                         </tr>
                     </tbody>  
                     <?php   
-
-//                        foreach ($files as $title => $file)  
-//                        {  
-//                            echo '<tr><td><a href="view/fileedit.php?name='.$file->title.'">'
-//                                    .$file->title.'</a></td><td>'.$file->author.'</td><td>'
-//                                    .$file->date.'</td></tr>';  
-//
-//                        }  
-
+                        //All files that are not yet saved in the db
                         foreach ($filesNew as $title => $file)  
                         {  
 
@@ -50,6 +44,28 @@
                         }
                     ?>  
                 </table> 
+                
+                <h5 class="subheader">Saved Files</h4>
+                <table>  
+                    <tbody>
+                        <tr>
+                            <td>Title</td>
+                            <td>Date</td>
+                            <td>ID</td>
+                        </tr>
+                    </tbody>  
+                    <?php   
+                    //All already saved files
+                        foreach ($filesSaved as $title => $file)  
+                        {  
+
+                            echo '<tr><td><a onclick="openSavedPDF(\''.$file->title.'\',\''.$file->id.'\')">'
+                                    .$file->title.'</a></td><td>'.$file->date.'</td><td>'
+                                    .$file->id.'</td></tr>';
+
+                        }
+                    ?>  
+                </table>
                 
             </div>
             

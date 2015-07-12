@@ -136,7 +136,7 @@ $pdf_array = $_SESSION['pdf_array'];
     ?>
 
     </div>
-
+    
     <div class="row">
         <div class="large-12 columns">
             <?php
@@ -156,6 +156,7 @@ $pdf_array = $_SESSION['pdf_array'];
             ?>
         </div>
     </div>
+
 </div>
 
 <div class="row">

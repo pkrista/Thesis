@@ -66,7 +66,7 @@
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
             
-            $sql = "SELECT * FROM File";
+            $sql = "select DISTINCT file.* from file, page where file.File_ID != page.File_ID"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
             foreach ($db->query($sql) as $row)
                 {
                     $name = $row['Name'];
@@ -81,7 +81,20 @@
         }
             
         function getFileListSaved(){
+            include_once 'config/theasisDB.php';
+            $db = new theasisDB();
             
+            $sql = "select DISTINCT file.* from file, page where file.File_ID = page.File_ID"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
+            foreach ($db->query($sql) as $row)
+                {
+                    $name = $row['Name'];
+                    $date = $row['Date'];
+                    $id = $row['File_ID'];
+                    
+                    $arrFile[] = new File($name, $date, $id);
+                }
+                
+                return $arrFile;
         }
           
     } 

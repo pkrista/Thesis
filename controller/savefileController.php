@@ -24,8 +24,6 @@ echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 //Second store exercises
 
 for($p=0;$p<$pages;$p++){ //Page $p
-    echo ' Pages count = '.$pages;
-    echo ' NR current = '.$p;
     //First I will insert current page
     
     //select Page Name if it is set
