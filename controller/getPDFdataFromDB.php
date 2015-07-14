@@ -70,7 +70,8 @@ $PDF_array = array();
 //[3] Question
 //[4] Solution
 //[5] Explanation
-//[6] Images
+//[6] Changed - by default false ,if changed then true
+//[7] Images
 
 $query1 = 'select p.Page_ID, p.Name, e.Exercise_ID , e.Question, e.Solution, e.Explanation, '
         . 'IFNULL(i.src, 0) src FROM exercise e '
@@ -81,26 +82,27 @@ $query1 = 'select p.Page_ID, p.Name, e.Exercise_ID , e.Question, e.Solution, e.E
 
 $result1 = $db->query($query1);
 $PrePageID = '';
+$page = 0;
 
 foreach ($result1 as $value) {
     
-    if($PrePageID == '' || ($value[0] == $PrePageID)){
+    if($PrePageID != '' && ($value[0] != $PrePageID)){
 
-    array_push($exercise_array, $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], $value[6]);
-    array_push($page_array, $exercise_array);
-    $exercise_array = array();
-    
-    $PrePageID = $value[0];
-    }
-    else {
-        array_push($PDF_array, $page_array);
+        $page++;
         $page_array = array();
-
-        $PrePageID = $value[0];
-       } 
+    }
+       
+       array_push($exercise_array, $value[0], $value[1], $value[2], $value[3], $value[4], $value[5], 'false', $value[6]);
+       array_push($page_array, $exercise_array);
+       $exercise_array = array();
+       
+       $PDF_array[$page] = $page_array;
+       
+       $PrePageID = $value[0];
 }
 
 //Set session variable (2d array)
 $_SESSION['pdf_array'] = $PDF_array;
 
 print_r($PDF_array);
+echo 'get saved pdf data';

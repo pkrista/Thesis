@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/xampp/htdocs/ThesisProject/controller/controller.php</file>
             <file>file:/C:/xampp/htdocs/ThesisProject/view/filelist.php</file>
-            <file>file:/C:/xampp/htdocs/ThesisProject/controller/savefileController.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/printStoredDivController.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/js/filelist.js</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/printdivController.php</file>
             <file>file:/C:/xampp/htdocs/ThesisProject/model/model.php</file>
+            <file>file:/C:/xampp/htdocs/ThesisProject/controller/getPDFdataFromDB.php</file>
         </group>
     </open-files>
 </project-private>

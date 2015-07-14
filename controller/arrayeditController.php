@@ -68,3 +68,4 @@ else{
     }
 }
 
+print_r($_SESSION['pdf_array']);

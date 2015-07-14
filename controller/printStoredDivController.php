@@ -8,8 +8,11 @@ $page_count = $_SESSION['pages_count'];
  * 
  * 
  */
+echo 'Current page: ' . $cur_page;
+echo 'Pages count: '. $page_count;
 ?>
 
+<script type="text/javascript" src="js/print_edit.js"></script>
 <script>
 //    $('#qid').bind("DOMSubtreeModified",function(){
 //  alert('changed');
@@ -27,11 +30,25 @@ function test(){
 
 
 
+
 <div class="large-12">
+    <div id="divi" class="large-12">
+        <label>File Name: <?php echo $_SESSION['filename']; ?></label>
+        <div class="large-4 medium-4 small-4 columns">
+            <label>Page Name</label>
+            <div id="pName" class="panel" contentEditable=true 
+                 data-changed="false" oninput="dataChganged(this)"
+                 style="padding: 0px; height: 30px"><?php
+                    if(isset($_SESSION['pdf_array'][$_SESSION['cur_page']][0][1])){
+                        echo($_SESSION['pdf_array'][$_SESSION['cur_page']][0][1]);
+                    }
+                ?></div>
+
+        </div>
     <?php
-    for($p=0;$p<$page_count;$p++){ //$p page
-        if(isset($pdf_array[$p])){
-            $exeInPage = count($pdf_array[$p]);
+        if(isset($pdf_array[$_SESSION['cur_page']])){
+            $exeInPage = count($pdf_array[$_SESSION['cur_page']]);
+            $preExerciseID = 0;
             for($e=0;$e<$exeInPage;$e++){
                 //[0] Page_ID
                 //[1] Page_name
@@ -39,52 +56,66 @@ function test(){
                 //[3] Question
                 //[4] Solution
                 //[5] Explanation
-                //[6] Images
+                //[6] Changed
+                //[7] Images
 
-                $id = $p.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
-                echo '<br><div id="qid" class="large-12 columns callout panel" data-id="Q'.$id.'" '
-                        . 'contenteditable="true" data-combined="" id="I'.$p.'" '
-                        . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
-                        . $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3]
-                        . '<div id="aid" class="large-4 medium-4 columns callout panel" data-id="A'.$id.'" '
-                              . 'style="float: right;"> Answer div </div>'
-                              .    '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"
-                                      style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i></a>'
-                                      .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" 
-                                      style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
-                                      .'<p>Explanation...</p>'
-                                      .'</div>'
-                              . '<div id="div1" class="dddI" '
-                                  . 'ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"'
-                                  . '></div>'
-                              . '</div> ';
-                echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][6]
-                . ' data-id ="P'.$id.'" onclick="myFunction(this)"'
-                . ' draggable="true" ondragstart="drag(event)"'
-                        . 'class="columns" id="pid"  '
-                        . 'style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
+                //If current ex id is the same as previous then it means that exercise has two or more images
+                if($preExerciseID == 0 || $preExerciseID != $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2]){
+                    $id = $e.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
+                    echo '<br><div id="qid" class="large-12 columns callout panel" '
+                                .'data-id="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2].'" '
+                                .'contenteditable="true" data-combined="" '
+                                .'oninput="dataChganged(this)" '
+                                .'data-changed="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][6].'"'
+                                .'style="padding-right: 0.2rem; padding-bottom: 0rem;" > '
+                                    . $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3]
+                                .'<div id="aid" class="large-4 medium-4 columns callout panel" data-id="A'.$id.'" style="float: right;">'
+                                    .$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][4]
+                                .'</div>'
+                                .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
+                                      .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
+                                .'</a>' 
+                                .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
+                                    .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
+                                    .'<p>'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][5].'</p>'
+                                .'</div>'
+                            .'</div> ';
+                    echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
+                                .' data-id ="P'.$id.'" onclick="myFunction(this)"'
+                                .' class="columns" id="pid"  '
+                                .' style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
+                
+                    $preExerciseID = $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2];
+                }
+                else{
+                    echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
+                                .' data-id ="P'.$id.'" onclick="myFunction(this)"'
+                                .' class="columns" id="pid"  '
+                                .' style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
+                }
             } 
         }
-    }
-    
+
     
     
     ?>
+    </div>
+    
     <div class="row">
         <div class="large-12 columns">
             <?php
 
             // To change pages
             echo '<br>';
-            if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
-                echo '<button type="submit" id="but" onclick= "nextPage()" > >> </button> ';
+            if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
+                echo '<button type="submit" id="but" onclick= "nextPage1()" > >> </button> ';
             }
-            if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']){
-                echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> '
-                . '<button type="submit" id="but" onclick= "return nextPage()" > >> </button> ';
+            if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
+                echo '<button type="submit" id="but" onclick= "return prePage1()" > << </button> '
+                . '<button type="submit" id="but" onclick= "return nextPage1()" > >> </button> ';
             }
-            if(($_SESSION['cur_page'] == $_SESSION['pages_count']) && $_SESSION['cur_page'] != 0){
-                echo '<button type="submit" id="but" onclick= "return prePage()" > << </button> ';
+            if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
+                echo '<button type="submit" id="but" onclick= "return prePage1()" > << </button> ';
             }
             ?>
         </div>
@@ -96,7 +127,7 @@ function test(){
 <div class="row">
     <div class="large-12 columns">
         <?php
-        echo '<button type="submit" class="medium success button" id="btnSave" onclick= "return saveData()" > Save </button> ';
+        echo '<button type="submit" class="medium success button" id="btnSave" onclick= "return saveChangesInDB()" > Save </button> ';
         ?>
     </div>
 </div>

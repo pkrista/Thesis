@@ -13,7 +13,7 @@ $filename = $_SESSION['filename'];
 
 $path = "../uploads/".$filename;
 //$command = "i.py $path";
-$command = "itest.py $path";
+$command = "itest.py $path $filename";
 
 $pid = popen($command,"r");
 

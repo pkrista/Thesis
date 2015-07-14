@@ -7,6 +7,8 @@ $pdf_array = $_SESSION['pdf_array'];
  *
  *
  */
+echo 'Current page: ' . $cur_page;
+echo 'Pages count: '. $_SESSION['pages_count'];
 ?>
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 <!--Css for foundation icons-->
@@ -17,8 +19,8 @@ $pdf_array = $_SESSION['pdf_array'];
         <label>File Name: <?php echo $_SESSION['filename']; ?></label>
         <div class="large-4 medium-4 small-4 columns">
             <label>Page Name</label>
-            <div id="pName" class="panel" contentEditable=true data-ph="Insert Page Name" style="padding: 0px; height: 30px">
-                <?php
+            <div id="pName" class="panel" contentEditable=true data-ph="Insert Page Name" 
+                 style="padding: 0px; height: 30px"><?php
                     if(isset($_SESSION['pageinfo'][$cur_page])){
                         echo($_SESSION['pageinfo'][$cur_page]);
                     }

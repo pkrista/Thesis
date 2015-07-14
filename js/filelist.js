@@ -46,9 +46,9 @@ function openSavedPDF(fileName, fileId){
       })
         .success(function( msg ) {
             var result = msg;
-    //Test
+
             console.log(result);
-            console.log("result");
+            console.log("Array");
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
 //                loadFileContent();
@@ -162,16 +162,17 @@ function getalldataTosend(direction){
         data: { page: pageArray, direction: direction, pageinfo: pageInfo}
       })
         .success(function( msg ) {
+            console.log(msg);
 //          loadPageofHTML();
             loadFileContent();
 
         });
 }
 
-function loadPageofHTML(){
-    $("#eeee").load('controller/printdivController.php');
-
-}
+//function loadPageofHTML(){
+//    $("#eeee").load('controller/printdivController.php');
+//
+//}
 
 
 
@@ -227,7 +228,7 @@ function saveData(){
         data: { page: pageArray, direction: direction, pageinfo: pageInfo}
       })
         .success(function( msg ) {
-//          console.log(msg);
+          console.log(msg);
           console.log('did it');
 //            window.location.reload();
 //            $("#eeee").load('controller/savefileController.php');
@@ -257,7 +258,7 @@ function saveData(){
 $(window).resize(function() {
 
 var width = $(window).width();
-console.log(width);    
+//console.log(width);    
     if (width < 600) {
         $("#divi").find( "img" ).css({
           "background-color": "red",
