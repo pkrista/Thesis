@@ -19,13 +19,17 @@ function dataChganged(object){
 
 //To change pages
 function nextPage1(){
-    alert('got it');
     getalldataTosend('next','page');
 }
 //To change pages
 function prePage1(){
-    alert('got it');
     getalldataTosend('pre','page');
+}
+
+//To save data in the db
+function saveChangesInDB(){
+    alert('start saving changes');
+    getalldataTosend('','save');
 }
 
 /**
@@ -84,9 +88,8 @@ function getalldataTosend(direction, status){
             data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
           })
             .success(function( msg ) {
-                console.log('editSavedArrayController');
                 console.log(msg);
-                    loadFileContent('printStoredDivController.php');
+                    loadFileContent();
             });
     }
     if(status === 'save'){
@@ -98,23 +101,21 @@ function getalldataTosend(direction, status){
         data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
         })
          .success(function( msg ) {
-            console.log('editSavedArrayController');
             console.log(msg);
-            loadFileContent('updateExercisesPDFDB.php')   
+            saveLoadFileContent()   
         });
         
 //        window.location.reload();
     }
 }
 
-function loadFileContent(file){ //Next page or update changed exercises in DB
-    $("#eeee").load('controller/'+file);
-
+//Next page or Pre page
+function loadFileContent(){ 
+    $("#eeee").load('controller/printStoredDivController.php');
 }
 
-
-function saveChangesInDB(){
-    alert('start saving changes');
-    getalldataTosend('','save');
-    con
+//update changed exercises in DB
+function saveLoadFileContent(){ 
+    $("#eeee").load('controller/updateExercisesPDFDB.php');
+    $("#eeee").load('controller/printStoredDivController.php');
 }

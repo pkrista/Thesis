@@ -62,9 +62,19 @@ function test(){
                 //If current ex id is the same as previous then it means that exercise has two or more images
                 if($preExerciseID == 0 || $preExerciseID != $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2]){
                     $id = $e.'_'.$_SESSION['cur_page'].'_'.$_SESSION['filename'];
+                    
+                    if(substr_startswith($_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3], '**PREpage**')){
+                        $combined = 'yes';
+                        // cut the **PREpage** off
+                        $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3] = substr($_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3], 11); // **PREpage**
+                    }
+                    else{
+                        $combined = 'no';
+                    }
+                    
                     echo '<br><div id="qid" class="large-12 columns callout panel" '
                                 .'data-id="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2].'" '
-                                .'contenteditable="true" data-combined="" '
+                                .'contenteditable="true" data-combined="'.$combined.'" '
                                 .'oninput="dataChganged(this)" '
                                 .'data-changed="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][6].'"'
                                 .'style="padding-right: 0.2rem; padding-bottom: 0rem;" > '
@@ -80,12 +90,17 @@ function test(){
                                     .'<p>'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][5].'</p>'
                                 .'</div>'
                             .'</div> ';
-                    echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
+                    
+                    //If picture is 0 then there is no picture
+                    if($_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7] != '0'){
+                        echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
                                 .' data-id ="P'.$id.'" onclick="myFunction(this)"'
                                 .' class="columns" id="pid"  '
                                 .' style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
-                
+                    }
+                    
                     $preExerciseID = $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2];
+                    
                 }
                 else{
                     echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
