@@ -3,23 +3,28 @@ div.ddh {
     display: none;
 }
 
-div#aid{
+/*div#aid{
     float:right;
     width:30%;  
     padding: 5px;
-
-} 
+} */
 /*Style for the div where to drop image in the question*/
-div#div1 {   
+/*div#div1 {   
     max-width: 350px;
     max-height: 350px;
     visibility: hidden;
-}
+}*/
 /*Style for images*/
 #pid{
     max-width: 40%;
     max-height: auto;
+    min-height: 10px;
     margin-bottom: 2rem;
+}
+
+#dropExplanation{
+    max-height: auto;
+    min-height: 10px;
 }
 
 

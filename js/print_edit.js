@@ -57,7 +57,8 @@ function getalldataTosend(direction, status){
             
 //          put mark that exercise is combined with one in previous page
             if(element.data("combined") === 'yes'){
-                elQuestion = '**PREpage**'+element.text();
+                elQuestion = '**PREpage**'+elQuestion;
+//                console.log("combined YEs and stored");
             }
             
             exerciseArray.push(elID, elQuestion, elAnswer, elExplanation);
@@ -89,7 +90,7 @@ function getalldataTosend(direction, status){
           })
             .success(function( msg ) {
                 console.log(msg);
-                    loadFileContent();
+                loadFileContent();
             });
     }
     if(status === 'save'){

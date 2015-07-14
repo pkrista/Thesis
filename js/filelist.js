@@ -24,7 +24,7 @@ function setExerciseSeperator(fileName, fileId) {
         console.log(result);
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
-                loadFileContent();
+                loadFileContent('printdivController.php');
 //                loadPageofHTML();
         });
 }
@@ -45,26 +45,16 @@ function openSavedPDF(fileName, fileId){
         data: { fName: fileName, fileId: fileId}
       })
         .success(function( msg ) {
-            var result = msg;
-
-            console.log(result);
-            console.log("Array");
-//            alert(msg);
-//            document.getElementById("filesListandupload").innerHTML = msg;
-//                loadFileContent();
-//                loadPageofHTML();
+            loadFileContent('printStoredDivController.php');
             $("#eeee").load('controller/printStoredDivController.php');
-
         });
 }
 
 /**
  * load PDF exercises and images into page
- * 
  */
-function loadFileContent(){
-    $("#eeee").load('controller/printdivController.php');
-
+function loadFileContent(file){
+    $("#eeee").load('controller/'+file);
 }
 
 
@@ -110,10 +100,10 @@ function myFunction(object) {
 }
 
     
-function loadXMLDoc() {
-    //Thete needs to be function to store array everytime change pages
-    document.write('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-}
+//function loadXMLDoc() {
+//    //Thete needs to be function to store array everytime change pages
+//    document.write('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
+//}
 
 
  
@@ -163,16 +153,10 @@ function getalldataTosend(direction){
       })
         .success(function( msg ) {
             console.log(msg);
-//          loadPageofHTML();
             loadFileContent();
 
         });
 }
-
-//function loadPageofHTML(){
-//    $("#eeee").load('controller/printdivController.php');
-//
-//}
 
 
 
@@ -229,7 +213,6 @@ function saveData(){
       })
         .success(function( msg ) {
           console.log(msg);
-          console.log('did it');
 //            window.location.reload();
 //            $("#eeee").load('controller/savefileController.php');
 
@@ -261,14 +244,14 @@ var width = $(window).width();
 //console.log(width);    
     if (width < 600) {
         $("#divi").find( "img" ).css({
-          "background-color": "red",
-          "max-width": "100%",
+//          "background-color": "red",
+          "max-width": "100%"
         });
     }
     else {
         $( '#divi').find( "img" ).css({
-        "background-color": "blue",
-        "max-width": "50%",
+//        "background-color": "blue",
+        "max-width": "50%"
         });
     }
 });

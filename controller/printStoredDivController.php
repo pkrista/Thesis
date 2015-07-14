@@ -8,8 +8,8 @@ $page_count = $_SESSION['pages_count'];
  * 
  * 
  */
-echo 'Current page: ' . $cur_page;
-echo 'Pages count: '. $page_count;
+//echo 'Current page: ' . $cur_page;
+//echo 'Pages count: '. $page_count;
 ?>
 
 <script type="text/javascript" src="js/print_edit.js"></script>
@@ -33,9 +33,9 @@ function test(){
 
 <div class="large-12">
     <div id="divi" class="large-12">
-        <label>File Name: <?php echo $_SESSION['filename']; ?></label>
+        <h5 class="subheader">File Name: <?php echo $_SESSION['filename']; ?></h5>
         <div class="large-4 medium-4 small-4 columns">
-            <label>Page Name</label>
+            <h5 class="subheader">Page Name</h5>
             <div id="pName" class="panel" contentEditable=true 
                  data-changed="false" oninput="dataChganged(this)"
                  style="padding: 0px; height: 30px"><?php
@@ -79,8 +79,9 @@ function test(){
                                 .'data-changed="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][6].'"'
                                 .'style="padding-right: 0.2rem; padding-bottom: 0rem;" > '
                                     . $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3]
-                                .'<div id="aid" class="large-4 medium-4 columns callout panel" data-id="A'.$id.'" style="float: right;">'
+                                .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$id.'">'
                                     .$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][4]
+                                    .'<p>&nbsp</p>'
                                 .'</div>'
                                 .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
                                       .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
@@ -88,6 +89,7 @@ function test(){
                                 .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
                                     .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
                                     .'<p>'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][5].'</p>'
+                                    . '<p>&nbsp</p>'
                                 .'</div>'
                             .'</div> ';
                     
@@ -96,7 +98,7 @@ function test(){
                         echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
                                 .' data-id ="P'.$id.'" onclick="myFunction(this)"'
                                 .' class="columns" id="pid"  '
-                                .' style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
+                                .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
                     }
                     
                     $preExerciseID = $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][2];
@@ -106,7 +108,7 @@ function test(){
                     echo $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][7]
                                 .' data-id ="P'.$id.'" onclick="myFunction(this)"'
                                 .' class="columns" id="pid"  '
-                                .' style="background: #000080; margin-bottom: 1.25rem; float:left; max-width: 40%"/>';
+                                .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
                 }
             } 
         }
@@ -146,3 +148,10 @@ function test(){
         ?>
     </div>
 </div>
+
+<?php
+
+//http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+function substr_startswith($haystack, $needle) {
+    return substr($haystack, 0, strlen($needle)) === $needle;
+}

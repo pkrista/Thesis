@@ -37,7 +37,10 @@ $obj = new fileeditController($big_string);
 $pdf_array = $obj->display();
 
 //to test
-//print_r($pdf_array);
+echo 'array';
+print_r($pdf_array);
+echo 'Big string';
+print_r($big_string);
 
 //How many pages (start from 0)
 $pages_count = substr_count($big_string, '**NEWPAGE**');
