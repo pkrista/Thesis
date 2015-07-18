@@ -13,42 +13,31 @@ $page_count = $_SESSION['pages_count'];
 ?>
 
 <script type="text/javascript" src="js/print_edit.js"></script>
-<script>
-//    $('#qid').bind("DOMSubtreeModified",function(){
-//  alert('changed');
-//});
-
-function test(){
-    alert('YEs');
-}
-</script>
-    
-
+<script type="text/javascript" src="js/addCont.js"></script> 
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
+
 <!--Css for foundation icons-->
 <link rel="stylesheet" href="css/icons/foundation-icons.css" />
+<!--Foundation scripts-->
+<script src="js/foundation/foundation.js"></script>
+<script src="js/foundation/foundation.tooltip.js"></script>
 
 
 
-
-<div class="large-12">
+<div class="large-12 panel" style="background-color: white">
     <div id="divi" class="large-12">
-        <h5 class="subheader">File Name: <?php echo $_SESSION['filename']; ?></h5>
-        <div class="large-4 medium-4 small-4 columns">
-            <h5 class="subheader">Page Name</h5>
-            <div id="pName" class="panel" contentEditable=true 
-                 data-changed="false" oninput="dataChganged(this)"
-                 style="padding: 0px; height: 30px"><?php
-                    if(isset($_SESSION['pdf_array'][$_SESSION['cur_page']][0][1])){
-                        echo($_SESSION['pdf_array'][$_SESSION['cur_page']][0][1]);
-                    }
-                ?></div>
 
-        </div>
     <?php
+    //Page Name, File name , add content button
+    include_once '../view/fileName_addContent.php';
+    
         if(isset($pdf_array[$_SESSION['cur_page']])){
             $exeInPage = count($pdf_array[$_SESSION['cur_page']]);
             $preExerciseID = 0;
+            
+            //Option to add content before this question
+            addContent();
+            
             for($e=0;$e<$exeInPage;$e++){
                 //[0] Page_ID
                 //[1] Page_name
@@ -110,6 +99,9 @@ function test(){
                                 .' class="columns" id="pid"  '
                                 .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
                 }
+                
+                //Option to add content before this question
+                addContent();
             } 
         }
 
@@ -125,14 +117,14 @@ function test(){
             // To change pages
             echo '<br>';
             if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                echo '<button type="submit" id="but" onclick= "nextPage1()" > >> </button> ';
+                echo '<button type="submit" id="but" onclick= "nextPageStored()" > >> </button> ';
             }
             if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                echo '<button type="submit" id="but" onclick= "return prePage1()" > << </button> '
-                . '<button type="submit" id="but" onclick= "return nextPage1()" > >> </button> ';
+                echo '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> '
+                . '<button type="submit" id="but" onclick= "return nextPageStored()" > >> </button> ';
             }
             if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-                echo '<button type="submit" id="but" onclick= "return prePage1()" > << </button> ';
+                echo '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> ';
             }
             ?>
         </div>
@@ -143,9 +135,9 @@ function test(){
 
 <div class="row">
     <div class="large-12 columns">
-        <?php
-        echo '<button type="submit" class="medium success button" id="btnSave" onclick= "return saveChangesInDB()" > Save </button> ';
-        ?>
+        <a id="btnSave" class="button success medium" onclick= "saveChangesInDB()">Save</a>
+        <a id="toHome" class="button secondary medium has-tip" data-options="disable-for-touch:true" aria-haspopup="true" 
+        title="Click to cancel" onclick="backToHomePage()">Cancel</a>
     </div>
 </div>
 
@@ -154,4 +146,15 @@ function test(){
 //http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
 function substr_startswith($haystack, $needle) {
     return substr($haystack, 0, strlen($needle)) === $needle;
+}
+
+function addContent(){
+    //Option to add content
+    echo '<div id="addNewDiv" class="large-12 columns" '
+        . 'style="border-color: #008CBA; border-width: 1px; border-style: solid; '
+            . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> ' //
+        . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="addContHere(this)"
+                style="position:absolute; bottom:0; right: 0;"><i class="fi-plus"></i>'
+        . '</a>'    
+        . '</div>';
 }

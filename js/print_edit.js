@@ -18,18 +18,18 @@ function dataChganged(object){
 
 
 //To change pages
-function nextPage1(){
-    getalldataTosend('next','page');
+function nextPageStored(){
+    getalldataTosendStored('next','page');
 }
 //To change pages
-function prePage1(){
-    getalldataTosend('pre','page');
+function prePageStored(){
+    getalldataTosendStored('pre','page');
 }
 
 //To save data in the db
 function saveChangesInDB(){
     alert('start saving changes');
-    getalldataTosend('','save');
+    getalldataTosendStored('','save');
 }
 
 /**
@@ -37,7 +37,7 @@ function saveChangesInDB(){
  * collect values from div to create new 2d array
  * and dysplay next or previous page
  */
-function getalldataTosend(direction, status){  
+function getalldataTosendStored(direction, status){  
     
     var changedPageArray = [];
     var pageInfo;
@@ -90,7 +90,7 @@ function getalldataTosend(direction, status){
           })
             .success(function( msg ) {
                 console.log(msg);
-                loadFileContent();
+                loadFileContent('printStoredDivController.php');
             });
     }
     if(status === 'save'){
@@ -103,7 +103,7 @@ function getalldataTosend(direction, status){
         })
          .success(function( msg ) {
             console.log(msg);
-            saveLoadFileContent()   
+            loadFileContent('printStoredDivController.php');   
         });
         
 //        window.location.reload();
@@ -111,8 +111,8 @@ function getalldataTosend(direction, status){
 }
 
 //Next page or Pre page
-function loadFileContent(){ 
-    $("#eeee").load('controller/printStoredDivController.php');
+function loadFileContent(file){ 
+    $("#eeee").load('controller/'+file);
 }
 
 //update changed exercises in DB
@@ -120,3 +120,123 @@ function saveLoadFileContent(){
     $("#eeee").load('controller/updateExercisesPDFDB.php');
     $("#eeee").load('controller/printStoredDivController.php');
 }
+
+
+/*
+ * For dropdowm explanation
+ */
+
+function openExplDiv(elem){
+    var nextElement = elem.nextElementSibling;
+    
+    var visibility = nextElement.style.visibility; //visibility to explanation div
+    
+    var children = elem.childNodes[1]; //arrow down/up 
+    
+    if(visibility === 'visible'){
+        nextElement.style.visibility = 'hidden';
+        children.className = 'fi-arrow-down';
+    }
+    else{
+        nextElement.style.visibility = 'visible';
+        children.className = 'fi-arrow-up';
+    }
+
+}
+
+/*
+ * To delete DIV
+ * 
+ */
+
+ function deleteDiv(elem) {
+   var parent = elem.parentNode;
+   
+   // if the ok button is clicked, result will be true (boolean)
+    var result = confirm( "Delete?" );
+    if ( result ) {
+        //if next element is image delete it also
+        var nextElement = parent.nextElementSibling;
+        
+        while(nextElement !== null && nextElement.tagName === 'IMG'){
+            nextElement.remove();
+            
+            nextElement = parent.nextElementSibling;
+            console.log(nextElement);
+        }
+        
+        // the user clicked ok
+        parent.remove();
+    } else {
+        // the user clicked cancel or closed the confirm dialog.
+    } 
+}
+
+
+/**
+ * 
+ * JS functiond for unstored files in DB
+ * 
+ */
+
+//To change pages
+function nextPage(){
+    getalldataTosend('next');
+}
+//To change pages
+function prePage(){
+    getalldataTosend('pre');
+}
+
+/**
+ * Function tu turn pages and refresh the cintent
+ * collect values from div to create new 2d array
+ * and dysplay next or previous page
+ */
+function getalldataTosend(direction){  
+    var pageArray = [];
+    var pageInfo = '';
+
+    $( '#divi' ).find('img, div').each(function( index ) {
+        var element = $( this );
+        
+        if(element.is('#pid') && $( this ).is(":visible") ){
+            var image = '<img src="'+(element.attr("src"))+'"';
+            pageArray.push(image);
+//            console.log(image);
+        }
+        if(element.is('#qid')){
+            // get everyting from div question in html format and put in array
+
+            //put marck that exercise is combined with one in previous page
+//            console.log(element.data("combined"));
+            if(element.data("combined") === 'yes'){
+                pageArray.push('**PREpage**'+element.html());
+            }
+            else{
+                pageArray.push(element.html());
+            }
+        }
+        if(element.is('#pName')){
+            pageInfo = element.text();            
+        }
+        
+      });
+    
+//    console.log(pageArray);
+//    console.log(pageInfo);
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/arrayeditController.php',
+        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
+      })
+        .success(function( msg ) {
+            console.log(msg);
+            loadFileContent('printdivController.php');
+
+        });
+}
+
+
