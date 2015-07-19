@@ -66,11 +66,10 @@ $page_count = $_SESSION['pages_count'];
                                 .'contenteditable="true" data-combined="'.$combined.'" '
                                 .'oninput="dataChganged(this)" '
                                 .'data-changed="'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][6].'"'
-                                .'style="padding-right: 0.2rem; padding-bottom: 0rem;" > '
+                                .'style="" > '
                                     . $_SESSION['pdf_array'][$_SESSION['cur_page']][$e][3]
                                 .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$id.'">'
                                     .$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][4]
-                                    .'<p>&nbsp</p>'
                                 .'</div>'
                                 .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
                                       .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
@@ -78,7 +77,6 @@ $page_count = $_SESSION['pages_count'];
                                 .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
                                     .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
                                     .'<p>'.$_SESSION['pdf_array'][$_SESSION['cur_page']][$e][5].'</p>'
-                                    . '<p>&nbsp</p>'
                                 .'</div>'
                             .'</div> ';
                     
@@ -150,11 +148,26 @@ function substr_startswith($haystack, $needle) {
 
 function addContent(){
     //Option to add content
-    echo '<div id="addNewDiv" class="large-12 columns" '
+    echo '<div id="addNewDiv" class="large-12 columns" contenteditable="true"'
+        . 'data-combined="no"'
         . 'style="border-color: #008CBA; border-width: 1px; border-style: solid; '
-            . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> ' //
-        . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="addContHere(this)"
-                style="position:absolute; bottom:0; right: 0;"><i class="fi-plus"></i>'
-        . '</a>'    
+        . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> '           
+            //Answer
+            . '<div id="aid" class="large-4 medium-4 columns callout panel"  ' //data-id="A'.$id.'"
+                . 'style="float: right; display: none;" > Answer div'
+            . '</div>'
+            //Explanation
+            . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"
+                    style="position:absolute; bottom:0; right: 0; display: none;" > Explanation <i class="fi-arrow-down"></i>'
+            . '</a>'
+            . '<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" 
+                    style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;" >'
+                    . '<p>Explanation...</p>'
+            . '</div>'
+            //Add here element
+            . '<a id ="addHere" class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="addContHere(this, event)"
+                    style="position:absolute; bottom:0; right: 0;"><i class="fi-plus has-tip" 
+                    title="Add here"></i>'
+            . '</a>'    
         . '</div>';
 }

@@ -78,7 +78,7 @@ $query1 = 'select p.Page_ID, p.Name, e.Exercise_ID , e.Question, e.Solution, e.E
         . 'LEFT JOIN image i on i.Exercise_ID = e.Exercise_ID '
         . 'LEFT JOIN page p on p.Page_ID = e.PAGE_ID '
         . 'LEFT JOIN file f on p.File_ID = f.File_ID '
-        . 'Where f.File_ID = 2 ';
+        . 'Where f.File_ID = '.$fileId;
 
 $result1 = $db->query($query1);
 $PrePageID = '';

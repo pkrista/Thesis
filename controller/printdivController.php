@@ -25,7 +25,9 @@ $pdf_array = $_SESSION['pdf_array'];
         //Page Name, File name , add content button
         include_once '../view/fileName_addContent.php';
         
+        //If this page is not eddited yet
         if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
+
             //Print page by page
             $p=0;
             while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p]) ){
@@ -54,34 +56,32 @@ $pdf_array = $_SESSION['pdf_array'];
                     echo '<br><div id="qid" class="large-12 columns callout panel" data-id="Q'.$id.'" '
                             . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                             . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
+                            . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                             . '<a id="delDiv" onclick="deleteDiv(this)"
                                 style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"
                                 contenteditable="false"> × '
                             . '</a>'
-
-                            . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
+                            //Answer
                             . '<div id="aid" class="large-4 medium-4 columns callout panel" data-id="A'.$id.'" '
-                                . 'style="float: right;"> Answer div '
-                                .'<p>&nbsp</p>'
+                                . 'style="float: right;"> Answer div'
                             . '</div>'
+                            //Explanation
                             . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"
                                     style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
                             . '</a>'
                             . '<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" 
                                     style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;" >'
-                                    .'<p>Explanation...</p>'
-                                    .'<p>&nbsp</p>'
+                                    . '<p>Explanation...</p>'
                             . '</div>'
                         . '</div> ';
 
                     $p++;
-                    //Picture's element in div1/dddI class is changed in one.js (id=pic1 class=dddI)
                 }
             }
         }
 
 
-
+        //If page was edited
         else{
             $p=0;
             while(!empty($_SESSION['pdf_array'][$_SESSION['cur_page']][$p])){
@@ -115,7 +115,8 @@ $pdf_array = $_SESSION['pdf_array'];
                         //Option to add content before this question
                         addContent();
                         echo '<br><div id="qid" class="large-12 columns callout panel" data-id="Q'.$id.'" '
-                            . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'"> '
+                            . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'"'
+                            . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
                                 . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
                             . '</div>';
 
@@ -127,7 +128,6 @@ $pdf_array = $_SESSION['pdf_array'];
         //Option to add content before this question
         addContent();
 
-    
     ?>
 
     </div>
@@ -171,15 +171,35 @@ function substr_startswith($haystack, $needle) {
 
 function addContent(){
     //Option to add content
-    echo '<div id="addNewDiv" class="large-12 columns" '
+    echo '<div id="addNewDiv" class="large-12 columns" contenteditable="true"'
+        . 'data-combined="no"'
         . 'style="border-color: #008CBA; border-width: 1px; border-style: solid; '
-            . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> ' //
-        . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="addContHere(this)"
-                style="position:absolute; bottom:0; right: 0;"><i class="fi-plus"></i>'
-        . '</a>'    
+        . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> '
+            . '<a id="delDiv" onclick="deleteDiv(this)"
+                style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px; display: none"
+                contenteditable="false"> × '
+            . '</a>'            
+            //Answer
+            . '<div id="aid" class="large-4 medium-4 columns callout panel"  ' //data-id="A'.$id.'"
+                . 'style="float: right; display: none;" > Answer div'
+            . '</div>'
+            //Explanation
+            . '<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"
+                    style="position:absolute; bottom:0; right: 0; display: none;" > Explanation <i class="fi-arrow-down"></i>'
+            . '</a>'
+            . '<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" 
+                    style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;" >'
+                    . '<p>Explanation...</p>'
+            . '</div>'
+            //Add here element
+            . '<a id ="addHere" class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="addContHere(this, event)"
+                    style="position:absolute; bottom:0; right: 0;"><i class="fi-plus has-tip" 
+                    title="Add here"></i>'
+            . '</a>'    
         . '</div>';
 }
 
-?>
-
+//change class to -> large-12 columns callout panel
+//set id id="I'.$p.'"'
+//change style to style="padding-right: 0.2rem; padding-bottom: 0rem;
 

@@ -18,9 +18,12 @@ if(isset($_POST['page'])){
         for($e=0;$e<(count($pdf_array[$cur_page]));$e++){
             if($pdf_array[$cur_page][$e][2]==$pageArray[$i][0]){
                 
+                echo 'Ex';
+                print_r($pageArray[$i][1]);
+                echo 'End';
                 $result;
-                preg_match("/\s*(.*)<div.*id=\"aid\"/", $pageArray[$i][1], $result);
-                    
+                preg_match('/\s*(.*)<div.*id=\"aid\"/', $pageArray[$i][1], $result);
+                
                 $_SESSION['pdf_array'][$cur_page][$e][3] = $result[1];//$pageArray[$i][1];
                 $_SESSION['pdf_array'][$cur_page][$e][4] = $pageArray[$i][2];
                 $_SESSION['pdf_array'][$cur_page][$e][5] = $pageArray[$i][3];

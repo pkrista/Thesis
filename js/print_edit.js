@@ -103,7 +103,7 @@ function getalldataTosendStored(direction, status){
         })
          .success(function( msg ) {
             console.log(msg);
-            loadFileContent('printStoredDivController.php');   
+            saveLoadFileContent();   
         });
         
 //        window.location.reload();

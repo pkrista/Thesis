@@ -14,6 +14,12 @@ div.ddh {
     max-height: 350px;
     visibility: hidden;
 }*/
+/*Changed style for Question div*/
+#qid{
+    padding-right: 0.2rem; 
+    padding-bottom: 0rem;
+}
+
 /*Style for images*/
 #pid{
     max-width: 40%;
@@ -35,3 +41,4 @@ a#delDiv{
     position: absolute;
     font-size: 1.375rem;
 }
+

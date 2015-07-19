@@ -74,12 +74,19 @@ for($p=0;$p<$pages;$p++){ //Page $p
         
         
         $output = NULL;
-        preg_match("/^\s{0,}<a(.*?)>(.*?)<\/a>/", $pdf_arrey[$p][$object], $output);
+        preg_match("/^\s*(.*)<a.*id=\"delDiv\".*<div id=\"aid\".*>(.*)<\/div><a.*>.*<\/a>.*<p>(.*)<\/p>/", $pdf_arrey[$p][$object], $output);
+        echo 'EXEXEX';
+        echo $pdf_arrey[$p][$object];
         if($output != NULL){
 //            preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)</p>/", $pdf_arrey[$p][$object], $QA); //[3] - question [5] - answer
 //            preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\\"aid\\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)<\/p>/", $input_line, $output_array);
             preg_match("/^\s{0,}<a(.*)>(.*)<\/a>\s{0,}(.*)<div id=\"aid\"(.*)>\s{0,}(.*)<\/div><a(.*)<p>(.*)<\/p>/", $pdf_arrey[$p][$object], $QA);
-            array_push($exercise, $lastPageID, $p.$ExeNumberOnPage, $ExeNumberOnPage, $QA[3], $QA[5], $QA[7]);
+            preg_match("/^\s*(.*)<a.*id=\"delDiv\".*<div id=\"aid\".*>\s{0,}(.*)<\/div><a.*>.*<\/a>.*<p>(.*)<\/p>/", $pdf_arrey[$p][$object], $QA);
+            echo 'Te Jaskatasss';
+            print_r($QA);
+            echo 'Beigas';
+            
+            array_push($exercise, $lastPageID, $p.$ExeNumberOnPage, $ExeNumberOnPage, $QA[1], $QA[2], $QA[3]);
             
             
             //check images and add them to exercise
