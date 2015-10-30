@@ -45,8 +45,14 @@ function openSavedPDF(fileName, fileId){
         data: { fName: fileName, fileId: fileId}
       })
         .success(function( msg ) {
+            //To test print in console
+            console.log(msg);
+            console.log('-----------------------------------------------');
+            
             loadFileContent('printStoredDivController.php');
-            $("#eeee").load('controller/printStoredDivController.php');
+//            $("#eeee").load('controller/printStoredDivController.php');
+//            $("#eeee").load(msg);
+            
         });
 }
 

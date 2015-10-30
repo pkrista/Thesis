@@ -6,6 +6,8 @@ session_start();
  unset($_SESSION['pageinfo']);
  unset($_SESSION['fileId']);
  
+ unset($_SESSION['con']);
+ 
  unset($_SESSION['pages_count']);
  unset($_SESSION['cur_page']);
 

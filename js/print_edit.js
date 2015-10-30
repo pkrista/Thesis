@@ -9,13 +9,97 @@
 function dataChganged(object){  
     //get data-changed variable
     var changed = object.dataset.changed;
-    if(changed === 'false'){
-        object.dataset.changed = 'true';
+    if(changed === 'no'){
+        object.dataset.changed = 'yes';
 //        console.log('changed');
     }
 }
+function questionChanged(object, page_nr){
+    dataChganged(object);
+    var id = object.dataset.id;
+    var rr = object.dataset.changed;
+    
+//    console.log(id);
+//    console.log(object.childNodes[0]);
+    console.log(object.childNodes);
+//    console.log(object.childNodes[0].nodeType);
+    
+    var i = 0; 
+    var question_string = '';
+    var solution_string = '';
+    var explanation_string = '';
+    
+
+   while(object.childNodes[i]){
+        //get question
+        if(object.childNodes[i].nodeName === "#text"){
+            question_string = question_string + object.childNodes[i].nodeValue;
+        }
+        if(object.childNodes[i].nodeName === "BR"){
+            question_string = question_string + '<br>';
+        }
+        
+        
+        //get answer
+        if(object.childNodes[i].id === 'aid'){
+            console.log('Solution ' + object.childNodes[i].textContent);
+            solution_string = object.childNodes[i].textContent;
+        }
+
+         
+        //get explanation
+        if(object.childNodes[i].id === 'dropExplanation'){
+            console.log('Explanation ' + object.childNodes[i].textContent);
+            explanation_string = object.childNodes[i].textContent;
+        }
+        
+        i++;
+    }
+    
 
 
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/changeQuestionPage.php',
+        data: { question: question_string, solution: solution_string, explanation: explanation_string, exId: id, page_nr: page_nr, type: "exercise"}
+      })
+        .success(function( msg ) {
+            console.log(msg);
+            
+        });
+}
+
+function saveChangesDB(){
+
+    $.ajax({
+    async: true,
+    method: 'post',
+    url: 'controller/updateChangesDB.php',
+    data: {}
+    })
+    .success(function( msg ) {
+        console.log(msg);
+        alert('Successful');
+    });
+}
+
+function chagePageName(object, page_nr){
+    console.log(object.childNodes[0].textContent);
+//    alert('yes');
+    var page_name = object.childNodes[0].textContent;
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/changeQuestionPage.php',
+        data: { page_name: page_name, page_nr: page_nr, type: "page"}
+      })
+        .success(function( msg ) {
+            console.log(msg);
+            
+        });
+
+}
 
 //To change pages
 function nextPageStored(){

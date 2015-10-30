@@ -11,6 +11,7 @@
     <!--import jQuery for calling AJAX in javascript file-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/filelist.js"></script>
+    <script type="text/javascript" src="js/convertEPS.js"></script>
     
 
 </head>
@@ -37,9 +38,12 @@
                         foreach ($filesNew as $title => $file)  
                         {  
 
-                            echo '<tr><td><a onclick="setExerciseSeperator(\''.$file->title.'\',\''.$file->id.'\')">'
-                                    .$file->title.'</a></td><td>'.$file->date.'</td><td>'
-                                    .$file->id.'</td></tr>';
+                            echo '<tr>'
+                                    . '<td><a onclick="setExerciseSeperator(\''.$file->title.'\',\''.$file->id.'\')">'
+                                            .$file->title.'</a></td>'
+                                    . '<td>'.$file->date.'</td>'
+                                    . '<td>'.$file->id.'</td>'
+                                . '</tr>';
 
                         }
                     ?>  
@@ -52,6 +56,7 @@
                             <td>Title</td>
                             <td>Date</td>
                             <td>ID</td>
+                            <td>EPS</td>
                         </tr>
                     </tbody>  
                     <?php   
@@ -59,9 +64,13 @@
                         foreach ($filesSaved as $title => $file)  
                         {  
 
-                            echo '<tr><td><a onclick="openSavedPDF(\''.$file->title.'\',\''.$file->id.'\')">'
-                                    .$file->title.'</a></td><td>'.$file->date.'</td><td>'
-                                    .$file->id.'</td></tr>';
+                            echo '<tr>'
+                                    . '<td><a onclick="openSavedPDF(\''.$file->title.'\',\''.$file->id.'\')">'
+                                            .$file->title.'</a></td>'
+                                    . '<td>'.$file->date.'</td>'
+                                    . '<td>'.$file->id.'</td>'
+                                    . '<td><a onclick="doMagic()">EPS</a></td>'
+                                . '</tr>';
 
                         }
                     ?>  
@@ -85,5 +94,15 @@
                     </form>
                 </div>
             </div>
+            
+            <div class="large-4 medium-4 columns" id="folder">
+                <div class="panel" id="upload">
+                    Chose folder where to store converted PDF (EPS files)
+                    <form>
+                        
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </div>
