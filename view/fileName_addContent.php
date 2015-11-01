@@ -12,6 +12,7 @@ $pageName = '';
 foreach ($pages_obj as $page){
     if($page->getPage_nr() == $_SESSION['cur_page']){
        $pageName = $page->getPage_name(); 
+       
     }
 }
 
