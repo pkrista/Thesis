@@ -29,12 +29,18 @@ function setExerciseSeperator(fileName, fileId) {
         });
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
+function openUploadedPDF(){
+    
+}
 
 /**
  * Open Saved file
  * 
  */
-
 function openSavedPDF(fileName, fileId){
     hideFileListCont();
     

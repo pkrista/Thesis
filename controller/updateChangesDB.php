@@ -22,7 +22,7 @@ foreach ($pages_obj as $page){
     $PageUpdateQuery = 'UPDATE page'
             . ' SET Name = "'.$page->getPage_name().'"'
             . ' WHERE Page_ID ='.$page->getPage_ID() ;
-//    updateDB($PageUpdateQuery);
+    updateDB($PageUpdateQuery);
 
 //    print $PageUpdateQuery . "\n";
 

@@ -1,6 +1,8 @@
 <?php
 
-/* 
+/**
+ * For Uploaded Files
+ * 
  * Get data out of PDF file
  * using Python project pdfminer
  */
@@ -36,11 +38,19 @@ $obj = new fileeditController($big_string);
 //        echo "Print :".$obj->display();
 $pdf_array = $obj->display();
 
+require_once('../controller/mergeExIFromPDFPYtoObjects.php');
+//Call fileedit controller. send it 
+$obj = new fileeditController($big_string);
+//        echo "Print :".$obj->display();
+$pdfObjectArrray = $obj->display();
+
+
+
 //to test
-echo 'array';
-print_r($pdf_array);
-echo 'Big string';
-print_r($big_string);
+//echo 'array';
+//print_r($pdf_array);
+//echo 'Big string';
+//print_r($big_string);
 
 //How many pages (start from 0)
 $pages_count = substr_count($big_string, '**NEWPAGE**');

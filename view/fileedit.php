@@ -10,6 +10,9 @@ session_start();
  
  unset($_SESSION['pages_count']);
  unset($_SESSION['cur_page']);
+ 
+ //DB object Session variable
+ unset($_SESSION['obj_pages']);
 
 /* 
  * 
@@ -30,7 +33,7 @@ $fileId = $_POST['fileId'];
 $_SESSION['print']='combined';
 $_SESSION['direction']='next';
     
-    //From filelist.php when the file is open
+//From filelist.php when the file is open
 $_SESSION['filename'] = $_POST['fName'];
 $_SESSION['exSeperator']= $_POST['exSep'];
 $_SESSION['fileId'] = $_POST['fileId'];

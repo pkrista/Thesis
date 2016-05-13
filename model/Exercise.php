@@ -77,9 +77,9 @@ class Exercise {
         return $this->Combined;
     }
     
-    public function getNumber(){
-        return $this->Number;
-    }
+//    public function getNumber(){
+//        return $this->Number;
+//    }
     
     public function getQuestion(){
         return $this->Question;

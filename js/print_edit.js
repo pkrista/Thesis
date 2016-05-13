@@ -1,75 +1,41 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
-
-//If the div data (question/answer/explanation) will be changes then the value will be true
-function dataChganged(object){  
-    //get data-changed variable
-    var changed = object.dataset.changed;
-    if(changed === 'no'){
-        object.dataset.changed = 'yes';
-//        console.log('changed');
-    }
+/**
+ * functions to navigate pages (object)
+ * 
+ */
+//To change pages
+function nextPageStored(){
+    //getalldataTosendStored('next','page');
+    loadPageContent('next');
 }
-function questionChanged(object, page_nr){
-    dataChganged(object);
-    var id = object.dataset.id;
-    var rr = object.dataset.changed;
-    
-//    console.log(id);
-//    console.log(object.childNodes[0]);
-    console.log(object.childNodes);
-//    console.log(object.childNodes[0].nodeType);
-    
-    var i = 0; 
-    var question_string = '';
-    var solution_string = '';
-    var explanation_string = '';
-    
+//To change pages
+function prePageStored(){
+    //getalldataTosendStored('pre','page');
+    loadPageContent('pre');
+}
 
-   while(object.childNodes[i]){
-        //get question
-        if(object.childNodes[i].nodeName === "#text"){
-            question_string = question_string + object.childNodes[i].nodeValue;
-        }
-        if(object.childNodes[i].nodeName === "BR"){
-            question_string = question_string + '<br>';
-        }
-        
-        
-        //get answer
-        if(object.childNodes[i].id === 'aid'){
-            console.log('Solution ' + object.childNodes[i].textContent);
-            solution_string = object.childNodes[i].textContent;
-        }
-
-         
-        //get explanation
-        if(object.childNodes[i].id === 'dropExplanation'){
-            console.log('Explanation ' + object.childNodes[i].textContent);
-            explanation_string = object.childNodes[i].textContent;
-        }
-        
-        i++;
-    }
-    
-
-
+function loadPageContent(direction){
     $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/changeQuestionPage.php',
-        data: { question: question_string, solution: solution_string, explanation: explanation_string, exId: id, page_nr: page_nr, type: "exercise"}
-      })
-        .success(function( msg ) {
-            console.log(msg);
-            
-        });
+    async: true,
+    method: 'post',
+    url: 'controller/changePageController.php',
+    data: {direction: direction}
+  })
+    .success(function( msg ) {
+        console.log(msg);
+        loadFileContent('printStoredDivController.php');
+    });
 }
 
+
+/**
+ * Function to save/upload changes in db
+ * 
+ * called from printStoredDivController btn save()
+ */
 function saveChangesDB(){
 
     $.ajax({
@@ -84,31 +50,22 @@ function saveChangesDB(){
     });
 }
 
-function chagePageName(object, page_nr){
-    console.log(object.childNodes[0].textContent);
-//    alert('yes');
-    var page_name = object.childNodes[0].textContent;
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/changeQuestionPage.php',
-        data: { page_name: page_name, page_nr: page_nr, type: "page"}
-      })
-        .success(function( msg ) {
-            console.log(msg);
-            
-        });
 
+
+
+
+
+
+/**
+ * Load content of Next or Pre page
+ * @param {type} elem
+ * @returns {undefined}
+ */
+function loadFileContent(file){ 
+    $("#eeee").load('controller/'+file);
 }
 
-//To change pages
-function nextPageStored(){
-    getalldataTosendStored('next','page');
-}
-//To change pages
-function prePageStored(){
-    getalldataTosendStored('pre','page');
-}
+
 
 //To save data in the db
 function saveChangesInDB(){
@@ -121,89 +78,88 @@ function saveChangesInDB(){
  * collect values from div to create new 2d array
  * and dysplay next or previous page
  */
-function getalldataTosendStored(direction, status){  
-    
-    var changedPageArray = [];
-    var pageInfo;
-//    console.log("function");
-    $( '#divi' ).find('img, div').each(function( index ) {
-        var element = $( this );
-        var id = element.attr('id');
+//Dont need 13.05
+//function getalldataTosendStored(direction, status){  
+//    
+//    var changedPageArray = [];
+//    var pageInfo;
+////    console.log("function");
+//    $( '#divi' ).find('img, div').each(function( index ) {
+//        var element = $( this );
+//        var id = element.attr('id');
+//
+//        //store just those elements that are being changed
+//        if(element.attr('id') === 'qid' && element.data('changed')){
+//            var exerciseArray = [];
+//            
+//            var elID = element.data('id');
+//            var elQuestion = element.html() ; //element.text(); //element.get()[0].firstChild.data;
+//            var elAnswer = element.find('#aid').text();
+//            var elExplanation = element.find('#dropExplanation').text();
+//            
+////          put mark that exercise is combined with one in previous page
+//            if(element.data("combined") === 'yes'){
+//                elQuestion = '**PREpage**'+elQuestion;
+////                console.log("combined YEs and stored");
+//            }
+//            
+//            exerciseArray.push(elID, elQuestion, elAnswer, elExplanation);
+//            changedPageArray.push(exerciseArray);
+//
+////            console.log(element.html());
+////            console.log(element.get()[0].firstChild);
+////            console.log(element.get()[0].firstChild.data);
+////            console.log(element.children()[4]);
+////            console.log(element.find('#dropExplanation').text());
+//
+//        }
+//        if(element.attr('id') === 'pName' && element.data('changed')){
+//            pageInfo = element.text();            
+//        }
+//        
+//      });
+//      
+//    
+////    console.log(changedPageArray);
+////    console.log(pageInfo);
+//    
+//    if(status === 'page'){
+//        $.ajax({
+//            async: true,
+//            method: 'post',
+//            url: 'controller/editSavedArrayController.php',
+//            data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
+//          })
+//            .success(function( msg ) {
+//                console.log(msg);
+//                loadFileContent('printStoredDivController.php');
+//            });
+//    }
+//    if(status === 'save'){
+//        
+//        $.ajax({
+//        async: true,
+//        method: 'post',
+//        url: 'controller/editSavedArrayController.php',
+//        data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
+//        })
+//         .success(function( msg ) {
+//            console.log(msg);
+//            saveLoadFileContent();   
+//        });
+//        
+////        window.location.reload();
+//    }
+//}
 
-        //store just those elements that are being changed
-        if(element.attr('id') === 'qid' && element.data('changed')){
-            var exerciseArray = [];
-            
-            var elID = element.data('id');
-            var elQuestion = element.html() ; //element.text(); //element.get()[0].firstChild.data;
-            var elAnswer = element.find('#aid').text();
-            var elExplanation = element.find('#dropExplanation').text();
-            
-//          put mark that exercise is combined with one in previous page
-            if(element.data("combined") === 'yes'){
-                elQuestion = '**PREpage**'+elQuestion;
-//                console.log("combined YEs and stored");
-            }
-            
-            exerciseArray.push(elID, elQuestion, elAnswer, elExplanation);
-            changedPageArray.push(exerciseArray);
 
-//            console.log(element.html());
-//            console.log(element.get()[0].firstChild);
-//            console.log(element.get()[0].firstChild.data);
-//            console.log(element.children()[4]);
-//            console.log(element.find('#dropExplanation').text());
-
-        }
-        if(element.attr('id') === 'pName' && element.data('changed')){
-            pageInfo = element.text();            
-        }
-        
-      });
-      
-    
-//    console.log(changedPageArray);
-//    console.log(pageInfo);
-    
-    if(status === 'page'){
-        $.ajax({
-            async: true,
-            method: 'post',
-            url: 'controller/editSavedArrayController.php',
-            data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
-          })
-            .success(function( msg ) {
-                console.log(msg);
-                loadFileContent('printStoredDivController.php');
-            });
-    }
-    if(status === 'save'){
-        
-        $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/editSavedArrayController.php',
-        data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
-        })
-         .success(function( msg ) {
-            console.log(msg);
-            saveLoadFileContent();   
-        });
-        
-//        window.location.reload();
-    }
-}
-
-//Next page or Pre page
-function loadFileContent(file){ 
-    $("#eeee").load('controller/'+file);
-}
 
 //update changed exercises in DB
-function saveLoadFileContent(){ 
-    $("#eeee").load('controller/updateExercisesPDFDB.php');
-    $("#eeee").load('controller/printStoredDivController.php');
-}
+//Dont need 13.05
+//function saveLoadFileContent(){ 
+//    $("#eeee").load('controller/updateExercisesPDFDB.php');
+//    $("#eeee").load('controller/printStoredDivController.php');
+//}
 
 
 /*

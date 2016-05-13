@@ -9,14 +9,21 @@ class Controller {
     {    
         $this->model = new Model();  
     }   
-          
+     
+    /**
+     * Return List of saved and uploaded {@link File()}
+     */
     public function invoke()  
-    {          
+    {   
+        /**
+         * Return list of uploaded files
+         */
         $filesNew = $this->model->getFileList();
+        /**
+         * Return list of saved files
+         */
         $filesSaved = $this->model->getFileListSaved();
         include 'view/filelist.php';
         
     }  
-
-
 }  

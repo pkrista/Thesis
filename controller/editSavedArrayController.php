@@ -10,6 +10,7 @@ $cur_page = $_SESSION['cur_page'];
 $pdf_array = $_SESSION['pdf_array'];
 $direction = $_POST['direction'];
 
+//Dont need 13.05
 if(isset($_POST['page'])){
     $pageArray = $_POST['page'];
     
@@ -34,7 +35,7 @@ if(isset($_POST['page'])){
         }
     }
 }
-
+//dont need 13.05
 if(isset($_POST['pageinfo'])){
     $pageInfoName = $_POST['pageinfo'];
     

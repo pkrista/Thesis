@@ -12,8 +12,6 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/filelist.js"></script>
     <script type="text/javascript" src="js/convertEPS.js"></script>
-    
-
 </head>
 
 <!--link to css-->
@@ -34,7 +32,9 @@
                         </tr>
                     </tbody>  
                     <?php   
-                        //All files that are not yet saved in the db
+                        /**
+                         * Present in screen all files that are uploaded (not saved in the db)
+                         */
                         foreach ($filesNew as $title => $file)  
                         {  
 
@@ -60,7 +60,9 @@
                         </tr>
                     </tbody>  
                     <?php   
-                    //All already saved files
+                    /**
+                     * Present in screen all saved files (saved in db)
+                     */
                         foreach ($filesSaved as $title => $file)  
                         {  
 
@@ -79,11 +81,12 @@
             </div>
             
             </div> 
+            <!-- File upload form -->
             <div class="large-4 medium-4 columns" id="fileupload">
                 <?php include_once 'form/uploadform.php'; ?>
             </div>
                 
-            
+            <!-- File upload form -->
             <div class="large-4 medium-4 columns" id="fileupload">
                 <div class="panel" id="upload">
                     <form action="controller/uploadFileController.php" method="post" enctype="multipart/form-data" >
