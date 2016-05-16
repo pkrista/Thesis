@@ -29,6 +29,7 @@ class mergeExIFromPDFPYtoObjects {
     }
     
     function display() {   
+        echo "diaplsy";
         return $this->getPDFObject();  
     }
     
@@ -37,10 +38,13 @@ class mergeExIFromPDFPYtoObjects {
         $bstring = $this->big_string;
         
         //Return one full page
-        $this->seperatePages($bstring);
+        $allPages = $this->seperatePages($bstring);
+        
+        return $allPages;
     }
     
     function seperatePages($bstring){
+        $allPagesWithObjects = array();
         
         for($i=0;$i<=$this->pages_count;$i++){
             
@@ -75,17 +79,19 @@ class mergeExIFromPDFPYtoObjects {
     }
     
     function seperateExercises($part, $pageNr){
-        $block_count = substr_count($part, '**OBJECT**');
+        $objects_in_page_count = substr_count($part, '**OBJECT**');
         
-        //iterate through bloks
-        for($k=0; $k<=$block_count; $k++){
+        /**
+         * Find exercises in given page and detect images
+         */
+        for($obj_nr=0; $obj_nr<=$objects_in_page_count; $obj_nr++){
             //cut the object
             $object = strchr($part,'**OBJECT**',true);
             //the leght of cutted string
             $len = strlen($object);
             
             //Not the last element
-            if($k != $block_count){
+            if($obj_nr != $objects_in_page_count){
                 $this->createExercise($object);
             }
             //the last element

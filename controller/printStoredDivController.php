@@ -22,7 +22,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
 <script type="text/javascript" src="js/print_edit.js"></script>
 <script type="text/javascript" src="js/editSavedContent.js"></script>
 
-<script type="text/javascript" src="js/addCont.js"></script> 
+<!-- <script type="text/javascript" src="js/addCont.js"></script> -->
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 
 <!--Css for foundation icons-->
@@ -42,63 +42,66 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
 
     <?php
     //Page Name, File name , add content button
-    include_once '../view/fileName_addContent.php';
-            //All files that are not yet saved in the db
+    include_once '../view/fileHeaderContent.php';
+    
+    /**
+     * Iterate through all pages/exercises and show content on screen
+     */
         foreach ($pages_obj as $page)  
         {  
 //                echo '<br> Page: ';
 //                print_r($page->Page_ID);
 //                print_r($page->getPage_ID());
 //                print_r($page->getExercisesListObj());
-                $exsList = $page->getExercisesListObj();
+            $exsList = $page->getExercisesListObj();
                 
 //                echo 'Page Nr = '.$page->getPage_nr();
 //                echo 'Cur Page = '.$_SESSION['cur_page'];
                 
-                if($page->getPage_nr() === $_SESSION['cur_page']){
-                    foreach ($exsList as $ex){
-                        /**
-                         * Create exercise id
-                         */
-                        $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
-                        
-                        if(combinedEx($ex->getQuestion()) != $ex->getCombined()){
-                            $ex->setCombined(combinedEx($ex->getQuestion()));
-                               
-                            if($ex->getCombined() == 'yes'){
-                                $ex->setQuestion(cutExercise($ex->getQuestion()));
-                            }
-                            
+            if($page->getPage_nr() === $_SESSION['cur_page']){
+                foreach ($exsList as $ex){
+                    /**
+                     * Create exercise id
+                     */
+                    $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
+
+                    if(combinedEx($ex->getQuestion()) != $ex->getCombined()){
+                        $ex->setCombined(combinedEx($ex->getQuestion()));
+
+                        if($ex->getCombined() == 'yes'){
+                            $ex->setQuestion(cutExercise($ex->getQuestion()));
                         }
 
+                    }
 
-                        echo '<br><div id="qid" class="large-12 columns callout panel" '
-                               .'data-id="'.$ex->getEx_ID().'" '
-                               .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
-                               .'oninput="questionChanged(this, '.$page->getPage_nr().')" '
-                               .'data-changed="'.$ex->getChanged().'"'
-                               .'style="" >'
-                                   . $ex->getQuestion()
-                               .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$exercise_id.'">'
-                                   .$ex->getSolution()
-                               .'</div>'
-                               .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
-                                     .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
-                               .'</a>' 
-                               .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
-                                   .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
-                                   .'<p>'.$ex->getExplanation().'</p>'
-                               .'</div>'
-                            .'</div> ';
 
-                            foreach ($ex->getImages() as $img){
-                                echo (string) $img
-                                .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
-                                .' class="columns" id="pid"  '
-                                .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
-                            }
+                    echo '<br><div id="qid" class="large-12 columns callout panel" '
+                           .'data-id="'.$ex->getEx_ID().'" '
+                           .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
+                           .'oninput="questionChanged(this, '.$page->getPage_nr().')" '
+                           .'data-changed="'.$ex->getChanged().'"'
+                           .'style="" >'
+                               . $ex->getQuestion()
+                           .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$exercise_id.'">'
+                               .$ex->getSolution()
+                           .'</div>'
+                           .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
+                                 .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
+                           .'</a>' 
+                           .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
+                               .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
+                               .'<p>'.$ex->getExplanation().'</p>'
+                           .'</div>'
+                        .'</div> ';
+
+                    foreach ($ex->getImages() as $img){
+                        echo (string) $img
+                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                        .' class="columns" id="pid"  '
+                        .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
                     }
                 }
+            }
         }
         
    

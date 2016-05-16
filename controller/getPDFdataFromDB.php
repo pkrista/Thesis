@@ -8,10 +8,11 @@ unset($_SESSION['pages_count']);
 unset($_SESSION['cur_page']);
 
 /* 
+ * For Saved PDf files
  * 
- * 
- * 
+ * To get all data about PDF from db
  */
+
 //to test Object model exercise
 include_once'../model/Exercise.php'; 
 include_once'../model/Page.php'; 
@@ -97,7 +98,6 @@ $page_nr = 0;
 //To test exercise model
 $ExercisesArray = [];
 
-
 //To test Exercise object
 $ExObjArray = array();
 $PageObjArray = array();
@@ -164,7 +164,8 @@ foreach ($result1 as $value) {
 $_SESSION['pdf_array'] = $PDF_array;
 
 print_r($PDF_array);
-echo 'get saved pdf data';
+
+echo 'get saved pdf data (getPDFdataFromDB.php)';
 
 print_r($PageObjArray);
 

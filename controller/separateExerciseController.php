@@ -1,13 +1,40 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
+/**
+ * NEW 16.05.2016
+ * @param type $pdf_object
+ * @param type $exeSeparator
+ * @return type new seperated exercises PDF object
+ */
+function seperateExercises($pdf_object, $exeSeparator){
+    $seperateExercises_pdf = verifyExercisesInAllPages($pdf_object, $exeSeparator);
+    return $seperateExercises_pdf;
+}
+
+function verifyExercisesInAllPages($pdf_object, $exeSeparator){
+    $pages = count($pdf_object, 0);
+    
+    for($p=0;$p<$pages;$p++){ //$p page
+        
+        $exercisesInPage = count($pdf_object->getExercisesListObj());
+        
+        echo 'exercises in page = '.$exercisesInPage;
+        
+        for($e;$e<$exercisesInPage;$e++){ //$e exercise
+            
+        }
+    }
+}
+
+/**
+ * OLD 16.05.2016
+*/
 function test($pages_array, $exeSeparator){
-    // Based on procided value I need to seperate exercse from exercise
+    // Based on provided value I need to seperate exercse from exercise
     $arrayLongExeFix = exInOnePage($pages_array, $exeSeparator);
     return $arrayLongExeFix;
 }

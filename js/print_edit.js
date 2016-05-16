@@ -3,21 +3,29 @@
  */
 
 /**
+ * Return to Home page
+ * 
+ */
+function backToHomePage(){
+    window.location.reload();
+}
+
+/**
  * functions to navigate pages (object)
  * 
  */
 //To change pages
 function nextPageStored(){
     //getalldataTosendStored('next','page');
-    loadPageContent('next');
+    loadPageContentStored('next');
 }
 //To change pages
 function prePageStored(){
     //getalldataTosendStored('pre','page');
-    loadPageContent('pre');
+    loadPageContentStored('pre');
 }
 
-function loadPageContent(direction){
+function loadPageContentStored(direction){
     $.ajax({
     async: true,
     method: 'post',
@@ -27,6 +35,31 @@ function loadPageContent(direction){
     .success(function( msg ) {
         console.log(msg);
         loadFileContent('printStoredDivController.php');
+    });
+}
+
+
+//To change pages
+function nextPageUploaded(){
+    //getalldataTosendStored('next','page');
+    loadPageContentUploaded('next');
+}
+//To change pages
+function prePageUploaded(){
+    //getalldataTosendStored('pre','page');
+    loadPageContentUploaded('pre');
+}
+
+function loadPageContentUploaded(direction){
+    $.ajax({
+    async: true,
+    method: 'post',
+    url: 'controller/changePageController.php',
+    data: {direction: direction}
+  })
+    .success(function( msg ) {
+        console.log(msg);
+        loadFileContent('printUploadedDivContent.php');
     });
 }
 

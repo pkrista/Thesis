@@ -1,24 +1,27 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * For Uploaded and Saved PDF files
+ * 
+ * File header contains and sets values:
+ * -File name 
+ * -Page name
+ * 
  */
 
 $pageName = '';
+$pageId = -1;
 
-//Cunstructors
-
-//The data comes from db
-if(!empty($_SESSION['obj_pages'])){
-    echo 'DB file print commented';
-    //print_r($pages_obj);
-    
-    //Set objet
+/**
+ * For saved PDF file
+ */
+if(isset($_SESSION['obj_pages']) && !empty($_SESSION['obj_pages'])){
+    //Set objet variable
     $pages_obj = unserialize($_SESSION['obj_pages']);
     
-    //Set Page name
+    /**
+     * Set Page name and db id
+     */
     foreach ($pages_obj as $page){
         if($page->getPage_nr() == $_SESSION['cur_page']){
             $pageName = $page->getPage_name(); 
@@ -26,10 +29,27 @@ if(!empty($_SESSION['obj_pages'])){
         }
     }
 }  
-//Data comes from Pythong (not saved file in db)
-else{
-    $pageName = $_SESSION['filename'];
+/**
+ * Data comes from Pythong (Uploaded PDF file)
+ */
+else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_upload'])){
+    //Set objet variable
+    $pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
+    
+//    $pageName = $_SESSION['filename'];
     echo 'Python file';
+    
+    
+        /**
+     * Set Page name and db id
+     */
+    foreach ($pages_obj as $page){
+        if($page->getPage_nr() == $_SESSION['cur_page']){
+            $pageName = $page->getPage_name(); 
+            $pageId = $page->getPage_ID();
+            echo 'page ID ' . $page->getPage_ID();
+        }
+    }
 }    
 
 ?>
@@ -44,10 +64,13 @@ else{
 <div class="large-4 medium-4 small-4 columns">
     <h5 class="subheader">Page Name</h5>
     <div id="pName" class="panel" contentEditable=true data-ph="Insert Page Name"  
-         oninput="chagePageName(this, <?php echo $_SESSION['cur_page']; ?>,  <?php echo $pageId; ?> )"
+         oninput="chagePageName(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)"
          style="padding: 0px; height: 30px"><?php
 
          if(isset($_SESSION['obj_pages'])){
+            echo $pageName;
+         }
+         elseif (isset($_SESSION['obj_pages_upload'])) {
              echo $pageName;
          }
          else if (isset($_SESSION['pageinfo'][$cur_page])){ //What is this?

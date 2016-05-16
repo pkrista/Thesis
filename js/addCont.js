@@ -95,11 +95,3 @@ function addContHere(elem, event){
     var divCont = parent.innerHTML;
     parent.innerHTML = 'Question '+divCont;
 }
-
-/**
- * Return to Home page
- * 
- */
-function backToHomePage(){
-    window.location.reload();
-}

@@ -4,18 +4,24 @@ session_start();
  * 
  */
 
-//to test Object model exercise
+/**
+ * Include models: Exercise and Page
+ */
 include_once'../model/Exercise.php'; 
 include_once'../model/Page.php'; 
 
+/**
+ * Conection to the database
+ */
 include_once '../config/theasisDB.php';
 $db = new theasisDB();
 
-print 'in saving db file';
+print 'In file (updateChangesDB.php) to save changed content of saved PDF ';
 
+/**
+ * Current page object taken from screen
+ */
 $pages_obj = unserialize($_SESSION['obj_pages']);
-
-print_r($pages_obj);
 
 foreach ($pages_obj as $page){
     //update page info
@@ -53,6 +59,16 @@ foreach ($pages_obj as $page){
 
 
 function updateDB($query){   
+    try {
+        $db = new theasisDB();
+        $db->query($query);
+        print "File successfully updated (updateChangesDB.php)";
+
+    }
+    catch (PDOException $e) {
+        print "error updating file in DB (updateChangesDB.php) - " . $e->getMessage();
+    }
+      
 //    $db = new theasisDB();
 //    //Update changed exercises                
 //    if ($db->query($query)) {
@@ -61,11 +77,4 @@ function updateDB($query){
 //        echo "Error while updateing Exercise";
 //    }
 
-      try {
-          $db = new theasisDB();
-          $db->query($query);
-      }
-      catch (PDOException $e) {
-        print $e->getMessage();
-      }
 }

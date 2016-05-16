@@ -1,10 +1,33 @@
 /* 
- * 
+ * To open Uploaded or Saved PDF file
  * 
  * 
  */
 
+//test 15.05
+//function setExerciseSeperator(fileName, fileId) {
+//
+//    
+//    var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
+//
+//    hideFileListCont();
+//    
+//    $.ajax({
+//        async: true,
+//        method: 'post',
+//        url: 'controller/getPDFdataFromPY.php',
+//        data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
+//      })
+//        .success(function( msg ) {
+//            var result = msg;
+//    
+//            console.log(result);
+//            loadFileContent('printdivController.php');
+//
+//        });
+//}
 
+//old one 16.05
 function setExerciseSeperator(fileName, fileId) {
 
     
@@ -24,7 +47,8 @@ function setExerciseSeperator(fileName, fileId) {
         console.log(result);
 //            alert(msg);
 //            document.getElementById("filesListandupload").innerHTML = msg;
-                loadFileContent('printdivController.php');
+//                loadFileContent('printdivController.php');
+                loadFileContent('printUploadedDivContent.php');
 //                loadPageofHTML();
         });
 }
@@ -125,6 +149,72 @@ var width = $(window).width();
 });
 
     
+
+//To save data
+function saveData(){
+    //first save current page
+    var pageArray = [];
+    var direction = 'next';
+    
+
+    $( '#divi' ).find('img, div').each(function( index ) {
+        var element = $( this );
+        
+        if(element.is('#pid') && $( this ).is(":visible") ){
+            var image = '<img src="'+(element.attr("src"))+'"';
+            pageArray.push(image);
+//            console.log(image);
+        }
+        if(element.is('#qid')){
+            // get everyting from div question in html format and put in array
+            //put marck that exercise is combined with one in previous page
+//            console.log(element.data("combined"));
+            if(element.data("combined") === 'yes'){
+                pageArray.push('**PREpage**'+element.html());
+            }
+            else{
+                pageArray.push(element.html());
+            }
+        }
+        if(element.is('#pName')){
+            pageInfo = element.text();            
+        }
+        
+      });
+    console.log('Saving Data aray');
+    console.log(pageArray);
+    console.log('Saving Data end');
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/arrayeditController.php',
+        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
+      })
+        .success(function( msg ) {
+          console.log(msg);
+//            window.location.reload();
+//            $("#eeee").load('controller/savefileController.php');
+
+        });
+    
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/savefileController.php',
+        data: { page: 'Yello'}
+      })
+        .success(function( msg ) {
+          console.log('went into save file');
+          console.log(msg);
+  
+//          $("#divi").load('../controller/savefileController.php');
+
+        });
+}
+
+
+    
 //function loadXMLDoc() {
 //    //Thete needs to be function to store array everytime change pages
 //    document.write('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
@@ -193,73 +283,6 @@ var width = $(window).width();
 //function prePage(){
 //    getalldataTosend('pre');
 //}
-
-
-//To save data
-function saveData(){
-    //first save current page
-    var pageArray = [];
-    var direction = 'next';
-    
-
-    $( '#divi' ).find('img, div').each(function( index ) {
-        var element = $( this );
-        
-        if(element.is('#pid') && $( this ).is(":visible") ){
-            var image = '<img src="'+(element.attr("src"))+'"';
-            pageArray.push(image);
-//            console.log(image);
-        }
-        if(element.is('#qid')){
-            // get everyting from div question in html format and put in array
-            //put marck that exercise is combined with one in previous page
-//            console.log(element.data("combined"));
-            if(element.data("combined") === 'yes'){
-                pageArray.push('**PREpage**'+element.html());
-            }
-            else{
-                pageArray.push(element.html());
-            }
-        }
-        if(element.is('#pName')){
-            pageInfo = element.text();            
-        }
-        
-      });
-    console.log('Saving Data aray');
-    console.log(pageArray);
-    console.log('Saving Data end');
-    
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/arrayeditController.php',
-        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
-      })
-        .success(function( msg ) {
-          console.log(msg);
-//            window.location.reload();
-//            $("#eeee").load('controller/savefileController.php');
-
-        });
-    
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/savefileController.php',
-        data: { page: 'Yello'}
-      })
-        .success(function( msg ) {
-          console.log('went into save file');
-          console.log(msg);
-  
-//          $("#divi").load('../controller/savefileController.php');
-
-        });
-}
-
-
-
 
 ///*
 // * To delete DIV

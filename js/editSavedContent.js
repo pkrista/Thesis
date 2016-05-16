@@ -1,5 +1,5 @@
 /* 
- * 
+ * maybe rename??? used in both saved and upoaded TODO
  */
 
 
@@ -84,11 +84,16 @@ function questionChanged(object, page_nr){
  * 
  * @param {type} object (Page object)
  * @param {type} page_nr
+ * @param {type} pageId
  */
 function chagePageName(object, page_nr, pageId){
     
-    var page_name = object.childNodes[0].textContent;
-    console.log("page name" , page_name);
+    if(pageId===-1){
+        console.log("editSaveContent.js Edited file name from uploaded PDF (cnverted PY)");
+    }
+    else{
+        var page_name = object.childNodes[0].textContent;
+        console.log("New page name" , page_name);
     
     $.ajax({
         async: true,
@@ -99,5 +104,5 @@ function chagePageName(object, page_nr, pageId){
         .success(function( msg ) {
             console.log(msg);
         });
-
+    }
 }

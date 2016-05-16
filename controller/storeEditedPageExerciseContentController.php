@@ -16,7 +16,21 @@ include_once'../model/Exercise.php';
 //$_POST['solution'];
 //$_POST['explanation'];
 //$_POST['page_id'];
-$pages_obj = unserialize($_SESSION['obj_pages']);
+
+if (isset($_SESSION['obj_pages']) && !empty($_SESSION['obj_pages'])){
+    /**
+     * Saved PDF variable
+     */
+    $pages_obj = unserialize ($_SESSION['obj_pages']);
+    echo 'SAVED';
+    }
+elseif (isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_upload'])) {
+    /**
+     * Uploaded PDF variable
+     */
+    $pages_obj = unserialize($_SESSION['obj_pages_upload']);
+    echo 'UPLOADED';
+}
 
 if($_POST['type'] == 'exercise'){
     foreach ($pages_obj as $page){
@@ -49,25 +63,24 @@ if($_POST['type'] == 'exercise'){
             }
         }
     }
-    /**
-     * Store new object on session
-     */
-    $_SESSION['obj_pages'] = serialize($pages_obj);
 }
 
-if($_POST['type'] == 'page'){
-    foreach ($pages_obj as $page){
-        print 'PAGE ';
-        if($page->getPage_ID() == $_POST['page_id']){
-            $page->setPage_name($_POST['page_name']);
-            print 'Post page name 1 ';
-            print $_POST['page_name'];
-            print 'Post page name 2 ';
-            print $page->getPage_name();
+if ($_POST['type'] == 'page') {
+    if ($pages_obj) {
+        foreach ($pages_obj as $page) {
+
+            if ($page->getPage_ID() == $_POST['page_id']) {
+                $page->setPage_name($_POST['page_name']);
+            }
         }
     }
-    /**
-     * Store new object on session
-     */
+}
+
+/**
+ * Store session variables
+ */
+if (isset($_SESSION['obj_pages']) && !empty($_SESSION['obj_pages'])) {
     $_SESSION['obj_pages'] = serialize($pages_obj);
+} elseif (isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_upload'])) {
+    $_SESSION['obj_pages_upload'] = serialize($pages_obj);
 }

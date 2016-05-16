@@ -6,7 +6,7 @@ session_start();
  */
 
 $cur_page = $_SESSION['cur_page'];
-$pdf_array = $_SESSION['pdf_array'];
+//$pdf_array = $_SESSION['pdf_array'];
 $direction = $_POST['direction'];
 
 /**

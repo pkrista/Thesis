@@ -2,6 +2,10 @@
 session_start();
 $cur_page = $_SESSION['cur_page'];
 $pdf_array = $_SESSION['pdf_array'];
+$pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
+
+echo "TEST new objtct PY" ;
+print_r($pages_obj);
 /*
  *
  *
@@ -10,7 +14,7 @@ $pdf_array = $_SESSION['pdf_array'];
 //echo 'Current page: ' . $cur_page;
 //echo 'Pages count: '. $_SESSION['pages_count'];
 ?>
-<script type="text/javascript" src="js/print_edit.js"></script>  
+<script type="text/javascript" src="js/print_edit.js"></script>  <!-- TODO ad js function file to PY not saved PDF-->
 <script type="text/javascript" src="js/addCont.js"></script> 
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 <!--Css for foundation icons-->
@@ -23,7 +27,7 @@ $pdf_array = $_SESSION['pdf_array'];
 
         <?php
         //Page Name, File name , add content button
-        include_once '../view/fileName_addContent.php';
+        include_once '../view/fileHeaderContent.php';
         
         //If this page is not eddited yet
         if(substr_count(end($_SESSION['pdf_array'][$cur_page]), '**RENEW**') == 0){
