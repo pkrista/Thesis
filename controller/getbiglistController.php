@@ -30,29 +30,3 @@ while( !feof( $pid ) )
     }
 pclose($pid);
 
-//echo $big_string;
-
-require_once('../controller/fileeditController.php');
-//Call fileedit controller. send it 
-$obj = new fileeditController($big_string);
-$pdf_object_array = $obj->display();
-print "Print fileeditController :";
-print_r($pdf_object_array);
-print "Print fileeditController : end";
-$_SESSION['obj_pages_upload'] = serialize($pdf_object_array);
-
-//How many pages (start from 0)
-//$pages_count = substr_count($big_string, '**NEWPAGE**');
-$_SESSION['pages_count'] = count($pdf_object_array);
-//Set session variable (2d array)
-//$_SESSION['pdf_array'] = $pdf_object_array;
-
-//$_SESSION['pages_count'] = $pages_count;
-
-$_SESSION['cur_page'] = 0;
-
-//require_once('../controller/mergeExIFromPDFPYtoObjects.php');
-////Call fileedit controller. send it 
-//$obj = new mergeExIFromPDFPYtoObjects($big_string);
-////echo "Print mergeExIFromPDFPYtoObjects :".$obj->display();
-//$pdfObjectArrray = $obj->display();

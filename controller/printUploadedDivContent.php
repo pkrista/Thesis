@@ -137,7 +137,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
 
 <div class="row">
     <div class="large-12 columns">
-        <a id="btnSave" class="button success medium" onclick= "??()">Save</a>
+        <a id="btnSave" class="button success medium" onclick= "saveChangesInDB()">Save</a>
         <a id="toHome" class="button secondary medium has-tip" data-options="disable-for-touch:true" aria-haspopup="true" 
         title="Click to cancel" onclick="backToHomePage()">Cancel</a>
     </div>

@@ -3,67 +3,38 @@
  * 
  * 
  */
-
-//test 15.05
-//function setExerciseSeperator(fileName, fileId) {
-//
-//    
-//    var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
-//
-//    hideFileListCont();
-//    
-//    $.ajax({
-//        async: true,
-//        method: 'post',
-//        url: 'controller/getPDFdataFromPY.php',
-//        data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
-//      })
-//        .success(function( msg ) {
-//            var result = msg;
-//    
-//            console.log(result);
-//            loadFileContent('printdivController.php');
-//
-//        });
-//}
-
-//old one 16.05
 function setExerciseSeperator(fileName, fileId) {
-
     
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
+    openUploadedPDF(exerSeperator, fileName, fileId);
+}
 
+/**
+ * Open Uploaded file
+ * @param {type} exerSeperator
+ * @param {type} fileName
+ * @param {type} fileId
+ */
+function openUploadedPDF(exerSeperator, fileName, fileId){
     hideFileListCont();
     
     $.ajax({
         async: true,
         method: 'post',
-        url: 'view/fileedit.php',
+        url: 'controller/getPDFdataFromPY.php',
         data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
       })
         .success(function( msg ) {
             var result = msg;
-    //Test
-        console.log(result);
-//            alert(msg);
-//            document.getElementById("filesListandupload").innerHTML = msg;
-//                loadFileContent('printdivController.php');
-                loadFileContent('printUploadedDivContent.php');
-//                loadPageofHTML();
+            console.log(result);
+            loadFileContent('printUploadedDivContent.php');
         });
 }
 
 /**
- * 
- * @returns {undefined}
- */
-function openUploadedPDF(){
-    
-}
-
-/**
  * Open Saved file
- * 
+ * @param {type} fileName
+ * @param {type} fileId
  */
 function openSavedPDF(fileName, fileId){
     hideFileListCont();
@@ -79,15 +50,13 @@ function openSavedPDF(fileName, fileId){
             console.log(msg);
             console.log('-----------------------------------------------');
             
-            loadFileContent('printStoredDivController.php');
-//            $("#eeee").load('controller/printStoredDivController.php');
-//            $("#eeee").load(msg);
-            
+            loadFileContent('printStoredDivController.php');            
         });
 }
 
 /**
  * load PDF exercises and images into page
+ * @param {type} file (file name with extention)
  */
 function loadFileContent(file){
     $("#eeee").load('controller/'+file);
@@ -129,7 +98,6 @@ function myFunction(object) {
  * For screen resizing
  *  if screen is small make pictures bigger
  */
-
 $(window).resize(function() {
 
 var width = $(window).width();
@@ -150,68 +118,68 @@ var width = $(window).width();
 
     
 
-//To save data
-function saveData(){
-    //first save current page
-    var pageArray = [];
-    var direction = 'next';
-    
-
-    $( '#divi' ).find('img, div').each(function( index ) {
-        var element = $( this );
-        
-        if(element.is('#pid') && $( this ).is(":visible") ){
-            var image = '<img src="'+(element.attr("src"))+'"';
-            pageArray.push(image);
-//            console.log(image);
-        }
-        if(element.is('#qid')){
-            // get everyting from div question in html format and put in array
-            //put marck that exercise is combined with one in previous page
-//            console.log(element.data("combined"));
-            if(element.data("combined") === 'yes'){
-                pageArray.push('**PREpage**'+element.html());
-            }
-            else{
-                pageArray.push(element.html());
-            }
-        }
-        if(element.is('#pName')){
-            pageInfo = element.text();            
-        }
-        
-      });
-    console.log('Saving Data aray');
-    console.log(pageArray);
-    console.log('Saving Data end');
-    
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/arrayeditController.php',
-        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
-      })
-        .success(function( msg ) {
-          console.log(msg);
-//            window.location.reload();
-//            $("#eeee").load('controller/savefileController.php');
-
-        });
-    
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/savefileController.php',
-        data: { page: 'Yello'}
-      })
-        .success(function( msg ) {
-          console.log('went into save file');
-          console.log(msg);
-  
-//          $("#divi").load('../controller/savefileController.php');
-
-        });
-}
+////To save data
+//function saveData(){
+//    //first save current page
+//    var pageArray = [];
+//    var direction = 'next';
+//    
+//
+//    $( '#divi' ).find('img, div').each(function( index ) {
+//        var element = $( this );
+//        
+//        if(element.is('#pid') && $( this ).is(":visible") ){
+//            var image = '<img src="'+(element.attr("src"))+'"';
+//            pageArray.push(image);
+////            console.log(image);
+//        }
+//        if(element.is('#qid')){
+//            // get everyting from div question in html format and put in array
+//            //put marck that exercise is combined with one in previous page
+////            console.log(element.data("combined"));
+//            if(element.data("combined") === 'yes'){
+//                pageArray.push('**PREpage**'+element.html());
+//            }
+//            else{
+//                pageArray.push(element.html());
+//            }
+//        }
+//        if(element.is('#pName')){
+//            pageInfo = element.text();            
+//        }
+//        
+//      });
+//    console.log('Saving Data aray');
+//    console.log(pageArray);
+//    console.log('Saving Data end');
+//    
+//    $.ajax({
+//        async: true,
+//        method: 'post',
+//        url: 'controller/arrayeditController.php',
+//        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
+//      })
+//        .success(function( msg ) {
+//          console.log(msg);
+////            window.location.reload();
+////            $("#eeee").load('controller/savefileController.php');
+//
+//        });
+//    
+//    $.ajax({
+//        async: true,
+//        method: 'post',
+//        url: 'controller/savefileController.php',
+//        data: { page: 'Yello'}
+//      })
+//        .success(function( msg ) {
+//          console.log('went into save file');
+//          console.log(msg);
+//  
+////          $("#divi").load('../controller/savefileController.php');
+//
+//        });
+//}
 
 
     

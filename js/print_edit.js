@@ -103,96 +103,17 @@ function loadFileContent(file){
 //To save data in the db
 function saveChangesInDB(){
     alert('start saving changes');
-    getalldataTosendStored('','save');
+    $.ajax({
+    async: true,
+    method: 'post',
+    url: 'controller/saveChangesDB.php',
+    data: {}
+    })
+    .success(function( msg ) {
+        console.log(msg);
+        alert('Successful');
+    });
 }
-
-/**
- * Function tu turn pages and refresh the cintent
- * collect values from div to create new 2d array
- * and dysplay next or previous page
- */
-//Dont need 13.05
-//function getalldataTosendStored(direction, status){  
-//    
-//    var changedPageArray = [];
-//    var pageInfo;
-////    console.log("function");
-//    $( '#divi' ).find('img, div').each(function( index ) {
-//        var element = $( this );
-//        var id = element.attr('id');
-//
-//        //store just those elements that are being changed
-//        if(element.attr('id') === 'qid' && element.data('changed')){
-//            var exerciseArray = [];
-//            
-//            var elID = element.data('id');
-//            var elQuestion = element.html() ; //element.text(); //element.get()[0].firstChild.data;
-//            var elAnswer = element.find('#aid').text();
-//            var elExplanation = element.find('#dropExplanation').text();
-//            
-////          put mark that exercise is combined with one in previous page
-//            if(element.data("combined") === 'yes'){
-//                elQuestion = '**PREpage**'+elQuestion;
-////                console.log("combined YEs and stored");
-//            }
-//            
-//            exerciseArray.push(elID, elQuestion, elAnswer, elExplanation);
-//            changedPageArray.push(exerciseArray);
-//
-////            console.log(element.html());
-////            console.log(element.get()[0].firstChild);
-////            console.log(element.get()[0].firstChild.data);
-////            console.log(element.children()[4]);
-////            console.log(element.find('#dropExplanation').text());
-//
-//        }
-//        if(element.attr('id') === 'pName' && element.data('changed')){
-//            pageInfo = element.text();            
-//        }
-//        
-//      });
-//      
-//    
-////    console.log(changedPageArray);
-////    console.log(pageInfo);
-//    
-//    if(status === 'page'){
-//        $.ajax({
-//            async: true,
-//            method: 'post',
-//            url: 'controller/editSavedArrayController.php',
-//            data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
-//          })
-//            .success(function( msg ) {
-//                console.log(msg);
-//                loadFileContent('printStoredDivController.php');
-//            });
-//    }
-//    if(status === 'save'){
-//        
-//        $.ajax({
-//        async: true,
-//        method: 'post',
-//        url: 'controller/editSavedArrayController.php',
-//        data: { page: changedPageArray, direction: direction, pageinfo: pageInfo}
-//        })
-//         .success(function( msg ) {
-//            console.log(msg);
-//            saveLoadFileContent();   
-//        });
-//        
-////        window.location.reload();
-//    }
-//}
-
-
-
-//update changed exercises in DB
-//Dont need 13.05
-//function saveLoadFileContent(){ 
-//    $("#eeee").load('controller/updateExercisesPDFDB.php');
-//    $("#eeee").load('controller/printStoredDivController.php');
-//}
 
 
 /*
@@ -244,72 +165,3 @@ function openExplDiv(elem){
         // the user clicked cancel or closed the confirm dialog.
     } 
 }
-
-
-/**
- * 
- * JS functiond for unstored files in DB
- * 
- */
-
-//To change pages
-function nextPage(){
-    getalldataTosend('next');
-}
-//To change pages
-function prePage(){
-    getalldataTosend('pre');
-}
-
-/**
- * Function tu turn pages and refresh the cintent
- * collect values from div to create new 2d array
- * and dysplay next or previous page
- */
-function getalldataTosend(direction){  
-    var pageArray = [];
-    var pageInfo = '';
-
-    $( '#divi' ).find('img, div').each(function( index ) {
-        var element = $( this );
-        
-        if(element.is('#pid') && $( this ).is(":visible") ){
-            var image = '<img src="'+(element.attr("src"))+'"';
-            pageArray.push(image);
-//            console.log(image);
-        }
-        if(element.is('#qid')){
-            // get everyting from div question in html format and put in array
-
-            //put marck that exercise is combined with one in previous page
-//            console.log(element.data("combined"));
-            if(element.data("combined") === 'yes'){
-                pageArray.push('**PREpage**'+element.html());
-            }
-            else{
-                pageArray.push(element.html());
-            }
-        }
-        if(element.is('#pName')){
-            pageInfo = element.text();            
-        }
-        
-      });
-    
-//    console.log(pageArray);
-//    console.log(pageInfo);
-    
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/arrayeditController.php',
-        data: { page: pageArray, direction: direction, pageinfo: pageInfo}
-      })
-        .success(function( msg ) {
-            console.log(msg);
-            loadFileContent('printdivController.php');
-
-        });
-}
-
-

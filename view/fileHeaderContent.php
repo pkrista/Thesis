@@ -67,15 +67,12 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
          oninput="chagePageName(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)"
          style="padding: 0px; height: 30px"><?php
 
-         if(isset($_SESSION['obj_pages'])){
-            echo $pageName;
-         }
-         elseif (isset($_SESSION['obj_pages_upload'])) {
-             echo $pageName;
-         }
-         else if (isset($_SESSION['pageinfo'][$cur_page])){ //What is this?
-                echo($_SESSION['pageinfo'][$cur_page]); 
-         }
+            if(isset($_SESSION['obj_pages'])){
+               echo $pageName;
+            }
+            elseif (isset($_SESSION['obj_pages_upload'])) {
+                echo $pageName;
+            }
             ?>
     </div>
 </div>

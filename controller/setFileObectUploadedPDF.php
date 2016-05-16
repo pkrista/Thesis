@@ -11,7 +11,7 @@ include_once'../model/Page.php';
 ?>
 <link rel="stylesheet" href="css/fileedit.css" type="text/css"> 
 <?php
-class fileeditController { 
+class setFileObectUploadedPDF { 
  
     private $big_string;
     private $exSep;
@@ -29,37 +29,8 @@ class fileeditController {
     }
     
     function display() {  
-        
-        
-        
         $objectPagesAll = $this->get_pages_info(); 
         return $objectPagesAll;
-    }
-    
-    function getDataFromPDFasString() {
-        /**
-         * Get all data of PY
-         */
-        //set maximum execution time to 5 min (from 30 seconds default)
-        ini_set('max_execution_time', 300);
-
-        $path = "../uploads/" . $fileName;
-        //$command = "i.py $path";
-        $command = "itest.py $path $fileName";
-
-        $pid = popen($command, "r");
-
-        $big_string = '';
-
-        while (!feof($pid)) {
-            $big_string .= fread($pid, 256);
-            flush();
-            ob_flush();
-            usleep(100000);
-        }
-        pclose($pid);
-
-        return $big_string;
     }
 
     function get_pages_info(){
@@ -115,72 +86,8 @@ class fileeditController {
                 $len > 3 ? $allPagesObject = $this->setPageObject($bstring, $i): false;
             }
         }
-        
-        //Test objectPage
-        //print 'AAAA \n';
-        //print_r($this->PdfObject);
-        //print 'AAAA \n';
-        //print_r($pages_array);
-        
-        
-        //return $pages_array;
     }
-    
-//    function get_page_info($page, $i, $pages_array){
-//        $block_count = substr_count($page, '**OBJECT**');
-//        
-////        $page_array() = array();
-//        $column = 0;
-//        for($k=0; $k<=$block_count; $k++){
-//            
-//            if($k != $block_count){
-//                //cut object
-//                $object = strchr($page,'**OBJECT**',true);
-//                //the leght of cutted string
-//                $len = strlen($object);
-//                
-////                print "OBJECT ARRAY : " . $object;
-//                
-//                //If object is image give diferent id
-//                if((substr_count($object, '<img src='))>0){
-////                    print 'Array Exercise: ';
-////                    print_r($object);
-//                    $pages_array[$i][$column] = $object;
-////                        '<div class="dddP" id="'.$k.'" contenteditable="true">'.$object.'</div> ';
-//                    $column++; 
-////                    print '\n IMG array'.$object;
-//                }
-//                //if object is not empty
-//                else if ($len > 3){
-//                    $pages_array[$i][$column] = $object;
-//                    $column++; 
-////                    print '\n QUESTION Array'.$object;
-//                }
-////                else{
-////                    //put all page in array if the string is longer than 4
-////                    $len > 1 ? $pages_array[$i][$k] = $object : false;
-//////                        '<div class="dddQ" id="'.$k.'" contenteditable="true">'.$object.'</div> ': false;
-////                }
-//
-//                //cut off the tacken string and page seperator
-//                $page = substr($page, $len+10); //11 = **OBJECT**
-//            }
-//            else {
-//                //the leght of cutted string
-//                $len = strlen($page);
-//                if($len > 3){
-//                    $pages_array[$i][$column] = $page;
-//                    
-////                    print '\n QUESTION array last'.$page;
-//                }
-//            }
-//        }
-//        
-//        //return $pages_array;
-//    }
-    
 
-    
     function setPageObject($page, $page_nr){
         $block_count = substr_count($page, '**OBJECT**');
         
@@ -193,7 +100,6 @@ class fileeditController {
                 //cut object
                 $object = strchr($page,'**OBJECT**',true);
                 
-//                print "OBJECT NEW : " . $object;
                 //the leght of cutted string
                 $len = strlen($object);
                 
@@ -204,13 +110,11 @@ class fileeditController {
 
                     $this->ex = new Exercise(null, '', $k, $object, '', '', 'no', 'no', array(), $page_nr);
 //                    //Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Changed, $Combined, $Images, $Page)
-//                    print ' \n QUESTION  N '.$object;
                 }
                 
                 //If object is image give diferent id
                 else if((substr_count($object, '<img src='))>0){                   
                     $this->storeImg($object);
-//                    print ' \n IMG N '.$object;
                 }
             
                 //cut off the tacken string and page seperator
@@ -226,7 +130,6 @@ class fileeditController {
                     $this->ex = new Exercise(null, '', $k, $page, '', '', 'no', 'no', array(), $page_nr);
                     //Add exercise to the page
                     $this->storeExercise();
-//                    print ' \n QUESTION Last '.$page;
                 }
             }
         }
