@@ -4,8 +4,8 @@ $cur_page = $_SESSION['cur_page'];
 $pdf_array = $_SESSION['pdf_array'];
 $pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
 
-echo "TEST new objtct PY" ;
-print_r($pages_obj);
+//echo "TEST new objtct PY" ;
+//print_r($pages_obj);
 /*
  *
  *

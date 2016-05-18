@@ -62,6 +62,8 @@ $_SESSION['cur_page'] = 0;
     $pdf_object_array = $obj->display();
     $_SESSION['obj_pages_upload'] = serialize($pdf_object_array);
 
+    print'------------------------------------------------';
+    print_r($pdf_object_array);
     //How many pages (start from 0)
     $_SESSION['pages_count'] = count($pdf_object_array);
 

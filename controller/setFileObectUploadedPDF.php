@@ -40,14 +40,17 @@ class setFileObectUploadedPDF {
         
         //count how meny times **NEWPAGE** appears
         $pages_count = substr_count($bstring, '**NEWPAGE**');
-  
-        //array that stores content of all page        
-//        $pages_array = $this->found_data($pages_count, $bstring);
+
         $this->found_data($pages_count, $bstring);
         
         //If exerice seperator variabe wasn't set then don't try to separate exercises
-        if(strlen($this->exSep)!=0 && $this->exSep != ' '){
+        if(strlen($this->exSep)>0 && $this->exSep != ' '){
        
+            //require_once('seperateExercisesInPdfObject.php');
+            //$obj = new seperateExercisesInPdfObject($this->PdfObject, $this->exSep);
+            //print_r($obj);
+            //$newObj = $obj->display();
+            
             //require_once('separateExerciseController.php');
             //$var = seperateExercises($this->PdfObject, $this->exSep);
 //            $pages_array = $var;
@@ -57,8 +60,6 @@ class setFileObectUploadedPDF {
     
     
     function found_data($pages_count, $bstring){
-//        $pages_array = array();
-        //$allPagesObject = array();
         for($i=0;$i<=$pages_count;$i++){        
             if($i <> $pages_count){
                 //cut page
@@ -67,14 +68,15 @@ class setFileObectUploadedPDF {
                 $len = strlen($part);
 
                 //varify if first object in page is img -> true add img to exercise
-                $this->addImageToPreviousExercise($part);
+                $part = $this->addImageToPreviousExercise($part);
                 
                 //Add exercise to the page (last one from previous page)
                 $this->storeExercise();
+
                 //Object Exercise set to null
                 $this->ex = null;
                 //TEST Object Page and Exercise
-                $len > 3 ? $this->setPageObject($part, $i): false;
+                $len > 3 ? $this->setPageObject($part, $i, false): false;
                 
                 //cut off the tacken string and page seperator
                 $bstring = substr($bstring, $len+11); //11 = **NEWPAGE**
@@ -84,17 +86,17 @@ class setFileObectUploadedPDF {
                 $len = strlen($bstring);
 
                 //varify if first object in page is img -> true add img to exercise
-                $this->addImageToPreviousExercise($bstring);
+                $bstring = $this->addImageToPreviousExercise($bstring);
                 
                 //TEST Object Page and Exercise
-                $len > 3 ? $this->setPageObject($bstring, $i): false;
+                $len > 3 ? $this->setPageObject($bstring, $i, true): false;
             }
         }
     }
 
-    function setPageObject($page, $page_nr){
+    function setPageObject($page, $page_nr, $lastObjectBoolean){
         $block_count = substr_count($page, '**OBJECT**');
-        
+        $this->storeExercise();
         /**
          * Create New Page Object
          */
@@ -115,7 +117,7 @@ class setFileObectUploadedPDF {
                     //Store Pre exercise
                     $this->storeExercise();
 
-                    $this->ex = new Exercise(null, '', $k, $object, '', '', 'no', 'no', array(), $page_nr);
+                    $this->ex = new Exercise(null, '', $k, ltrim($object), '', '', 'no', 'no', array(), $page_nr);
                 }
                 
                 /**
@@ -143,10 +145,14 @@ class setFileObectUploadedPDF {
                     //Store PRE exercise
                     $this->storeExercise();
                     //New Ex
-                    $this->ex = new Exercise(null, '', $k, $page, '', '', 'no', 'no', array(), $page_nr);
+                    //ltrim cut spaces from begining
+                    $this->ex = new Exercise(null, '', $k, ltrim($page), '', '', 'no', 'no', array(), $page_nr);
 
                 }
             }
+        }
+        if($lastObjectBoolean){
+           $this->storeExercise(); 
         }
         $this->storePage();
     }
@@ -184,7 +190,11 @@ class setFileObectUploadedPDF {
              * New page started with an image. Add it to previous exercise
              */
             $this->storeImg($object);
+
+            //cut off the tacken string and page seperator
+            $page = substr($page, $len+10); //11 = **OBJECT**
         }
+        return $page;
     }
 } 
 
