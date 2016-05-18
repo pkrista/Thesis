@@ -30,8 +30,6 @@ foreach ($pages_obj as $page){
             . ' WHERE Page_ID ='.$page->getPage_ID() ;
     updateDB($PageUpdateQuery);
 
-//    print $PageUpdateQuery . "\n";
-
     $exsList = $page->getExercisesListObj();
     
     foreach ($exsList as $exe){
@@ -45,7 +43,6 @@ foreach ($pages_obj as $page){
                     . ' WHERE Page_ID = '.$page->getPage_ID()
                     . ' AND Exercise_ID = '.$exe->getEx_ID();
             
-//            $db->query($ExerciseUpdateQuery);
             updateDB($ExerciseUpdateQuery);
             print $ExerciseUpdateQuery. "\n";
             
@@ -54,9 +51,6 @@ foreach ($pages_obj as $page){
     }
     
 }
-//INSERT INTO `exercise`(`Exercise_ID`, `PaperFieldID`, `Number`, `Question`, `Solution`, `Explanation`, `Page_ID`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7])
-//INSERT INTO `page`(`Page_ID`, `Name`, `PagePaper`, `PagePen`, `File_ID`, `Course_ID`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
-
 
 function updateDB($query){   
     try {
@@ -68,13 +62,5 @@ function updateDB($query){
     catch (PDOException $e) {
         print "error updating file in DB (updateChangesDB.php) - " . $e->getMessage();
     }
-      
-//    $db = new theasisDB();
-//    //Update changed exercises                
-//    if ($db->query($query)) {
-//        echo "Exercise Updated Sucessfuly";    
-//    } else {
-//        echo "Error while updateing Exercise";
-//    }
 
 }

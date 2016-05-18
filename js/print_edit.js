@@ -83,25 +83,8 @@ function saveChangesDB(){
     });
 }
 
-
-
-
-
-
-
-/**
- * Load content of Next or Pre page
- * @param {type} elem
- * @returns {undefined}
- */
-function loadFileContent(file){ 
-    $("#eeee").load('controller/'+file);
-}
-
-
-
 //To save data in the db
-function saveChangesInDB(){
+function saveUploadedPdfInDB(){
     alert('start saving changes');
     $.ajax({
     async: true,
@@ -113,6 +96,15 @@ function saveChangesInDB(){
         console.log(msg);
         alert('Successful');
     });
+}
+
+/**
+ * Load content of Next or Pre page
+ * @param {type} elem
+ * @returns {undefined}
+ */
+function loadFileContent(file){ 
+    $("#eeee").load('controller/'+file);
 }
 
 

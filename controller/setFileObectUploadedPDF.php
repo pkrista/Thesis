@@ -11,8 +11,9 @@ include_once'../model/Page.php';
 ?>
 <link rel="stylesheet" href="css/fileedit.css" type="text/css"> 
 <?php
+
 class setFileObectUploadedPDF { 
- 
+    
     private $big_string;
     private $exSep;
     private $PdfObject;
@@ -57,22 +58,23 @@ class setFileObectUploadedPDF {
     
     function found_data($pages_count, $bstring){
 //        $pages_array = array();
-        $allPagesObject = array();
-        for($i=0;$i<=$pages_count;$i++){
-            
+        //$allPagesObject = array();
+        for($i=0;$i<=$pages_count;$i++){        
             if($i <> $pages_count){
                 //cut page
-                $part1 = strchr($bstring,'**NEWPAGE**',true);
-                $part2= strchr($bstring,'**NEWPAGE**',true);
+                $part = strchr($bstring,'**NEWPAGE**',true);
                 //the leght of cutted string
-                $len = strlen($part1);
-                //put all page in array if the string is longer than 4
-//                $len > 3 ? $pages_array = $this->get_page_info($part1, $i, $pages_array): false;
+                $len = strlen($part);
+
+                //varify if first object in page is img -> true add img to exercise
+                $this->addImageToPreviousExercise($part);
                 
+                //Add exercise to the page (last one from previous page)
+                $this->storeExercise();
                 //Object Exercise set to null
                 $this->ex = null;
                 //TEST Object Page and Exercise
-                $len > 3 ? $allPagesObject = $this->setPageObject($part2, $i): false;
+                $len > 3 ? $this->setPageObject($part, $i): false;
                 
                 //cut off the tacken string and page seperator
                 $bstring = substr($bstring, $len+11); //11 = **NEWPAGE**
@@ -80,10 +82,12 @@ class setFileObectUploadedPDF {
             else{
                 //lenght 
                 $len = strlen($bstring);
-//                $len > 3 ? $pages_array = $this->get_page_info($bstring, $i, $pages_array): false;
+
+                //varify if first object in page is img -> true add img to exercise
+                $this->addImageToPreviousExercise($bstring);
                 
                 //TEST Object Page and Exercise
-                $len > 3 ? $allPagesObject = $this->setPageObject($bstring, $i): false;
+                $len > 3 ? $this->setPageObject($bstring, $i): false;
             }
         }
     }
@@ -91,7 +95,9 @@ class setFileObectUploadedPDF {
     function setPageObject($page, $page_nr){
         $block_count = substr_count($page, '**OBJECT**');
         
-        //Create New Page
+        /**
+         * Create New Page Object
+         */
         $this->pg = new Page($page_nr, '', $page_nr, array());
         
         for($k=0; $k<=$block_count; $k++){
@@ -99,26 +105,36 @@ class setFileObectUploadedPDF {
             if($k != $block_count){
                 //cut object
                 $object = strchr($page,'**OBJECT**',true);
-                
                 //the leght of cutted string
                 $len = strlen($object);
                 
-                 //if object is not empty
+                /**
+                 * if object is not empty
+                 */
                 if (($len > 3) && (substr_count($object, '<img src=')) == 0){
                     //Store Pre exercise
                     $this->storeExercise();
 
                     $this->ex = new Exercise(null, '', $k, $object, '', '', 'no', 'no', array(), $page_nr);
-//                    //Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Changed, $Combined, $Images, $Page)
                 }
                 
-                //If object is image give diferent id
+                /**
+                 * If object is image give diferent id
+                 */
                 else if((substr_count($object, '<img src='))>0){                   
                     $this->storeImg($object);
                 }
             
                 //cut off the tacken string and page seperator
                 $page = substr($page, $len+10); //11 = **OBJECT**
+                
+                /**
+                 * If page ended with exercise and image
+                 */
+                if(strlen($page) < 3){
+                    //Store PRE exercise
+                    $this->storeExercise();
+                }
             }
             else {
                 //the leght of cutted string
@@ -128,8 +144,7 @@ class setFileObectUploadedPDF {
                     $this->storeExercise();
                     //New Ex
                     $this->ex = new Exercise(null, '', $k, $page, '', '', 'no', 'no', array(), $page_nr);
-                    //Add exercise to the page
-                    $this->storeExercise();
+
                 }
             }
         }
@@ -153,6 +168,23 @@ class setFileObectUploadedPDF {
     
     public function storePage(){
         array_push($this->PdfObject,$this->pg);
+    }
+    
+    function addImageToPreviousExercise($page){
+        //cut object
+        $object = strchr($page,'**OBJECT**',true);
+        //the leght of cutted string
+        $len = strlen($object);
+            
+        /**
+         * if first object is image add it to previous exercise
+         */
+        if(($len > 3) && (substr_count($object, '<img src=')) > 0){
+            /**
+             * New page started with an image. Add it to previous exercise
+             */
+            $this->storeImg($object);
+        }
     }
 } 
 
