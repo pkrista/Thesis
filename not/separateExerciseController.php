@@ -117,9 +117,6 @@ function exInOnePage($pages_array, $exeSeparator){
             }  
         }
     }
-    
-//    print_r($newArrayString);  
-    
     return $newArrayString;
 }
 

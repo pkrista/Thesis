@@ -16,7 +16,7 @@ include_once'../model/Page.php';
 include_once '../config/theasisDB.php';
 $db = new theasisDB();
 
-print 'In file (updateChangesDB.php) to save changed content of saved PDF ';
+//print 'In file (updateChangesDB.php) to save changed content of saved PDF ';
 
 /**
  * Current page object taken from screen
@@ -44,7 +44,7 @@ foreach ($pages_obj as $page){
                     . ' AND Exercise_ID = '.$exe->getEx_ID();
             
             updateDB($ExerciseUpdateQuery);
-            print $ExerciseUpdateQuery. "\n";
+            //print $ExerciseUpdateQuery. "\n";
             
         }
         

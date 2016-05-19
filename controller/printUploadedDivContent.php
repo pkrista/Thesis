@@ -96,6 +96,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                            .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
                                .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
                                .'<p>'.$ex->getExplanation().'</p>'
+                            . '<textarea placeholder="Explanatin" cols="40" rows="3" name="textarea" id="textarea"></textarea> '
                            .'</div>'
                         .'</div> ';
 
@@ -111,7 +112,6 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
         }
         ?>
     </div>
-
     <div class="row">
         <div class="large-12 columns">
         <?php
@@ -120,14 +120,14 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
         echo '<br>';
 
         if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            echo '<button type="submit" id="but" onclick= "nextPageUploaded()" > >> </button> ';
+            echo '<button type="submit" id="but" onclick= "nextPageUploaded()" > next </button> ';
         }
         if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > << </button> '
-            . '<button type="submit" id="but" onclick= "return nextPageUploaded()" > >> </button> ';
+            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> '
+            . '<button type="submit" id="but" onclick= "return nextPageUploaded()" > next </button> ';
         }
         if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > << </button> ';
+            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> ';
         }
         ?>
         

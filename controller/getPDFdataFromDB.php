@@ -120,9 +120,8 @@ foreach ($result1 as $value) {
     $PrePageID = $value[0];
 }
 
-echo 'get saved pdf data (getPDFdataFromDB.php)';
-
-print_r($PageObjArray);
+//echo 'get saved pdf data (getPDFdataFromDB.php)';
+//print_r($PageObjArray);
 
 /**
  * Set session variable Object $PageObjArray
