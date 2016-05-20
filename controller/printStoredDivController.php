@@ -54,50 +54,52 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
 //                print_r($page->getExercisesListObj());
             $exsList = $page->getExercisesListObj();
                 
-//                echo 'Page Nr = '.$page->getPage_nr();
-//                echo 'Cur Page = '.$_SESSION['cur_page'];
-                
             if($page->getPage_nr() === $_SESSION['cur_page']){
                 foreach ($exsList as $ex){
                     /**
                      * Create exercise id
                      */
                     $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
+                    
+                    $solution = '<textarea id="aid" class="large-4 medium-4 columns right callout panel" '
+                            . 'placeholder="Answer" cols="40" '
+                            . 'rows="1" data-id="A' 
+                            . $exercise_id . '">'
+                            . $ex->getSolution()
+                        . '</textarea>';
 
-                    if(combinedEx($ex->getQuestion()) != $ex->getCombined()){
-                        $ex->setCombined(combinedEx($ex->getQuestion()));
+                    $explanationSimbol = '<a id="explanationSimbol"'
+                            . 'class = "class="large-4 medium-4 columns right" '
+                            . 'data-dropdown="drop2" contenteditable="false" '
+                            . 'onclick="openExplDiv(this)">'
+                            . 'Explanation '
+                            . '<i class="fi-arrow-down"></i>'
+                        . '</a>';
 
-                        if($ex->getCombined() == 'yes'){
-                            $ex->setQuestion(cutExercise($ex->getQuestion()));
-                        }
-
-                    }
-
-
-                    echo '<br><div id="qid" class="large-12 columns callout panel" '
+                    $explanationArray = '<textarea id="dropExplanation" '
+                            . 'class="large-4 medium-4 columns right panel" '
+                            . 'contenteditable="false"'
+                            . 'placeholder="Explanatin" cols="40" rows="3">'
+                            . $ex->getExplanation()
+                        .'</textarea>';
+                            
+                    $question = '<br><div id="qid" class="large-12 columns callout panel" '
                            .'data-id="'.$ex->getEx_ID().'" '
                            .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
                            .'oninput="questionChanged(this, '.$page->getPage_nr().')" '
-                           .'data-changed="'.$ex->getChanged().'"'
-                           .'style="" >'
-                               . $ex->getQuestion()
-                           .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$exercise_id.'">'
-                               .$ex->getSolution()
-                           .'</div>'
-                           .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
-                                 .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
-                           .'</a>' 
-                           .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
-                               .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
-                               .'<p>'.$ex->getExplanation().'</p>'
-                           .'</div>'
+                           .'data-changed="'.$ex->getChanged().'">'
+                           . $ex->getQuestion()
+                           .$solution
+                           . $explanationSimbol
+                            .$explanationArray
                         .'</div> ';
 
+                    echo $question;
+                    
                     foreach ($ex->getImages() as $img){
                         echo (string) $img
                         .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
-                        .' class="columns" id="pid"  '
-                        .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
+                        .' class="columns" id="pid" />';
                     }
                 }
             }
@@ -111,18 +113,20 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
         <div class="large-12 columns">
             <?php
 
-            // To change pages
-            echo '<br>';
+            $nextPreBtn = '<br>';
+            
             if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                echo '<button type="submit" id="but" onclick= "nextPageStored()" > >> </button> ';
+                $nextPreBtn .= '<button type="submit" id="but" onclick= "nextPageStored()" > >> </button> ';
             }
             if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                echo '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> '
-                . '<button type="submit" id="but" onclick= "return nextPageStored()" > >> </button> ';
+                $nextPreBtn .= '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> '
+                    . '<button type="submit" id="but" onclick= "return nextPageStored()" > >> </button> ';
             }
             if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-                echo '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> ';
+                $nextPreBtn .= '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> ';
             }
+            
+            echo $nextPreBtn;
             ?>
         </div>
     </div>
@@ -139,20 +143,3 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
 </div>
 
 <?php
-
-//http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
-function substr_startswith($haystack, $needle) {
-    return substr($haystack, 0, strlen($needle)) === $needle;
-}
-
-function combinedEx($exercise){
-    if(substr_startswith($exercise, '**PREpage**')){
-        return 'yes';
-    }
-    return 'no';
-}
-
-function cutExercise($exercise){
-    $exerciseN = substr($exercise, 11); // **PREpage**
-    return $exerciseN;
-}

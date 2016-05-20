@@ -1,3 +1,31 @@
+textarea#aid {
+    padding: 0.5rem;
+}
+
+textarea#dropExplanation {
+    position: absolute;
+    top: 100%;
+    padding: 0.5rem;
+    right: 0px;
+    z-index: 1;
+    visibility: hidden;
+}
+
+a#explanationSimbol{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/*Style for images*/
+img#pid{
+    max-width: 40%;
+    max-height: auto;
+    min-height: 10px;
+    margin-bottom: 1.25rem;
+    float: left;
+}
+
 /*To make RENEW div hidden*/
 div.ddh {
     display: none;
@@ -18,14 +46,6 @@ div.ddh {
 #qid{
     padding-right: 0.2rem; 
     padding-bottom: 0rem;
-}
-
-/*Style for images*/
-#pid{
-    max-width: 40%;
-    max-height: auto;
-    min-height: 10px;
-    margin-bottom: 2rem;
 }
 
 #dropExplanation{

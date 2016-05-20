@@ -18,8 +18,6 @@ include_once'../model/Exercise.php';
  */
 $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']); 
 
-/// ?????  ALl the JS file
-
 ?>
 
 <script type="text/javascript" src="js/print_edit.js"></script>
@@ -66,45 +64,47 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     /**
                      * Create exercise id
                      */
-                    $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
-                    
-                    //Combined exercises ??
-//                    if (combinedEx($ex->getQuestion()) != $ex->getCombined()) {
-//                        $ex->setCombined(combinedEx($ex->getQuestion()));
-//
-//                        if ($ex->getCombined() == 'yes') {
-//                            $ex->setQuestion(cutExercise($ex->getQuestion()));
-//                        }
-//                    }
-                    
-                    //Add content
-                    //Edit content
-                    
-                    echo '<br><div id="qid" class="large-12 columns callout panel" '
-                           .'data-id="'.$ex->getEx_ID().'" '
-                           .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
-                           .'oninput="questionChanged(this, '.$page->getPage_nr().')" '
-                           .'data-changed="'.$ex->getChanged().'"'
-                           .'style="" >'
-                               . $ex->getQuestion()
-                           .'<div id="aid" class="large-4 medium-4 columns right callout panel" data-id="A'.$exercise_id.'">'
-                               .$ex->getSolution()
-                           .'</div>'
-                           .'<a class = "class="large-4 medium-4 columns right" data-dropdown="drop2" contenteditable="false" onclick="openExplDiv(this)"'
-                                 .'style="position:absolute; bottom:0; right: 0;">Explanation <i class="fi-arrow-down"></i>'
-                           .'</a>' 
-                           .'<div id="dropExplanation" class="large-4 medium-4 columns right callout panel" '
-                               .'style="position:absolute; top:100%; right:0px; z-index: 1; visibility: hidden;">'
-                               .'<p>'.$ex->getExplanation().'</p>'
-                            . '<textarea placeholder="Explanatin" cols="40" rows="3" name="textarea" id="textarea"></textarea> '
-                           .'</div>'
-                        .'</div> ';
+                    $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];                  
+
+                    $solution = '<textarea id="aid" '
+                            . 'class="large-4 medium-4 columns right callout panel" '
+                            . 'data-id="A' . $exercise_id . '"'
+                            . 'cols="40" rows="1">'
+                            . $ex->getSolution()
+                        . '</textarea>';
+
+                    $explanationSimbol = '<a id="explanationSimbol"'
+                            . 'class = "class="large-4 medium-4 columns right" '
+                            . 'data-dropdown="drop2" contenteditable="false" '
+                            . 'onclick="openExplDiv(this)">'
+                            . 'Explanation '
+                            . '<i class="fi-arrow-down"></i>'
+                        . '</a>';
+
+                    $explanationArray = '<textarea id="dropExplanation" '
+                            . 'class="large-4 medium-4 columns right panel" '
+                            . 'contenteditable="false"'
+                            . 'placeholder="Explanatin" cols="40" rows="3">'
+                            . $ex->getExplanation()
+                        . '</textarea>';
+
+                    $question = '<br><div id="qid" class="large-12 columns callout panel" '
+                            . 'data-id="' . $ex->getEx_ID() . '" '
+                            . 'contenteditable="true" data-combined="' . $ex->getCombined() . '" '
+                            . 'oninput="questionChanged(this, ' . $page->getPage_nr() . ')" '
+                            . 'data-changed="' . $ex->getChanged() . '">'
+                            . $ex->getQuestion()
+                            . $solution
+                            . $explanationSimbol
+                            . $explanationArray
+                        . '</div> ';
+
+                    echo $question;
 
                     foreach ($ex->getImages() as $img){
-                        echo (string) $img
-                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
-                        .' class="columns" id="pid"  '
-                        .' style=" margin-bottom: 1.25rem; float:left; max-width: 40%"/>'; //background: #000080;
+                            echo (string) $img
+                            .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                            .' class="columns" id="pid" />';
                     }
                     
                 }
@@ -115,20 +115,21 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
     <div class="row">
         <div class="large-12 columns">
         <?php
-
-        // To change pages
-        echo '<br>';
-
+        
+        $nextPreBtn = '<br>';
+        
         if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            echo '<button type="submit" id="but" onclick= "nextPageUploaded()" > next </button> ';
+            $nextPreBtn .= '<button type="submit" id="but" onclick= "nextPageUploaded()" > next </button> ';
         }
         if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> '
-            . '<button type="submit" id="but" onclick= "return nextPageUploaded()" > next </button> ';
+            $nextPreBtn .=  '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> '
+                . '<button type="submit" id="but" onclick= "return nextPageUploaded()" > next </button> ';
         }
         if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-            echo '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> ';
+            $nextPreBtn .=  '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> ';
         }
+        
+        echo $nextPreBtn;
         ?>
         
         </div>

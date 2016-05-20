@@ -52,16 +52,17 @@ function questionChanged(object, page_nr){
          * get answer
          */
         if(object.childNodes[i].id === 'aid'){
-            console.log('Solution ' + object.childNodes[i].textContent);
-            solution_string = object.childNodes[i].textContent;
+            console.log('Solution ' + object.childNodes[i].value);
+            solution_string = object.childNodes[i].value;
         }
          
         /**
          * get explanation
          */
         if(object.childNodes[i].id === 'dropExplanation'){
-            console.log('Explanation ' + object.childNodes[i].textContent);
-            explanation_string = object.childNodes[i].textContent;
+            explanation_string = object.childNodes[i].value;
+//            explanation_string = object.childNodes[i].getElementsByClassName("bar")[0].value;
+            console.log('Explanation ' + explanation_string);
         }
         
         i++;
