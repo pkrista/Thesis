@@ -27,11 +27,6 @@ function questionChanged(object, page_nr){
     dataChganged(object);
     var id = object.dataset.id;
     
-//    console.log(id);
-//    console.log(object.childNodes[0]);
-    console.log(object.childNodes);
-//    console.log(object.childNodes[0].nodeType);
-    
     var i = 0; 
     var question_string = '';
     var solution_string = '';
@@ -73,11 +68,13 @@ function questionChanged(object, page_nr){
         method: 'post',
         url: 'controller/storeEditedPageExerciseContentController.php',
         data: { question: question_string, solution: solution_string, explanation: explanation_string, exId: id, page_nr: page_nr, type: "exercise"}
-      })
-        .success(function( msg ) {
-            console.log(msg);
-            
-        });
+    })
+    .success(function( msg ) {
+        console.log(msg);
+    })
+    .fail(function ( data ) {
+        $.notify("Error saving changes", "error");
+    });
 }
 
 /**
@@ -96,14 +93,17 @@ function chagePageName(object, page_nr, pageId){
         var page_name = object.childNodes[0].textContent;
         console.log("New page name" , page_name);
     
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/storeEditedPageExerciseContentController.php',
-        data: { page_name: page_name, page_nr: page_nr, type: "page" , page_id: pageId}
-      })
+        $.ajax({
+            async: true,
+            method: 'post',
+            url: 'controller/storeEditedPageExerciseContentController.php',
+            data: { page_name: page_name, page_nr: page_nr, type: "page" , page_id: pageId}
+        })
         .success(function( msg ) {
             console.log(msg);
+        })
+        .fail(function ( data ) {
+            $.notify("Error saving changes", "error");
         });
     }
 }

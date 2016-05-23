@@ -1,10 +1,9 @@
-div.hideDiv {
-    display: none;
+.notifyjs-corner {
+  min-width: 20% !important;
 }
 
-div#btnaddContentHere {
-    /*display: none;*/
-    /*visibility: hidden;*/
+div.hideDiv {
+    display: none;
 }
 
 textarea#aid {

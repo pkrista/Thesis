@@ -4,7 +4,6 @@
 
 /**
  * Return to Home page
- * 
  */
 function backToHomePage(){
     window.location.reload();
@@ -35,9 +34,11 @@ function loadPageContentStored(direction){
     .success(function( msg ) {
         console.log(msg);
         loadFileContent('printStoredDivController.php');
+    })
+    .fail(function ( data ) {
+        $.notify("Error chaning pages", "error");
     });
 }
-
 
 //To change pages
 function nextPageUploaded(){
@@ -60,6 +61,9 @@ function loadPageContentUploaded(direction){
     .success(function( msg ) {
         console.log(msg);
         loadFileContent('printUploadedDivContent.php');
+    })
+    .fail(function ( data ) {
+        $.notify("Error chaning pages", "error");
     });
 }
 
@@ -79,7 +83,10 @@ function saveChangesDB(){
     })
     .success(function( msg ) {
         console.log(msg);
-        alert('Successful');
+        $.notify("Successfuly saved changes in DB", "success");
+    })
+    .fail(function ( data ) {
+        $.notify("Error saving changes in DB", "error");
     });
 }
 
@@ -94,7 +101,10 @@ function saveUploadedPdfInDB(){
     })
     .success(function( msg ) {
         console.log(msg);
-        alert('Successful');
+        $.notify("Successfuly saved in DB", "success");
+    })
+    .fail(function ( data ) {
+           $.notify("Error saving file in DB", "error");
     });
 }
 
@@ -138,25 +148,26 @@ function openExplDiv(elem){
  function deleteDiv(elem, exercise) {
    var parent = elem.parentNode;
    
-   
-   
-   
    // if the ok button is clicked, result will be true (boolean)
     var result = confirm( "Delete?" );
     if ( result ) {
         console.log('delete this');
         console.log(parent);
         
-    $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/deleteExerciseController.php',
-        data: {exercise: exercise}
-    })
-    .success(function( msg ) {
-        console.log(msg);
-        loadFileContent('printUploadedDivContent.php');
-    });
+        $.ajax({
+            async: true,
+            method: 'post',
+            url: 'controller/deleteExerciseController.php',
+            data: {exercise: exercise}
+        })
+        .success(function( msg ) {
+            console.log(msg);
+            $.notify("Successfuly removed", "success");
+            loadFileContent('printUploadedDivContent.php');
+        })
+        .fail(function ( data ) {
+           $.notify("Error deleating the exercise", "error");
+        });
     } 
 }
 
@@ -186,8 +197,12 @@ function addContentToPage(exerciseIndex){
     })
     .success(function( msg ) {
         console.log(msg);
-        console.log('successfyll');
+
+        $.notify("Content added successfily", "success");
         loadFileContent('printUploadedDivContent.php');
+    })
+    .fail(function ( data ) {
+       $.notify("Error adding content", "error");
     });
 
 }

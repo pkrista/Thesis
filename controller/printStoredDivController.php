@@ -18,8 +18,8 @@ include_once'../model/Exercise.php';
 $pages_obj = unserialize($_SESSION['obj_pages']); 
 ?>
 
-<script type="text/javascript" src="js/print_edit.js"></script>
-<script type="text/javascript" src="js/editSavedContent.js"></script>
+<script type="text/javascript" src="js/manageSavePDFpageContent.js"></script>
+<script type="text/javascript" src="js/saveChangedContent.js"></script>
 
 <!-- <script type="text/javascript" src="js/addCont.js"></script> -->
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">

@@ -19,8 +19,8 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
 
 ?>
 
-<script type="text/javascript" src="js/print_edit.js"></script>
-<script type="text/javascript" src="js/editSavedContent.js"></script>
+<script type="text/javascript" src="js/manageSavePDFpageContent.js"></script>
+<script type="text/javascript" src="js/saveChangedContent.js"></script>
 
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 

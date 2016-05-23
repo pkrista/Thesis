@@ -14,7 +14,7 @@ $pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
 //echo 'Current page: ' . $cur_page;
 //echo 'Pages count: '. $_SESSION['pages_count'];
 ?>
-<script type="text/javascript" src="js/print_edit.js"></script>  <!-- TODO ad js function file to PY not saved PDF-->
+<script type="text/javascript" src="js/manageSavePDFpageContent.js"></script>  <!-- TODO ad js function file to PY not saved PDF-->
 <script type="text/javascript" src="js/addCont.js"></script> 
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 <!--Css for foundation icons-->

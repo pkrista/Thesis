@@ -15,7 +15,7 @@ session_start();
     <link rel="stylesheet" href="css/app.css">  
   </head>
   <body>
-      <div class="row">
+      <div class="row" id="welcome">
           <div class="panel">
               <h3>Welcome!</h3>
           </div>
@@ -35,6 +35,8 @@ session_start();
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
+    <script src="js/foundation/foundation.js"></script>
+    <script src="js/notify.js"></script>
     <script type="text/javascript" src="js/addCont.js"></script> 
     <script src="js/app.js"></script>
   </body>

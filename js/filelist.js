@@ -24,11 +24,14 @@ function openUploadedPDF(exerSeperator, fileName, fileId){
         url: 'controller/getPDFdataFromPY.php',
         data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
       })
-        .success(function( msg ) {
-            var result = msg;
-            console.log(result);
-            loadFileContent('printUploadedDivContent.php');
-        });
+    .success(function( msg ) {
+        var result = msg;
+        console.log(result);
+        loadFileContent('printUploadedDivContent.php');
+    })
+    .fail(function ( data ) {
+        $.notify("Error opening uploaded file", "error");
+    });
 }
 
 /**
@@ -39,18 +42,21 @@ function openUploadedPDF(exerSeperator, fileName, fileId){
 function openSavedPDF(fileName, fileId){
     hideFileListCont();
     
-        $.ajax({
-        async: true,
-        method: 'post',
-        url: 'controller/getPDFdataFromDB.php',
-        data: { fName: fileName, fileId: fileId}
-      })
-        .success(function( msg ) {
-            //To test print in console
-            console.log(msg);
-            
-            loadFileContent('printStoredDivController.php');            
-        });
+    $.ajax({
+    async: true,
+    method: 'post',
+    url: 'controller/getPDFdataFromDB.php',
+    data: { fName: fileName, fileId: fileId}
+    })
+    .success(function( msg ) {
+        //To test print in console
+        console.log(msg);
+
+        loadFileContent('printStoredDivController.php');            
+    })
+    .fail(function ( data ) {
+        $.notify("Error opening saved file", "error");
+    });
 }
 
 /**
@@ -90,7 +96,6 @@ function myFunction(object) {
     else if(type === 'Q'){
         alert('Question id - '+id); 
     }
-    
 }
 
 /*
@@ -103,13 +108,11 @@ var width = $(window).width();
 //console.log(width);    
     if (width < 600) {
         $("#divi").find( "img" ).css({
-//          "background-color": "red",
           "max-width": "100%"
         });
     }
     else {
         $( '#divi').find( "img" ).css({
-//        "background-color": "blue",
         "max-width": "50%"
         });
     }
