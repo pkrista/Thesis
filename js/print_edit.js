@@ -100,7 +100,7 @@ function saveUploadedPdfInDB(){
 
 /**
  * Load content of Next or Pre page
- * @param {type} elem
+ * @param {type} file the name of the file to load
  * @returns {undefined}
  */
 function loadFileContent(file){ 
@@ -135,25 +135,59 @@ function openExplDiv(elem){
  * 
  */
 
- function deleteDiv(elem) {
+ function deleteDiv(elem, exercise) {
    var parent = elem.parentNode;
+   
+   
+   
    
    // if the ok button is clicked, result will be true (boolean)
     var result = confirm( "Delete?" );
     if ( result ) {
-        //if next element is image delete it also
-        var nextElement = parent.nextElementSibling;
+        console.log('delete this');
+        console.log(parent);
         
-        while(nextElement !== null && nextElement.tagName === 'IMG'){
-            nextElement.remove();
-            
-            nextElement = parent.nextElementSibling;
-            console.log(nextElement);
-        }
-        
-        // the user clicked ok
-        parent.remove();
-    } else {
-        // the user clicked cancel or closed the confirm dialog.
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/deleteExerciseController.php',
+        data: {exercise: exercise}
+    })
+    .success(function( msg ) {
+        console.log(msg);
+        loadFileContent('printUploadedDivContent.php');
+    });
     } 
+}
+
+/**
+ * Show all places where it is possible to add exercise content
+ */
+function addContentShow(){ 
+    /**
+     * Show all places where to add content
+     */
+    $('[id=btnaddContentHere]').each(function() {
+     $( this ).toggleClass( "hideDiv" );
+   });
+}
+
+/**
+ * To insert new exercise
+ * 
+ * @param {type} exerciseIndex (index of the exercise above)
+ */
+function addContentToPage(exerciseIndex){
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/addExerciseController.php',
+        data: {exercise: exerciseIndex}
+    })
+    .success(function( msg ) {
+        console.log(msg);
+        console.log('successfyll');
+        loadFileContent('printUploadedDivContent.php');
+    });
+
 }

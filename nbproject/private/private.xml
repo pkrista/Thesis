@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/model/Page.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/model/Exercise.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/setFileObectUploadedPDF.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/savefileController.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/separateExerciseController.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/getPDFdataFromPY.php</file>
-            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/seperateExercisesInPdfObject.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/not/arrayeditController.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/index.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/controller/printUploadedDivContent.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/not/printdivController.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/view/fileHeaderContent.php</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/css/filelist.css</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/js/addCont.js</file>
+            <file>file:/C:/Users/krista/Documents/NetBeansProjects/Thesis/css/fileedit.css</file>
         </group>
     </open-files>
 </project-private>

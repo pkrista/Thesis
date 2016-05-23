@@ -35,5 +35,6 @@ session_start();
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
+    <script type="text/javascript" src="js/addCont.js"></script> 
     <script src="js/app.js"></script>
   </body>

@@ -7,8 +7,9 @@ and open the template in the editor.
     Created on : 2015.11.3, 00:39:59
     Author     : Krista
 */
-div{
-
+.hide {
+    display: none;
+    /*visibility: hidden;*/
 }
 
 .filesListandupload{

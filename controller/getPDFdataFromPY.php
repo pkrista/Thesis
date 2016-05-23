@@ -23,12 +23,6 @@ $fileName = $_POST['fName'];
 $exerSeperator = $_POST['exSep'];
 $fileId = $_POST['fileId'];
     
-    //$pdf_array = $_SESSION['pdf_array'];
-    //$pages_count = $_SESSION['pages_count'];
-//    $_SESSION['cur_page'] = 0;
-//    $cur_page = $_SESSION['cur_page'];
-    //$_SESSION['filename'] = $_GET['name'];
-    
 $_SESSION['print']='combined';
 $_SESSION['direction']='next';
     
@@ -49,12 +43,39 @@ $_SESSION['cur_page'] = 0;
     //file name
     echo "File name: ".$fileName."\n";
 
+    /**
+    * For Uploaded Files
+    * 
+    * Get data out of PDF file
+    * using Python project pdfminer
+    */
+
+
     //set maximum execution time to 5 min (from 30 seconds default)
     ini_set('max_execution_time', 300);
-        
-    include_once('getbiglistController.php');
 
-    require_once('setFileObectUploadedPDF.php');
+    $filename = $_SESSION['filename'];
+
+    $path = "../uploads/".$filename;
+    //$command = "i.py $path";
+    $command = "itest.py $path $filename";
+
+    $pid = popen($command,"r");
+
+    $big_string = '';
+
+    while( !feof( $pid ) )
+        {
+            $big_string .= fread($pid, 256);
+            flush();
+            ob_flush();
+            usleep(100000);
+        }
+    pclose($pid);
+    
+    
+if(strlen($big_string) > 0){
+        require_once('setFileObectUploadedPDF.php');
 
     //Call fileedit controller. send it 
     $obj = new setFileObectUploadedPDF($big_string);
@@ -66,4 +87,4 @@ $_SESSION['cur_page'] = 0;
     $_SESSION['pages_count'] = count($pdf_object_array);
 
     $_SESSION['cur_page'] = 0;
-?>
+}
