@@ -108,9 +108,9 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     echo $question;
                     
                     foreach ($ex->getImages() as $img){
-                            echo (string) $img
-                            .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
-                            .' class="columns" id="pid" />';
+                        echo (string) $img
+                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                        .' class="columns" id="pid" />';
                     }
                     echo '<div id="btnaddContentHere" class="button expand tiny info hideDiv" onclick= "addContentToPage('.$key.')">add here</div>';
                     

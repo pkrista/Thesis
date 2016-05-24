@@ -29,7 +29,7 @@ print 'INDEX .>.>' . $exeIndex;
 print 'old';
 print_r($pageArray);
 
-$newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', 'no', 'no', array(), $cur_page));
+$newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', 'no', array(), $cur_page));
 array_splice($pageArray, $exeIndex+1, 0, $newExercise);
 
 print 'new';
