@@ -96,7 +96,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     $question = '<br><div id="qid" class="large-12 columns callout panel" '
                             . 'data-id="' . $ex->getEx_ID() . '" '
                             . 'contenteditable="true" data-combined="' . $ex->getCombined() . '" '
-                            . 'oninput="questionChanged(this, ' . $page->getPage_nr() . ')" '
+                            . 'oninput="questionChanged(this, ' . $page->getPage_nr() . ', ' . $key . ')" '
                             . 'data-changed="' . $ex->getChanged() . '">'
                             . $ex->getQuestion()
                             . $removeExe

@@ -23,7 +23,7 @@ function dataChganged(object){
  * @param {type} object (exercise object)
  * @param {type} page_nr 
  */
-function questionChanged(object, page_nr){
+function questionChanged(object, page_nr, exerciseIndex){
     dataChganged(object);
     var id = object.dataset.id;
     
@@ -67,7 +67,7 @@ function questionChanged(object, page_nr){
         async: true,
         method: 'post',
         url: 'controller/storeEditedPageExerciseContentController.php',
-        data: { question: question_string, solution: solution_string, explanation: explanation_string, exId: id, page_nr: page_nr, type: "exercise"}
+        data: { question: question_string, solution: solution_string, explanation: explanation_string, exId: exerciseIndex, page_nr: page_nr, type: "exercise"}
     })
     .success(function( msg ) {
         console.log(msg);

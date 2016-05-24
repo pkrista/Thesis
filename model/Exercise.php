@@ -1,9 +1,7 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Model Exercise
  */
 
 /**
@@ -35,14 +33,16 @@ class Exercise {
     private $Explanation;
     private $Changed = 'no';
     private $Combined = 'no';
+    private $IsRemoved = 'no';
     private $Images = array();
+    
 //    private $Images = [];
     
     //private $Number;
     //? page nr
     private $Page;
     
-    public function __construct($Page_ID,$Page_name,$Ex_ID,$Question,$Solution,$Explanation,$Changed,$Combined,$Images,$Page) {
+    public function __construct($Page_ID,$Page_name,$Ex_ID,$Question,$Solution,$Explanation,$Combined,$Images,$Page) {
         
         $this->Page_ID = $Page_ID;
         $this->Page_name = $Page_name;
@@ -50,11 +50,10 @@ class Exercise {
         $this->Question = $Question;
         $this->Solution = $Solution;
         $this->Explanation = $Explanation;
-        $this->Changed = $Changed;
         $this->Combined = $Combined;
         $this->Images = $Images;
-        //$this->Number = $Number;
         $this->Page = $Page; 
+        
     }
     
     public function getPage_ID(){
@@ -101,6 +100,10 @@ class Exercise {
         return $this->Page;
     }      
     
+    public function getIsRemoved(){
+        return $this->IsRemoved;
+    }
+    
     //SET
     
     public function setChanged($changed){
@@ -121,6 +124,10 @@ class Exercise {
     
     public function setCombined($combined){
         $this->Combined = $combined;
+    }
+    
+    public function setIsRemoved($isRemoved){
+        $this->IsRemoved = $isRemoved;
     }
     
     public function addImage($img){

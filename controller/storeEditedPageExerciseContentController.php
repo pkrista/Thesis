@@ -38,8 +38,8 @@ if($_POST['type'] == 'exercise'){
 
             $exsList = $page->getExercisesListObj();
 
-            foreach ($exsList as $ex){
-               if($ex->getEx_ID() == (integer) $_POST['exId']){
+            foreach ($exsList as $key=>$ex){
+               if($key == (integer) $_POST['exId']){
                    /**
                     * set/edit question
                     */

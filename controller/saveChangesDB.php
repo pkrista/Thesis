@@ -49,8 +49,8 @@ foreach ($pages_obj as $page){
     $exsList = $page->getExercisesListObj();
     if ($lastInsertedPageId !== -1 && count($exsList) > 0) {
 
-        foreach ($exsList as $exe) {
-            $lastInsertedExeId = insertDB(generateQueryExercise($exe, $lastInsertedPageId,$paperPageNr));
+        foreach ($exsList as $key => $exe) {
+            $lastInsertedExeId = insertDB(generateQueryExercise($exe, $lastInsertedPageId, $paperPageNr, $key));
             $imgList = $exe->getImages();
             if($lastInsertedExeId !== -1 && count($imgList)>0 ){
                 foreach ($imgList as $img) {
@@ -64,17 +64,15 @@ foreach ($pages_obj as $page){
 /*
  * Generates insert query for Exercise
  */
-function generateQueryExercise($exercise, $pageID,$paperPageNr){
-   $PaperFieldID = $paperPageNr.$exercise->getEx_ID()+1;
+function generateQueryExercise($exercise, $pageID,$paperPageNr, $exerciseIndex){
+    $PaperFieldID = $paperPageNr.$exerciseIndex+1;
     $query = "INSERT INTO exercise(Page_ID,PaperFieldID,Number,Question,Solution,Explanation)"
             . "VALUES(".$pageID
             . ",".$PaperFieldID
-            . ",'".$exercise->getEx_ID()."'"
+            . ",'".$exerciseIndex."'"
             . ",'".$exercise->getQuestion()."'"
             . ",'".$exercise->getSolution()."'"
             . ",'".$exercise->getExplanation()."')";
-    
-    //TODO what with combined exercises?
     
     return $query;
 }

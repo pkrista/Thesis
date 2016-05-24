@@ -171,6 +171,30 @@ function openExplDiv(elem){
     } 
 }
 
+function deleteDivStored(elem, exercise){
+    var parent = elem.parentNode;
+    // if the ok button is clicked, result will be true (boolean)
+    var result = confirm( "Delete?" );
+    if ( result ) {
+        console.log('delete this');
+        console.log(parent); 
+        $.ajax({
+            async: true,
+            method: 'post',
+            url: 'controller/deleteStoredExerciseController.php',
+            data: {exercise: exercise}
+        })
+        .success(function( msg ) {
+            console.log(msg);
+            $.notify("Successfuly removed", "success");
+            loadFileContent('printStoredDivController.php');
+        })
+        .fail(function ( data ) {
+           $.notify("Error deleating the exercise", "error");
+        });
+    }
+}
+
 /**
  * Show all places where it is possible to add exercise content
  */

@@ -25,8 +25,15 @@ print 'INDEX .>.>' . $exeIndex;
  * if index f exercise is given as -1 
  * add element at the begining
  */
+
+print 'old';
+print_r($pageArray);
+
 $newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', 'no', 'no', array(), $cur_page));
 array_splice($pageArray, $exeIndex+1, 0, $newExercise);
+
+print 'new';
+print_r($pageArray);
 
 $page->setExercisesListObj($pageArray);
 $pages_obj_upload[$cur_page] = $page;

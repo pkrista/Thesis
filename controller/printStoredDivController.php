@@ -42,7 +42,8 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
     <?php
     //Page Name, File name , add content button
     include_once '../view/fileHeaderContent.php';
-    
+  
+    ///print_r($pages_obj[$_SESSION['cur_page']]);
     /**
      * Iterate through all pages/exercises and show content on screen
      */
@@ -55,51 +56,59 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
             $exsList = $page->getExercisesListObj();
                 
             if($page->getPage_nr() === $_SESSION['cur_page']){
-                foreach ($exsList as $ex){
-                    /**
-                     * Create exercise id
-                     */
-                    $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
-                    
-                    $solution = '<textarea id="aid" class="large-4 medium-4 columns right callout panel" '
-                            . 'placeholder="Answer" cols="40" '
-                            . 'rows="1" data-id="A' 
-                            . $exercise_id . '">'
-                            . $ex->getSolution()
-                        . '</textarea>';
+                foreach ($exsList as $key=>$ex){                    
+                    if($ex->getIsRemoved() == 'no'){
+                        /**
+                         * Create exercise id
+                         */
+                        $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
 
-                    $explanationSimbol = '<a id="explanationSimbol"'
-                            . 'class = "class="large-4 medium-4 columns right" '
-                            . 'data-dropdown="drop2" contenteditable="false" '
-                            . 'onclick="openExplDiv(this)">'
-                            . 'Explanation '
-                            . '<i class="fi-arrow-down"></i>'
-                        . '</a>';
+                        $solution = '<textarea id="aid" class="large-4 medium-4 columns right callout panel" '
+                                . 'placeholder="Answer" cols="40" '
+                                . 'rows="1" data-id="A' 
+                                . $exercise_id . '">'
+                                . $ex->getSolution()
+                            . '</textarea>';
 
-                    $explanationArray = '<textarea id="dropExplanation" '
-                            . 'class="large-4 medium-4 columns right panel" '
-                            . 'contenteditable="false"'
-                            . 'placeholder="Explanatin" cols="40" rows="3">'
-                            . $ex->getExplanation()
-                        .'</textarea>';
-                            
-                    $question = '<br><div id="qid" class="large-12 columns callout panel" '
-                           .'data-id="'.$ex->getEx_ID().'" '
-                           .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
-                           .'oninput="questionChanged(this, '.$page->getPage_nr().')" '
-                           .'data-changed="'.$ex->getChanged().'">'
-                           . $ex->getQuestion()
-                           .$solution
-                           . $explanationSimbol
-                            .$explanationArray
-                        .'</div> ';
+                        $explanationSimbol = '<a id="explanationSimbol"'
+                                . 'class = "class="large-4 medium-4 columns right" '
+                                . 'data-dropdown="drop2" contenteditable="false" '
+                                . 'onclick="openExplDiv(this)">'
+                                . 'Explanation '
+                                . '<i class="fi-arrow-down"></i>'
+                            . '</a>';
 
-                    echo $question;
-                    
-                    foreach ($ex->getImages() as $img){
-                        echo (string) $img
-                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
-                        .' class="columns" id="pid" />';
+                        $explanationArray = '<textarea id="dropExplanation" '
+                                . 'class="large-4 medium-4 columns right panel" '
+                                . 'contenteditable="false"'
+                                . 'placeholder="Explanatin" cols="40" rows="3">'
+                                . $ex->getExplanation()
+                            .'</textarea>';
+
+                        $removeExe = '<a id="delDiv" onclick="deleteDivStored(this,'.$key.')"'
+                                    . 'style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"'
+                                    . 'contenteditable="false"> × '
+                                . '</a>';
+
+                        $question = '<br><div id="qid" class="large-12 columns callout panel" '
+                               .'data-id="'.$ex->getEx_ID().'" '
+                               .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
+                               .'oninput="questionChanged(this, '.$page->getPage_nr().', ' . $key . ')" '
+                               .'data-changed="'.$ex->getChanged().'">'
+                               . $ex->getQuestion()
+                               . $removeExe
+                               . $solution
+                               . $explanationSimbol
+                               . $explanationArray
+                            .'</div> ';
+
+                        echo $question;
+
+                        foreach ($ex->getImages() as $img){
+                            echo (string) $img
+                            .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                            .' class="columns" id="pid" />';
+                        }
                     }
                 }
             }

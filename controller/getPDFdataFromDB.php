@@ -102,7 +102,7 @@ foreach ($result1 as $value) {
     }
     else{
         //create new exe
-        $ex = new Exercise($value[0], $value[1], $value[2], $value[3], $value[4], $value[5], 'no', 'no' , array(), $page);
+        $ex = new Exercise($value[0], $value[1], $value[2], $value[3], $value[4], $value[5], 'no' , array(), $page);
 //        new Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Changes, $Combined, $Images, $Page)
         //Add image, if exercise have image
         if(!empty($value[6])){
