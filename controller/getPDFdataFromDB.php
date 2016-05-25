@@ -55,13 +55,17 @@ $query1 = 'select '
             . 'e.Question, '
             . 'e.Solution, '
             . 'e.Explanation, '
-        . 'IFNULL(i.src, 0) src FROM exercise e '
-        . 'LEFT JOIN image i on i.Exercise_ID = e.Exercise_ID '
-        . 'LEFT JOIN page p on p.Page_ID = e.PAGE_ID '
-        . 'LEFT JOIN file f on p.File_ID = f.File_ID '
-        . 'Where f.File_ID = '.$fileId;
+        . ' IFNULL(i.src, 0) src FROM exercise e '
+        . ' LEFT JOIN image i on i.Exercise_ID = e.Exercise_ID '
+        . ' LEFT JOIN page p on p.Page_ID = e.PAGE_ID '
+        . ' LEFT JOIN file f on p.File_ID = f.File_ID '
+        . ' Where f.File_ID = '.$fileId
+        . ' ORDER BY p.Page_ID, e.number ';
 
 $result1 = $db->query($query1);
+
+print_r($result1);
+
 $PrePageID = '';
 $page = 0;
 $page_nr = 0;

@@ -16,7 +16,7 @@ include_once'../model/Page.php';
 include_once '../config/theasisDB.php';
 $db = new theasisDB();
 
-print 'In file (updateChangesDB.php) to save changed content of saved PDF ';
+print 'In file (exercisesUpdateDB.php) to save changed content of saved PDF ';
 
 /**
  * Current page object taken from screen
@@ -51,8 +51,24 @@ function updateChangedExercises($exsListWithDeletes, $pageID){
         $pagePaperNr = $exe->getPage()+1;
         $PaperFieldID = $pagePaperNr.$key+1;
         
+        //check is is new exercise
+        if($exe->getIsNew() == 'yes'){
+            $paperPageNr = $exe->getPage()+1;
+            $PaperFieldID = $paperPageNr.$key+1;
+            //Insert new exercise 
+            $ExerciseInsertQuery = "INSERT INTO exercise(Page_ID,PaperFieldID,Number,Question,Solution,Explanation)"
+                    . "VALUES(".$exe->getPage_ID()
+                    . ",". $PaperFieldID
+                    . ",". $key
+                    . ",'".$exe->getQuestion()."'"
+                    . ",'".$exe->getSolution()."'"
+                    . ",'".$exe->getExplanation()."')";
+            
+            updateDB($ExerciseInsertQuery);
+            $exe->setIsNew('no');
+        }
         //check if exercise is changed
-        if($exe->getChanged() == 'yes'){
+        else if($exe->getChanged() == 'yes' && $exe->getIsNew() == 'no'){
             //update changed exercises query
             $ExerciseUpdateQuery = 'UPDATE exercise '
                     . ' SET Question="'.$exe->getQuestion().'",'
@@ -75,6 +91,7 @@ function removeExerciseDB($exsList){
             //deleate images
             $images = $exe->getImages();
             
+            //deleate images related to exercise
             deleteExerciseRelatedimages($images, $exe->getEx_ID());
             
             //1 deleate from db
@@ -101,11 +118,11 @@ function updateDB($query){
     try {
         $db = new theasisDB();
         $db->query($query);
-        print "File successfully updated (updateChangesDB.php)";
+        print "File successfully updated (exercisesUpdateDB.php)";
 
     }
     catch (PDOException $e) {
-        print "error updating file in DB (updateChangesDB.php) - " . $e->getMessage();
+        print "error updating file in DB (exercisesUpdateDB.php) - " . $e->getMessage();
     }
 
 }

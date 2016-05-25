@@ -18,7 +18,7 @@ $db = new theasisDB();
 $lastInsertedPageId = -1;
 $lastInsertedExeId = -1;
 
-print 'In file (saveChangesDB.php) to save changed content of uploaded PDF ';
+print 'In file (exercisesInsertDB.php) to save changed content of uploaded PDF ';
 
 /**
  * Current page object taken from screen
@@ -86,11 +86,11 @@ function insertDB($query){
         $db = new theasisDB();
         $db->query($query);
         $lastPageID = $db->lastInsertId(); //Last insert id -> Id for current page
-        print "File successfully saved (saveChangesDB.php)";
+        print "File successfully saved (exercisesInsertDB.php)";
         return $lastPageID;
     }
     catch (PDOException $e) {
-        print "error saving file in DB (saveChangesDB.php) - " . $e->getMessage();
+        print "error saving file in DB (exercisesInsertDB.php) - " . $e->getMessage();
         return -1;
     }
 }

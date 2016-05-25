@@ -78,7 +78,7 @@ function saveChangesDB(){
     $.ajax({
     async: true,
     method: 'post',
-    url: 'controller/updateChangesDB.php',
+    url: 'controller/exercisesUpdateDB.php',
     data: {}
     })
     .success(function( msg ) {
@@ -96,7 +96,7 @@ function saveUploadedPdfInDB(){
     $.ajax({
     async: true,
     method: 'post',
-    url: 'controller/saveChangesDB.php',
+    url: 'controller/exercisesInsertDB.php',
     data: {}
     })
     .success(function( msg ) {
@@ -208,7 +208,7 @@ function addContentShow(){
 }
 
 /**
- * To insert new exercise
+ * To insert new exercise (Uploaded PDF)
  * 
  * @param {type} exerciseIndex (index of the exercise above)
  */
@@ -229,4 +229,27 @@ function addContentToPage(exerciseIndex){
        $.notify("Error adding content", "error");
     });
 
+}
+
+/**
+ * To insert new exercise (Stored PDF)
+ * 
+ * @param {type} exerciseIndex (index of the exercise above)
+ */
+function addContentToStoredPage(exerciseIndex){
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/addExerciseStoredController.php',
+        data: {exercise: exerciseIndex}
+    })
+    .success(function( msg ) {
+        console.log(msg);
+
+        $.notify("Content added successfily", "success");
+        loadFileContent('printStoredDivController.php');
+    })
+    .fail(function ( data ) {
+       $.notify("Error adding content", "error");
+    });
 }

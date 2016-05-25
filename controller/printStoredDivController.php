@@ -43,6 +43,8 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
     //Page Name, File name , add content button
     include_once '../view/fileHeaderContent.php';
 
+    // To add content as first object
+    echo '<div id="btnaddContentHere" class="button expand tiny info hideDiv" onclick= "addContentToStoredPage(-1)">add here</div>';
     /**
      * Iterate through all pages/exercises and show content on screen
      */
@@ -103,6 +105,9 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                         .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
                         .' class="columns" id="pid" />';
                     }
+                    
+                    //to add content here
+                    echo '<div id="btnaddContentHere" class="button expand tiny info hideDiv" onclick= "addContentToStoredPage('.$key.')">add here</div>';
                 }
             }
         }

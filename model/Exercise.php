@@ -34,6 +34,7 @@ class Exercise {
     private $Changed = 'no';
     private $Combined = 'no';
     private $IsRemoved = 'no';
+    private $IsNew = 'no';
     private $Images = array();
     
 //    private $Images = [];
@@ -95,13 +96,17 @@ class Exercise {
     public function getImages(){
         return $this->Images;
     }
-    
+    //paperPage nr
     public function getPage(){
         return $this->Page;
     }      
     
     public function getIsRemoved(){
         return $this->IsRemoved;
+    }
+    
+    public function getIsNew(){
+        return $this->IsNew;
     }
     
     //SET
@@ -128,6 +133,14 @@ class Exercise {
     
     public function setIsRemoved($isRemoved){
         $this->IsRemoved = $isRemoved;
+    }
+    
+    public function setIsNew($isNew){
+        $this->IsNew = $isNew;
+    }
+    
+    public function setImages($images){
+        $this->Images = $images;
     }
     
     public function addImage($img){

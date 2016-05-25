@@ -2,7 +2,7 @@
 session_start();
 
 /* 
- * Add new exercise to the current page in given index
+ * Add new exercise to the current page in given index (uploaded PDF)
  */
 
 include_once'../model/Page.php'; 
@@ -19,21 +19,13 @@ $exeIndex = $_POST['exercise'];
 $page = $pages_obj_upload[$cur_page];
 $pageArray = $page->getExercisesListObj();
 
-print 'INDEX .>.>' . $exeIndex;
-
 /**
- * if index f exercise is given as -1 
+ * if index of exercise is given as -1 
  * add element at the begining
  */
 
-print 'old';
-print_r($pageArray);
-
 $newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', 'no', array(), $cur_page));
 array_splice($pageArray, $exeIndex+1, 0, $newExercise);
-
-print 'new';
-print_r($pageArray);
 
 $page->setExercisesListObj($pageArray);
 $pages_obj_upload[$cur_page] = $page;
