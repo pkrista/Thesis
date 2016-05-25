@@ -26,6 +26,6 @@ foreach($pageArray as $key => $exercise) {
     } 
 }
 
-$page->setExercisesListObj($pageArray);
+$page->setExercisesListObj(array_values($pageArray));
 $pages_obj_upload[$cur_page] = $page;
 $_SESSION['obj_pages_upload'] = serialize($pages_obj_upload);

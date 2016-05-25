@@ -88,11 +88,15 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                             . 'placeholder="Explanatin" cols="40" rows="3">'
                             . $ex->getExplanation()
                         . '</textarea>';
-
-                    $removeExe = '<a id="delDiv" onclick="deleteDiv(this,'.$key.')"'
-                                . 'style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"'
-                                . 'contenteditable="false"> × '
-                            . '</a>';
+                    
+                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDiv(this,'.$key.')"'
+                            . 'contenteditable="false" title="Remove"> '
+                        . '</a>';
+                    
+                    $addImage = '<a id="addNewImg" class="fi-photo small" onclick="addImageExercise(this,'.$key.')"'
+                            . 'contenteditable="false" title="Add image"> '
+                        . '</a>';
+                                        
                     $question = '<br><div id="qid" class="large-12 columns callout panel" '
                             . 'data-id="' . $ex->getEx_ID() . '" '
                             . 'contenteditable="true" data-combined="' . $ex->getCombined() . '" '
@@ -100,6 +104,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                             . 'data-changed="' . $ex->getChanged() . '">'
                             . $ex->getQuestion()
                             . $removeExe
+                            . $addImage
                             . $solution
                             . $explanationSimbol
                             . $explanationArray

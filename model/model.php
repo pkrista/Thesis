@@ -66,7 +66,7 @@
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
             
-            $sql = "SELECT f.* from file f where f.File_ID NOT IN (SELECT p.File_ID from page p)"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
+            $sql = "SELECT f.* from file f where f.File_ID NOT IN (SELECT p.File_ID from page p) ORDER BY f.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
             foreach ($db->query($sql) as $row)
                 {
                     $name = $row['Name'];
@@ -84,7 +84,7 @@
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
             
-            $sql = "select DISTINCT file.* from file, page where file.File_ID = page.File_ID"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
+            $sql = "select DISTINCT file.* from file, page where file.File_ID = page.File_ID ORDER BY file.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
             foreach ($db->query($sql) as $row)
                 {
                     $name = $row['Name'];

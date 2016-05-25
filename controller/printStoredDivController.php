@@ -81,9 +81,12 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                             . $ex->getExplanation()
                         .'</textarea>';
 
-                    $removeExe = '<a id="delDiv" onclick="deleteDivStored(this,'.$key.')"'
-                            . 'style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"'
-                            . 'contenteditable="false"> × '
+                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDivStored(this,'.$key.')"'
+                            . 'contenteditable="false" title="Remove"> '
+                        . '</a>';
+                    
+                    $addImage = '<a id="addNewImg" class="fi-photo small" onclick="addImageStoredExercise(this,'.$key.')"'
+                            . 'contenteditable="false" title="Add image"> '
                         . '</a>';
 
                     $question = '<br><div id="qid" class="large-12 columns callout panel" '
@@ -93,10 +96,11 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                            .'data-changed="'.$ex->getChanged().'">'
                            . $ex->getQuestion()
                            . $removeExe
+                           . $addImage
                            . $solution
                            . $explanationSimbol
                            . $explanationArray
-                        .'</div> ';
+                        .' </div> ';
 
                     echo $question;
 

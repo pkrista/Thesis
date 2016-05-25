@@ -80,12 +80,7 @@
                 
             </div>
             
-            </div> 
-            <!-- File upload form -->
-            <div class="large-4 medium-4 columns" id="fileupload">
-                <?php include_once 'form/uploadform.php'; ?>
-            </div>
-                
+            </div>               
             <!-- File upload form -->
             <div class="large-4 medium-4 columns" id="fileupload">
                 <div class="panel" id="upload">

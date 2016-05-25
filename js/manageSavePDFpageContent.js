@@ -144,7 +144,6 @@ function openExplDiv(elem){
  * To delete DIV
  * 
  */
-
  function deleteDiv(elem, exercise) {
    var parent = elem.parentNode;
    
@@ -252,4 +251,18 @@ function addContentToStoredPage(exerciseIndex){
     .fail(function ( data ) {
        $.notify("Error adding content", "error");
     });
+}
+
+/**
+ * Function to add image to stored exercise
+ */
+function addImageStoredExercise(elem, exerciseIndex){
+    $.notify("Not implemented", "error");
+}
+
+/**
+ * Function to add image to uploaded exercise
+ */
+function addImageExercise(elem, exerciseIndex){
+    $.notify("Not implemented", "error");
 }
