@@ -24,10 +24,22 @@ session_start();
       <div class="row" id="eeee"></div>
 
       <?php
-      include_once("controller/controller.php");
+      
+        /**
+         * Create folder oif dont exist
+         */
+        $userHome =  getenv("HOMEDRIVE").getenv("HOMEPATH"); 
+        $EPSpath = $userHome.'\AuthoringToolImages';
+        if(!is_dir($EPSpath)){
+            mkdir($EPSpath); 
+        }
+        $_SESSION['eps_dir'] = $EPSpath;
+        
 
-      $controller = new Controller();
-      $controller->invoke();
+        include_once("controller/controller.php");
+
+        $controller = new Controller();
+        $controller->invoke();
       
       ?>
 

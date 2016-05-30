@@ -71,7 +71,7 @@
                                             .$file->title.'</a></td>'
                                     . '<td>'.$file->date.'</td>'
                                     . '<td>'.$file->id.'</td>'
-                                    . '<td><a onclick="doMagic()">EPS</a></td>'
+                                    . '<td><a onclick="doMagic(\''.$file->title.'\')">EPS</a></td>'
                                 . '</tr>';
 
                         }
@@ -95,10 +95,16 @@
             
             <div class="large-4 medium-4 columns" id="folder">
                 <div class="panel" id="upload">
-                    Chose folder where to store converted PDF (EPS files)
-                    <form>
-                        
-                    </form>
+                    <?php
+                        if (isset($_SESSION['eps_dir']))
+                        {
+                            echo 'See Converted <i>(EPS)</i> files here : </br>';
+                            echo $_SESSION['eps_dir'];
+                        }
+                        else{
+                            echo 'EPS images folder not created!';
+                        }
+                    ?>
                 </div>
             </div>
             
