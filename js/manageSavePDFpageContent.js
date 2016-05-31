@@ -75,6 +75,9 @@ function loadPageContentUploaded(direction){
  */
 function saveChangesDB(){
 
+    var spinner = createSpinner();
+    showOverlay();
+    
     $.ajax({
     async: true,
     method: 'post',
@@ -84,14 +87,21 @@ function saveChangesDB(){
     .success(function( msg ) {
         console.log(msg);
         $.notify("Successfuly saved changes in DB", "success");
+        spinner.stop();
+        hideOverlay();
     })
     .fail(function ( data ) {
         $.notify("Error saving changes in DB", "error");
+        spinner.stop();
+        hideOverlay();
     });
 }
 
 //To save data in the db
 function saveUploadedPdfInDB(){
+    var spinner = createSpinner();
+    showOverlay();
+    
     alert('start saving changes');
     $.ajax({
     async: true,
@@ -102,9 +112,13 @@ function saveUploadedPdfInDB(){
     .success(function( msg ) {
         console.log(msg);
         $.notify("Successfuly saved in DB", "success");
+        spinner.stop();
+        hideOverlay();
     })
     .fail(function ( data ) {
-           $.notify("Error saving file in DB", "error");
+        $.notify("Error saving file in DB", "error");
+        spinner.stop();
+        hideOverlay();
     });
 }
 
