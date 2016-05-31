@@ -12,6 +12,8 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/filelist.js"></script>
     <script type="text/javascript" src="js/convertEPS.js"></script>
+    
+    <script type="text/javascript" src="js/spin.js"></script>
 </head>
 
 <!--link to css-->
