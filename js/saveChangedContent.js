@@ -107,3 +107,23 @@ function chagePageName(object, page_nr, pageId){
         });
     }
 }
+
+function onCategorySelected( object, page_nr, pageId){
+    _object = object;
+    console.log('text = ', object.text);
+    console.log('value = ', object.value);
+    console.log('id = ', object[object.selectedIndex].id);
+    $.ajax({
+            async: true,
+            method: 'post',
+            url: 'controller/storeEditedPageExerciseContentController.php',
+            data: { category: object.value, category_id: object[object.selectedIndex].id, page_nr: page_nr, type: "category" , page_id: pageId}
+        })
+        .success(function( msg ) {
+            console.log(msg);
+        })
+        .fail(function ( data ) {
+            $.notify("Error saving changes", "error");
+        });
+    
+}

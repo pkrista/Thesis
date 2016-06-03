@@ -8,3 +8,69 @@
     width: 100%;
     height: 100%;
 }
+#body {
+    background-image: url("rosenblatt-1388131_1920_1.jpg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.97;
+    filter: alpha(opacity=40);
+}
+
+/*http://crunchify.com/create-new-cool-previous-next-navigation-button-for-wordpress-blog/*/
+
+button#arrowLeft {
+    width: 5%;
+    position: fixed;
+    z-index: 100;
+    left: -5px;
+    top: 45%;
+    padding: 15px 10px;
+    -webkit-transition: .2s ease-in;
+    -moz-transition: .2s ease-in;
+    -o-transition: .2s ease-in;
+    transition: .2s ease-in;
+}
+ 
+button#arrowLeft:hover {
+    left: 0;
+    -webkit-transition: .2s ease-in;
+    -moz-transition: .2s ease-in;
+    -o-transition: .2s ease-in;
+    transition: .2s ease-in;
+    color: #fff;
+}
+ 
+button#arrowRight {
+    width: 5%;
+    position: fixed;
+    z-index: 100;
+    right: -5px;
+    top: 45%;
+    padding: 15px 10px;
+    -webkit-transition: .2s ease-in;
+    -moz-transition: .2s ease-in;
+    -o-transition: .2s ease-in;
+    transition: .2s ease-in;
+}
+ 
+button#arrowRight:hover {
+    right: 0;
+    -webkit-transition: .2s ease-in;
+    -moz-transition: .2s ease-in;
+    -o-transition: .2s ease-in;
+    transition: .2s ease-in;
+    color: #fff;
+}
+ 
+div.transbox {
+    margin: 30px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 1;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+select > .placeholder {
+  display: none;
+}

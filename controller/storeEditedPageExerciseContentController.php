@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['cur_page'];
 /* 
  * 
  * ex changeQuestionPage
@@ -73,6 +74,15 @@ if ($_POST['type'] == 'page') {
                 $page->setPage_name($_POST['page_name']);
             }
         }
+    }
+}
+if ($_POST['type'] == 'category') {
+    if ($pages_obj[$_SESSION['cur_page']]) {
+        
+            if ($pages_obj[$_SESSION['cur_page']]->getPage_ID() == $_POST['page_id']) {
+                $pages_obj[$_SESSION['cur_page']]->setCourse($_POST['category_id']);
+            }
+        
     }
 }
 

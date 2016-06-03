@@ -1,7 +1,3 @@
-/* 
- * 
- */
-
 /**
  * Return to Home page
  */
@@ -151,7 +147,6 @@ function openExplDiv(elem){
         nextElement.style.visibility = 'visible';
         children.className = 'fi-arrow-up';
     }
-
 }
 
 /*
@@ -189,8 +184,7 @@ function deleteDivStored(elem, exercise){
     // if the ok button is clicked, result will be true (boolean)
     var result = confirm( "Delete?" );
     if ( result ) {
-        console.log('delete this');
-        console.log(parent); 
+ 
         $.ajax({
             async: true,
             method: 'post',
@@ -198,7 +192,6 @@ function deleteDivStored(elem, exercise){
             data: {exercise: exercise}
         })
         .success(function( msg ) {
-            console.log(msg);
             $.notify("Successfuly removed", "success");
             loadFileContent('printStoredDivController.php');
         })

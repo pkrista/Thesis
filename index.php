@@ -14,7 +14,7 @@ session_start();
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">  
 </head>
-<body>
+<body id="main"><div class="transbox">
   <div id="overlay" style="display: none;"></div> 
   <div id="body">
       <div class="row" id="welcome">
@@ -55,5 +55,7 @@ session_start();
     <script src="js/notify.js"></script>
     <script type="text/javascript" src="js/addCont.js"></script> 
     <script src="js/app.js"></script>
-  </div>
+    <script type="text/javascript" src="js/saveChangedContent.js"></script>
+    <script type="text/javascript" src="js/filelist.js.js"></script>
+  </div></div>
 </body>

@@ -1,43 +1,17 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
     include_once'model/file.php'; 
-//    include_once 'config/database.php';
     
     class Model { 
-//        protected $db;
         
-        function __construct() {
-            //start connection
-//            $db = new database();
-         
-//            //select data from db
-//            $stmt = $db->prepare("select * from course");
-//            print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
-//            
-//            print $result;
-//            
-//                $sql = "SELECT * FROM course";
-//                foreach ($db->query($sql) as $row)
-//                    {
-//                    echo $row["ID"] ." - ". $row["Name"] ."<br/>";
-//                    }
-
-        }
+        function __construct() {}
         
         public function getFileList12()
-        {  
-//            // here goes some hardcoded values to simulate the database  
-//            return array(  
-//                "First file" => new File("First file", "R. Kipling", "12.09.2014"),  
-//                "Second file" => new File("Second file", "J. Walker", "03.03.2015"),  
-//                "Third file" => new File("Rhird file", "Some Smart Guy", "02.02.2015"),
-//            ); 
+        { 
             
             #http://php.net/manual/en/class.directoryiterator.php       
             $dir    = 'C:/xampp/htdocs/ThesisProject/uploads/';           
@@ -67,8 +41,7 @@
             $db = new theasisDB();
             
             $sql = "SELECT f.* from file f where f.File_ID NOT IN (SELECT p.File_ID from page p) ORDER BY f.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
-            foreach ($db->query($sql) as $row)
-                {
+            foreach ($db->query($sql) as $row){
                     $name = $row['Name'];
                     $date = $row['Date'];
                     $id = $row['File_ID'];
@@ -85,8 +58,7 @@
             $db = new theasisDB();
             
             $sql = "select DISTINCT file.* from file, page where file.File_ID = page.File_ID ORDER BY file.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
-            foreach ($db->query($sql) as $row)
-                {
+            foreach ($db->query($sql) as $row){
                     $name = $row['Name'];
                     $date = $row['Date'];
                     $id = $row['File_ID'];
@@ -95,6 +67,21 @@
                 }
                 
                 return $arrFile;
+        }
+        
+        function getCategories(){
+            include_once 'config/theasisDB.php';
+            $db = new theasisDB();
+            
+            $sql = "select * from course";
+            foreach ($db->query($sql) as $row){
+                    $id = $row['Course_ID'];
+                    $name = $row['Name'];
+                    
+                    $arrCourse[] = (object) array('name' => $name, 'id' => $id);
+                }
+            
+                return $arrCourse;
         }
           
     } 

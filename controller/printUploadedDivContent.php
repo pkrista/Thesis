@@ -36,7 +36,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
     @see ../model/Page
     @see ../model/Exercise
 -->
-<div class="large-12 panel" style="background-color: white">
+<div id="_pageDiv" class="large-12 panel">
     <div id="divi" class="large-12">
         <?php
         //Page Name, File name , add content button
@@ -70,7 +70,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     $solution = '<textarea id="aid" '
                             . 'class="large-4 medium-4 columns right callout panel disabled" '
                             . 'data-id="A' . $exercise_id . '"'
-                            . 'cols="40" rows="1">'
+                            . 'placeholder="Solution ... " cols="40" rows="1">'
                             . $ex->getSolution()
                         . '</textarea>';
 
@@ -117,6 +117,9 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                         .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
                         .' class="columns" id="pid" />';
                     }
+                    
+                    echo '<hr />';
+                    
                     echo '<div id="btnaddContentHere" class="button expand tiny info hideDiv" onclick= "addContentToPage('.$key.')">add here</div>';
                     
                 }
@@ -131,14 +134,14 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
         $nextPreBtn = '<br>';
         
         if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            $nextPreBtn .= '<button type="submit" id="but" onclick= "nextPageUploaded()" > next </button> ';
+            $nextPreBtn .= '<button type="submit" id="arrowRight" onclick= "nextPageUploaded()" > >> </button> ';
         }
         if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-            $nextPreBtn .=  '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> '
-                . '<button type="submit" id="but" onclick= "return nextPageUploaded()" > next </button> ';
+            $nextPreBtn .=  '<button type="submit" id="arrowLeft" onclick= "return prePageUploaded()" > << </button> '
+                . '<button type="submit" id="arrowRight" onclick= "return nextPageUploaded()" > >> </button> ';
         }
         if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-            $nextPreBtn .=  '<button type="submit" id="but" onclick= "return prePageUploaded()" > previous </button> ';
+            $nextPreBtn .=  '<button type="submit" id="arrowLeft" onclick= "return prePageUploaded()" > << </button> ';
         }
         
         echo $nextPreBtn;
@@ -146,12 +149,10 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
         
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
+    <div class="large-12">
         <a id="btnSave" class="button success medium" onclick= "saveUploadedPdfInDB()">Save</a>
         <a id="toHome" class="button secondary medium has-tip" data-options="disable-for-touch:true" aria-haspopup="true" 
         title="Click to cancel" onclick="backToHomePage()">Cancel</a>
     </div>
 </div>
+

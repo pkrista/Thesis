@@ -77,3 +77,23 @@ a#addNewImg{
     right: 20px; 
     top: -10px
 }
+
+div#_pageDiv {
+    background-color: white; 
+    padding: 5px;
+}
+
+div#pName {
+    padding: 0.5rem;
+    background-color: #f3f3f3;
+    font-size: 0.875rem;
+    line-height: normal;
+}
+
+div#qid:hover, div#pName:hover {
+    border-color: #999999;
+}
+
+div#qid:focus, div#pName:focus{
+    border-color: #999999;
+}

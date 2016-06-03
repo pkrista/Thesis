@@ -36,7 +36,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
     @see ../model/Page
     @see ../model/Exercise
 -->
-<div class="large-12 panel" style="background-color: white">
+<div id="_pageDiv" class="large-12 panel">
     <div id="divi" class="large-12">
 
     <?php
@@ -60,7 +60,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                     $exercise_id = $ex->getEx_ID().'_'.$page->getPage_nr().'_'.$_SESSION['filename'];
 
                     $solution = '<textarea id="aid" class="large-4 medium-4 columns right callout panel" '
-                            . 'placeholder="Answer" cols="40" '
+                            . 'placeholder="Solution ... " cols="40" '
                             . 'rows="1" data-id="A' 
                             . $exercise_id . '">'
                             . $ex->getSolution()
@@ -109,6 +109,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                         .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
                         .' class="columns" id="pid" />';
                     }
+                    echo '<hr />';
                     
                     //to add content here
                     echo '<div id="btnaddContentHere" class="button expand tiny info hideDiv" onclick= "addContentToStoredPage('.$key.')">add here</div>';
@@ -126,24 +127,21 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
             $nextPreBtn = '<br>';
             
             if($_SESSION['cur_page'] == 0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                $nextPreBtn .= '<button type="submit" id="but" onclick= "nextPageStored()" > >> </button> ';
+                $nextPreBtn .= '<button type="submit" id="arrowRight" onclick= "nextPageStored()" > >> </button> ';
             }
             if($_SESSION['cur_page'] !=0 && $_SESSION['cur_page'] < $_SESSION['pages_count']-1){
-                $nextPreBtn .= '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> '
-                    . '<button type="submit" id="but" onclick= "return nextPageStored()" > >> </button> ';
+                $nextPreBtn .= '<button type="submit" id="arrowLeft" onclick= "return prePageStored()" > << </button> '
+                    . '<button type="submit" id="arrowRight" onclick= "return nextPageStored()" > >> </button> ';
             }
             if(($_SESSION['cur_page'] == $_SESSION['pages_count']-1) && $_SESSION['cur_page'] != 0){
-                $nextPreBtn .= '<button type="submit" id="but" onclick= "return prePageStored()" > << </button> ';
+                $nextPreBtn .= '<button type="submit" id="arrowLeft" onclick= "return prePageStored()" > << </button> ';
             }
             
             echo $nextPreBtn;
             ?>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
+    <div class="large-12">
         <a id="btnSave" class="button success medium" onclick= "saveChangesDB()">Save</a>
         <a id="toHome" class="button secondary medium has-tip" data-options="disable-for-touch:true" aria-haspopup="true" 
         title="Click to cancel" onclick="backToHomePage()">Cancel</a>

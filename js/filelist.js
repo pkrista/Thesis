@@ -16,7 +16,11 @@ function setExerciseSeperator(fileName, fileId) {
  * @param {type} fileId
  */
 function openUploadedPDF(exerSeperator, fileName, fileId){
+    
     hideFileListCont();
+    
+    var spinner = createSpinner();
+    showOverlay();
     
     $.ajax({
         async: true,
@@ -28,9 +32,13 @@ function openUploadedPDF(exerSeperator, fileName, fileId){
         var result = msg;
         console.log(result);
         loadFileContent('printUploadedDivContent.php');
+        spinner.stop();
+        hideOverlay();
     })
     .fail(function ( data ) {
         $.notify("Error opening uploaded file", "error");
+        spinner.stop();
+        hideOverlay();
     });
 }
 
@@ -42,6 +50,9 @@ function openUploadedPDF(exerSeperator, fileName, fileId){
 function openSavedPDF(fileName, fileId){
     hideFileListCont();
     
+    var spinner = createSpinner();
+    showOverlay()
+    
     $.ajax({
     async: true,
     method: 'post',
@@ -52,10 +63,14 @@ function openSavedPDF(fileName, fileId){
         //To test print in console
         console.log(msg);
 
-        loadFileContent('printStoredDivController.php');            
+        loadFileContent('printStoredDivController.php');    
+        spinner.stop();
+        hideOverlay();
     })
     .fail(function ( data ) {
         $.notify("Error opening saved file", "error");
+        spinner.stop();
+        hideOverlay();
     });
 }
 
