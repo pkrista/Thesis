@@ -14,8 +14,7 @@ session_start();
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">  
 </head>
-<body id="main"><div class="transbox">
-  <div id="overlay" style="display: none;"></div> 
+<body><div id="overlay" style="display: none;"></div> <div class="transbox">
   <div id="body">
       <div class="row" id="welcome">
           <div class="panel">

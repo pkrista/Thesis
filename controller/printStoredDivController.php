@@ -89,14 +89,21 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                             . 'contenteditable="false" title="Add image"> '
                         . '</a>';
 
-                    $question = '<br><div id="qid" class="large-12 columns callout panel" '
-                           .'data-id="'.$ex->getEx_ID().'" '
-                           .'contenteditable="true" data-combined="'.$ex->getCombined().'" '
-                           .'oninput="questionChanged(this, '.$page->getPage_nr().', ' . $key . ')" '
-                           .'data-changed="'.$ex->getChanged().'">'
+                    $dragExercise ='<a class="fi-arrows-out small dragExercise" id="' . $key . '" '
+                            . 'ondragstart="drag(event, 1)" draggable="true" '
+                            . 'contenteditable="false" title="Drag exercise"> '
+                        . '</a>';
+                    
+                    $question = '<br><div id="' . $key . '" class="large-12 columns callout panel qid" '
+                           .' data-id="'.$ex->getEx_ID().'" '
+                           .' ondrop="drop(event)" ondragover="allowDrop(event)" '
+                           .' contenteditable="true" data-combined="'.$ex->getCombined().'" '
+                           .' oninput="questionChanged(this, '.$page->getPage_nr().', ' . $key . ')" '
+                           .' data-changed="'.$ex->getChanged().'">'
                            . $ex->getQuestion()
                            . $removeExe
                            . $addImage
+                           . $dragExercise
                            . $solution
                            . $explanationSimbol
                            . $explanationArray

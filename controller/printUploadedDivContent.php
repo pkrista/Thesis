@@ -22,6 +22,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
 <script type="text/javascript" src="js/manageSavePDFpageContent.js"></script>
 <script type="text/javascript" src="js/saveChangedContent.js"></script>
 
+
 <link rel="stylesheet" href="css/fileedit.css" type="text/css">
 
 <!--Css for foundation icons-->
@@ -96,15 +97,22 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     $addImage = '<a id="addNewImg" class="fi-photo small" onclick="addImageExercise(this,'.$key.')"'
                             . 'contenteditable="false" title="Add image"> '
                         . '</a>';
+                    
+                    $dragExercise ='<a class="fi-arrows-out small dragExercise" id="' . $key . '" '
+                            . 'ondragstart="drag(event, 0)" draggable="true" '
+                            . 'contenteditable="false" title="Drag exercise"> '
+                        . '</a>'; 
                                         
-                    $question = '<br><div id="qid" class="large-12 columns callout panel" '
-                            . 'data-id="' . $ex->getEx_ID() . '" '
-                            . 'contenteditable="true" data-combined="' . $ex->getCombined() . '" '
-                            . 'oninput="questionChanged(this, ' . $page->getPage_nr() . ', ' . $key . ')" '
-                            . 'data-changed="' . $ex->getChanged() . '">'
+                    $question = '<br><div id="' . $key . '" class="large-12 columns callout panel qid" '
+                            . ' ondrop="drop(event)" ondragover="allowDrop(event)" '
+                            . ' data-id="' . $ex->getEx_ID() . '" '
+                            . ' contenteditable="true" data-combined="' . $ex->getCombined() . '" '
+                            . ' oninput="questionChanged(this, ' . $page->getPage_nr() . ', ' . $key . ')" '
+                            . ' data-changed="' . $ex->getChanged() . '">'
                             . $ex->getQuestion()
                             . $removeExe
                             . $addImage
+                            . $dragExercise
                             . $solution
                             . $explanationSimbol
                             . $explanationArray

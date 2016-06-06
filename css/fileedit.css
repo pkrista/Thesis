@@ -51,7 +51,7 @@ div.ddh {
     visibility: hidden;
 }*/
 /*Changed style for Question div*/
-#qid{
+div.qid{
     padding-right: 0.2rem; 
     padding-bottom: 0rem;
 }
@@ -78,6 +78,14 @@ a#addNewImg{
     top: -10px
 }
 
+/*Button to drag exercise */
+a.dragExercise {
+    font-size: 1rem; 
+    position: absolute; 
+    right: 40px; 
+    top: -10px 
+}
+
 div#_pageDiv {
     background-color: white; 
     padding: 5px;
@@ -90,10 +98,10 @@ div#pName {
     line-height: normal;
 }
 
-div#qid:hover, div#pName:hover {
+div.qid:hover, div#pName:hover {
     border-color: #999999;
 }
 
-div#qid:focus, div#pName:focus{
+div.qid:focus, div#pName:focus{
     border-color: #999999;
 }
