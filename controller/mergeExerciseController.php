@@ -30,7 +30,8 @@ elseif (isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
 $exerciseIndex = $_POST['exerciseIndex'];
 $targetExerciseIndex = $_POST['targetExerciseIndex'];
 
-$page = $pages_obj[$cur_page]->getExercisesListObj();
+$page = $pages_obj[$cur_page];
+$exercisesList = $page->getExercisesListObj();
 
 $imagesArray = [];
 $question = '';
@@ -38,7 +39,7 @@ $question = '';
 /**
  * Get dragged exercise question and images
  */
-foreach ($page as $key=>$ex){
+foreach ($exercisesList as $key=>$ex){
     if($key == $exerciseIndex){
         $imagesArray = $ex->getImages();
         $question = $ex->getQuestion();
@@ -47,7 +48,7 @@ foreach ($page as $key=>$ex){
 /**
  * Merge target exercise with dragged one
  */
-foreach ($page as $key=>$ex){
+foreach ($exercisesList as $key=>$ex){
     if($key == $targetExerciseIndex){
         if($question && strlen($question)>0){
             $newQuestion = $ex->getQuestion(). ' '. $question;
@@ -57,6 +58,7 @@ foreach ($page as $key=>$ex){
         if($imagesArray && count($imagesArray)>0){
             $newImagesList = array_merge($ex->getImages(),$imagesArray);
             $ex->setImages($newImagesList);
+            $ex->setChanged('yes');
         }
     }
 }
@@ -67,8 +69,13 @@ foreach ($page as $key=>$ex){
 echo $savedPDF;
 
 if($savedPDF){
+    $page->setExercisesListObj($exercisesList);
+    $pages_obj[$cur_page] = $page;
     $_SESSION['obj_pages'] = serialize($pages_obj);
+    
 }
 else{
+    $page->setExercisesListObj($exercisesList);
+    $pages_obj[$cur_page] = $page;
     $_SESSION['obj_pages_upload'] = serialize($pages_obj);
 }

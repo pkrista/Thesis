@@ -28,6 +28,8 @@ function drop(ev) {
     var transferId = ev.dataTransfer.getData("exerciseIndex");
     var targetId = ev.target.id;
     
+    var parentElement = ev.dataTransfer.mozSourceNode.parentElement;
+    
     console.log(transferId);
     console.log(targetId);
     
@@ -44,14 +46,14 @@ function drop(ev) {
             console.log('printStoredDivController');
             
             //remove dragged exercise
-            
+            deleteDivStored(parentElement, transferId, 'Delete dragged exercise');
             loadFileContent('printStoredDivController.php');
         }
         else{
             console.log('printUploadedDivContent');
             
             //remove dragged exercise
-            deleteDiv(null, transferId);
+            deleteDiv(parentElement, transferId, 'Delete dragged exercise');
             loadFileContent('printUploadedDivContent.php');
         }
         

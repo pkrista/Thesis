@@ -62,7 +62,6 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                  * Iterate through exercises and display them on the screen
                  */
                 foreach ($exsList as $key=>$ex){
-                    
                     /**
                      * Create exercise id
                      */
@@ -90,7 +89,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                             . $ex->getExplanation()
                         . '</textarea>';
                     
-                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDiv(this,'.$key.')"'
+                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDiv(this,'.$key.',0)"'
                             . 'contenteditable="false" title="Remove"> '
                         . '</a>';
                     

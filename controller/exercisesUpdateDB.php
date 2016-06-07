@@ -80,6 +80,33 @@ function updateChangedExercises($exsListWithDeletes, $pageID){
                     . ' AND Exercise_ID = '.$exe->getEx_ID();
             
             updateDB($ExerciseUpdateQuery);
+            
+            storeExerciseImages($exe, $pageID);
+        }
+    }
+}
+
+function storeExerciseImages($exe, $pageID){
+    //get count of existing images
+    $dbImgArray = [];
+    $imagesList = $exe->getImages();
+    
+    $query = 'SELECT * from image'
+            . ' WHERE Exercise_ID = '.$exe->getEx_ID();
+    
+    foreach (selectDB($query) as $row){
+        $dbImgArray[] = $row['src'];
+    }
+    
+    if(count($dbImgArray) < count($imagesList)){
+        foreach ($imagesList as $image){
+            foreach ($dbImgArray as $storedImg){
+                if($image != $storedImg){
+                    $query = "INSERT INTO image(src, Exercise_ID) VALUES('".$image."',".$exe->getEx_ID().")";
+                    updateDB($query);
+                    break;
+                }
+            }
         }
     }
 }
@@ -112,6 +139,16 @@ function deleteExerciseRelatedimages($images, $exeId){
                          . ' WHERE Exercise_ID = '.$exeId;
          updateDB($exeRemoveQuery);
     } 
+}
+
+function selectDB($query){
+   try {
+        $db = new theasisDB();
+        return $db->query($query);
+    }
+    catch (PDOException $e) {
+        print "error querying DB (exercisesUpdateDB.php) - " . $e->getMessage();
+    }  
 }
 
 function updateDB($query){   

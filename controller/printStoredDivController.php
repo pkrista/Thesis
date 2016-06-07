@@ -81,7 +81,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                             . $ex->getExplanation()
                         .'</textarea>';
 
-                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDivStored(this,'.$key.')"'
+                    $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDivStored(this,'.$key.', 0)"'
                             . 'contenteditable="false" title="Remove"> '
                         . '</a>';
                     

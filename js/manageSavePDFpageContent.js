@@ -153,14 +153,11 @@ function openExplDiv(elem){
  * To delete DIV
  * 
  */
- function deleteDiv(elem, exercise) {
-   var parent = elem.parentNode;
-   
+ function deleteDiv(elem, exercise, message) {
+   message = message === 0 ? 'Delete' : message;
    // if the ok button is clicked, result will be true (boolean)
-    var result = confirm( "Delete?" );
+    var result = confirm( message + "?" );
     if ( result ) {
-        console.log('delete this');
-        console.log(parent);
         
         $.ajax({
             async: true,
@@ -179,10 +176,10 @@ function openExplDiv(elem){
     } 
 }
 
-function deleteDivStored(elem, exercise){
-    var parent = elem.parentNode;
+function deleteDivStored(elem, exercise, message){  
+    message = message === 0 ? 'Delete' : message;
     // if the ok button is clicked, result will be true (boolean)
-    var result = confirm( "Delete?" );
+    var result = confirm( message+"?" );
     if ( result ) {
  
         $.ajax({

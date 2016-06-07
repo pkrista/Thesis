@@ -61,7 +61,7 @@ $pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
                             . 'contenteditable="true" data-combined="'.$combined.'" id="I'.$p.'" '
                             . 'style="padding-right: 0.2rem; padding-bottom: 0rem;"> '
                             . $_SESSION['pdf_array'][$_SESSION['cur_page']][$p]
-                            . '<a id="delDiv" onclick="deleteDiv(this)"
+                            . '<a id="delDiv" onclick="deleteDiv(this, "Delete")"
                                 style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px"
                                 contenteditable="false"> × '
                             . '</a>'
@@ -179,7 +179,7 @@ function addContent(){
         . 'data-combined="no"'
         . 'style="border-color: #008CBA; border-width: 1px; border-style: solid; '
         . 'margin-top: 1.25rem; margin-bottom: 1.25rem; display: none"> '
-            . '<a id="delDiv" onclick="deleteDiv(this)"
+            . '<a id="delDiv" onclick="deleteDiv(this, "Delete")"
                 style="right: 0.25rem; font-size: 1.375rem; position: absolute; right: -20px; top: -20px; display: none"
                 contenteditable="false"> × '
             . '</a>'            
