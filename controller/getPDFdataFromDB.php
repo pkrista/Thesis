@@ -45,7 +45,7 @@ $_SESSION['fileId'] = $fileId;
 //[3] Question
 //[4] Solution
 //[5] Explanation
-//[6] Changed - by default false ,if changed then true
+//[6] Course_ID
 //[7] Images
 
 $query1 = 'select '
@@ -55,6 +55,7 @@ $query1 = 'select '
             . 'e.Question, '
             . 'e.Solution, '
             . 'e.Explanation, '
+            . 'p.Course_ID, '
         . ' IFNULL(i.src, 0) src FROM exercise e '
         . ' LEFT JOIN image i on i.Exercise_ID = e.Exercise_ID '
         . ' LEFT JOIN page p on p.Page_ID = e.PAGE_ID '
@@ -87,13 +88,13 @@ foreach ($result1 as $value) {
         $page++;
         
         //New Page Object
-        $curPageObj = new Page($value[0], $value[1], $page, array());
+        $curPageObj = new Page($value[0], $value[1], $page, array(), $value[6]);
         array_push($PageObjArray, $curPageObj);
 
     }
     elseif ($PrePageID == '') {
     //At the begining create first page
-        $curPageObj = new Page($value[0], $value[1], $page, array());
+        $curPageObj = new Page($value[0], $value[1], $page, array(), $value[6]);
         array_push($PageObjArray, $curPageObj);
     }
  
@@ -102,15 +103,15 @@ foreach ($result1 as $value) {
         //This means it has multiple pictures
         
         //Add picture to exercise
-        $ex->addImage($value[6]);
+        $ex->addImage($value[7]);
     }
     else{
         //create new exe
         $ex = new Exercise($value[0], $value[1], $value[2], $value[3], $value[4], $value[5], 'no' , array(), $page);
 //        new Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Changes, $Combined, $Images, $Page)
         //Add image, if exercise have image
-        if(!empty($value[6])){
-            $ex->addImage($value[6]);
+        if(!empty($value[7])){
+            $ex->addImage($value[7]);
         }
 
         //Add exercise to page

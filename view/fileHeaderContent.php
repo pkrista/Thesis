@@ -78,13 +78,15 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
         <h5 class="subheader">Category</h5>
         <select id="categorySelect" onchange="onCategorySelected(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)">
         <?php
+            if($category_id == 0){
+                echo '<option class="placeholder" selected default value="">Select categry</option>';
+            }
             foreach ($_SESSION['coursesList'] as $key => $course) {
-                echo '<option class="placeholder" selected disabled value="">Select categry</option>';
                 if($course->id == $category_id){
-                   echo '<option id='.$course->id.' value="'.$course->name.'" selected>'.$course->name.'</option>'; 
+                   echo '<option id='.$course->id.' value="'.$course->id.'" selected>'.$course->name.'</option>'; 
                 }
                 else{
-                    echo '<option id='.$course->id.' value="'.$course->name.'">'.$course->name.'</option>';
+                    echo '<option id='.$course->id.' value="'.$course->id.'">'.$course->name.'</option>';
                 }
                 
             }

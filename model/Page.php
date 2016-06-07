@@ -12,11 +12,12 @@ class Page {
     private $course;
     private $exercisesListObj = array();
     
-    public function __construct($Page_ID,$Page_name,$page_nr, $exercisesListObj) {
+    public function __construct($Page_ID, $Page_name, $page_nr, $exercisesListObj, $course) {
         $this->Page_ID = $Page_ID;
         $this->Page_name = $Page_name;
         $this->page_nr = $page_nr;
         $this->exercisesListObj = $exercisesListObj;
+        $this->course = $course;
     }
     
     public function setPage_ID($Page_Id) {

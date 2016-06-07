@@ -39,17 +39,6 @@ div.ddh {
     display: none;
 }
 
-/*div#aid{
-    float:right;
-    width:30%;  
-    padding: 5px;
-} */
-/*Style for the div where to drop image in the question*/
-/*div#div1 {   
-    max-width: 350px;
-    max-height: 350px;
-    visibility: hidden;
-}*/
 /*Changed style for Question div*/
 div.qid{
     padding-right: 0.2rem; 
@@ -96,6 +85,7 @@ div#pName {
     background-color: #f3f3f3;
     font-size: 0.875rem;
     line-height: normal;
+    min-height: 35px;
 }
 
 div.qid:hover, div#pName:hover {

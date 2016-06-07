@@ -40,7 +40,7 @@ foreach ($pages_obj as $page){
             . ", ".$page->getPage_nr()." "
             . ", ".$paperPageNr." "
             . ", ".$fileId." "
-            . ", 2)"; //2 for Math TODO make courses un UI
+            . ", ".$page->getCourse().")";
     
     /**
      * insert in db and get back page id / or -1 if was errer

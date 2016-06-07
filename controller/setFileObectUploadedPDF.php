@@ -96,7 +96,7 @@ class setFileObectUploadedPDF {
         /**
          * Create New Page Object
          */
-        $this->pg = new Page($page_nr, '', $page_nr, array());
+        $this->pg = new Page($page_nr, '', $page_nr, array(), 0);
         
         for($k=0; $k<=$block_count; $k++){
             
