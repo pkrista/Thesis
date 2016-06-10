@@ -30,10 +30,9 @@ session_start();
       <?php
       
         /**
-         * Create folder oif dont exist
+         * Create folder if dont exist
          */
-        $userHome =  getenv("HOMEDRIVE").getenv("HOMEPATH"); 
-        $EPSpath = $userHome.'\AuthoringToolImages';
+        $EPSpath = 'tmp';
         if(!is_dir($EPSpath)){
             mkdir($EPSpath); 
         }
@@ -44,7 +43,7 @@ session_start();
 
         $controller = new Controller();
         $controller->invoke();
-      
+             
       ?>
 
     </div>
