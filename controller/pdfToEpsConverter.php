@@ -18,8 +18,11 @@ exec('identify  '.$pdf_file, $IdentofyOutput);
 /**
  * Convert images
  */
-exec('convert -density 250 '.$pdf_file.' '.$save_to_jpg, $output, $return_var);
-exec('convert -density 250 '.$pdf_file.' '.$save_to_eps, $output, $return_var);
+exec('convert -density 250 -quality 100  -unsharp 10x4+1+0 '.$pdf_file.' '.$save_to_eps, $output, $return_var);
+//exec('convert -density 250 -resize 2480x3508 '.$pdf_file.' '.$save_to_eps, $output, $return_var);
+
+        //exec('convert -density 250 -quality 100  -unsharp 10x4+1+0 '.$pdf_file .' '.$save_to_eps, $output, $return_var);
+        //exec('composite -gravity South footbtn.png  -quality 100 -density 250 ../files/d15.eps ../files/result14.eps');
 
 /**
  * Get saved files in list
@@ -31,6 +34,14 @@ while (false !== ($filename = readdir($dh))) {
          $files[] = $filename;
     }
 }
+closedir($EPSpath);
+/**
+ * Add footer to each page
+ */
+foreach ($files as $name) {
+    exec('composite -gravity South footbtn.png  -quality 100 -density 250 tmp/'.$name.' tmp/'.$name);
+}
+
 
 /**
  * Make archive
@@ -57,6 +68,7 @@ $zip = new ZipArchive;
 $fileName = substr($_GET["fileTitle"], 0, -4);
 $path = str_replace('\\', '/', getcwd());
 $path = $path.'/'.$EPSpath.'/'.$fileName.'.zip';
+
     header('Content-type: application/zip');
     header("Content-Disposition: attachment; filename=$fileName");
     header("Content-length: " . filesize($path));
@@ -64,8 +76,8 @@ $path = $path.'/'.$EPSpath.'/'.$fileName.'.zip';
     header("Expires: 0");
     ob_clean();
     flush();
-    readfile("$path");
-    unlink($zipname);
+    readfile($path);
+    //unlink($zipname);
     exit;
         
 ?>
