@@ -33,38 +33,42 @@ function drop(ev) {
     console.log(transferId);
     console.log(targetId);
     
-    //do mgic in ajax
-    $.ajax({
-    async: true,
-    method: 'post',
-    url: 'controller/mergeExerciseController.php',
-    data: {exerciseIndex: transferId, targetExerciseIndex: targetId}
-  })
-    .success(function( msg ) {
-        _msg = msg;
-        if(msg.indexOf('1') > -1){
-            console.log('printStoredDivController');
-            
-            //remove dragged exercise
-            deleteDivStored(parentElement, transferId, 'Delete dragged exercise');
-            loadFileContent('printStoredDivController.php');
-        }
-        else{
-            console.log('printUploadedDivContent');
-            
-            //remove dragged exercise
-            deleteDiv(parentElement, transferId, 'Delete dragged exercise');
-            loadFileContent('printUploadedDivContent.php');
-        }
-        
-        $.notify("Exercises merged successfully", "success");
-    })
-    .fail(function ( data ) {
-        $.notify("Error chaning pages", "error");
-    });
+    var result = confirm( "Confirm action exercise merge action" );
     
-    
-    //ev.target.appendChild(document.getElementById(data));
+    /**
+     * If confirm = merge exercises
+     */
+    if(result){
+        //do mgic in ajax
+         $.ajax({
+         async: true,
+         method: 'post',
+         url: 'controller/mergeExerciseController.php',
+         data: {exerciseIndex: transferId, targetExerciseIndex: targetId}
+       })
+         .success(function( msg ) {
+             _msg = msg;
+             if(msg.indexOf('1') > -1){
+                 console.log('printStoredDivController');
+
+                 //remove dragged exercise
+                 deleteDivStored(parentElement, transferId, true);
+                 loadFileContent('printStoredDivController.php');
+             }
+             else{
+                 console.log('printUploadedDivContent');
+
+                 //remove dragged exercise
+                 deleteDiv(parentElement, transferId, true);
+                 loadFileContent('printUploadedDivContent.php');
+             }
+
+             $.notify("Exercises merged successfully", "success");
+         })
+         .fail(function ( data ) {
+             $.notify("Error chaning pages", "error");
+         }); 
+    }
 }
 
 /**

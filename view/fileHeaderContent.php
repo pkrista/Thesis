@@ -38,11 +38,7 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
     //Set objet variable
     $pages_obj = unserialize($_SESSION['obj_pages_upload']); //obj_uploaded_pdf
     
-//    $pageName = $_SESSION['filename'];
-    echo 'Python file';
-    
-    
-        /**
+    /**
      * Set Page name and db id
      */
     foreach ($pages_obj as $page){
@@ -60,7 +56,7 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
 <div class="medium-12">
     <h5 class="subheader">File Name: <?php echo $_SESSION['filename']; ?></h5>
     <div class="medium-4 columns">
-        <h5 class="subheader">Page Name</h5>
+        <h5 class="subheader">Course</h5>
         <div id="pName" class="select panel" contentEditable=true data-ph="Insert Page Name"  
              oninput="chagePageName(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)"
              ><?php
@@ -79,7 +75,7 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
         <select id="categorySelect" onchange="onCategorySelected(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)">
         <?php
             if($category_id == 0){
-                echo '<option class="placeholder" selected default value="">Select categry</option>';
+                echo '<option class="placeholder" selected default value="">Select category</option>';
             }
             foreach ($_SESSION['coursesList'] as $key => $course) {
                 if($course->id == $category_id){

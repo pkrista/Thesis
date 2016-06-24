@@ -12,10 +12,10 @@
 
 $my_folder = "C:/xampp/htdocs/ThesisProject/uploads/";
 
-if($_FILES["file"]["tmp_name"]){
+if($_FILES["file"]["tmp_name"] && $_FILES["file"]["error"] === 0){
+    
     copy($_FILES["file"]["tmp_name"],$my_folder.$_FILES["file"]["name"]);
     
-//    echo "File uploaded.";
     $countFiles = 0;
     include_once '../config/theasisDB.php';
     $db = new theasisDB();
@@ -36,12 +36,19 @@ if($_FILES["file"]["tmp_name"]){
     else{
         echo "File already exist";
     }
-
-    
-    
-    
+    redirect();
 }
 else{
     echo "Error uploading file.";
+    redirect();
 }
-    
+ 
+/**
+ * Function redirects back to main page
+ * @param type $status_code (302 Found)
+ */
+function redirect($status_code = 302)
+{
+   header('Location: http://localhost/ThesisProject/', TRUE, $status_code);
+   die();
+}

@@ -59,19 +59,11 @@ a#delDiv{
     top: -10px
 }
 
-/*Button to add image*/
-a#addNewImg{
-    font-size: 1rem; 
-    position: absolute; 
-    right: 20px; 
-    top: -10px
-}
-
 /*Button to drag exercise */
 a.dragExercise {
     font-size: 1rem; 
     position: absolute; 
-    right: 40px; 
+    right: 20px; 
     top: -10px 
 }
 

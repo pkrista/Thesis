@@ -30,7 +30,6 @@ $_SESSION['coursesList'] = $coursesList;
                     <tr>
                         <td>Title</td>
                         <td>Date</td>
-                        <td>ID</td>
                     </tr>
                 </tbody>  
                 <?php   
@@ -44,7 +43,6 @@ $_SESSION['coursesList'] = $coursesList;
                                 . '<td><a onclick="setExerciseSeperator(\''.$file->title.'\',\''.$file->id.'\')">'
                                         .$file->title.'</a></td>'
                                 . '<td>'.$file->date.'</td>'
-                                . '<td>'.$file->id.'</td>'
                             . '</tr>';
 
                     }
@@ -57,7 +55,6 @@ $_SESSION['coursesList'] = $coursesList;
                     <tr>
                         <td>Title</td>
                         <td>Date</td>
-                        <td>ID</td>
                         <td>EPS</td>
                     </tr>
                 </tbody>  
@@ -72,10 +69,8 @@ $_SESSION['coursesList'] = $coursesList;
                                 . '<td><a onclick="openSavedPDF(\''.$file->title.'\',\''.$file->id.'\')">'
                                         .$file->title.'</a></td>'
                                 . '<td>'.$file->date.'</td>'
-                                . '<td>'.$file->id.'</td>'
                                 . '<td><a onclick="doMagic(\''.$file->title.'\')">EPS</a></td>'
                             . '</tr>';
-
                     }
                 ?>  
             </table>
@@ -87,28 +82,10 @@ $_SESSION['coursesList'] = $coursesList;
         <div class="large-4 medium-4 columns" id="fileupload">
             <div class="panel" id="upload">
                 <form action="controller/uploadFileController.php" method="post" enctype="multipart/form-data" >
-                    <!--<a class="tiny button" style="margin-top:12px;">Browse</a>-->
-                    <!--<input type="file" name="upl" multiple />-->
                     <input type="file" name="file" id=”file” />
                     <input type="submit" name="submit" value="Submit" class="tiny button"/>
                 </form>
             </div>
         </div>
-
-        <div class="large-4 medium-4 columns" id="folder">
-            <div class="panel" id="upload">
-                <?php
-                    if (isset($_SESSION['eps_dir']))
-                    {
-                        echo 'See Converted <i>(EPS)</i> files here : </br>';
-                        echo $_SESSION['eps_dir'];
-                    }
-                    else{
-                        echo 'EPS images folder not created!';
-                    }
-                ?>
-            </div>
-        </div>
-
     </div>
 </div>

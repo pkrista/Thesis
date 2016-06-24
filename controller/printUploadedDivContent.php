@@ -93,10 +93,6 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                             . 'contenteditable="false" title="Remove"> '
                         . '</a>';
                     
-                    $addImage = '<a id="addNewImg" class="fi-photo small" onclick="addImageExercise(this,'.$key.')"'
-                            . 'contenteditable="false" title="Add image"> '
-                        . '</a>';
-                    
                     $dragExercise ='<a class="fi-arrows-out small dragExercise" id="' . $key . '" '
                             . 'ondragstart="drag(event, 0)" draggable="true" '
                             . 'contenteditable="false" title="Drag exercise"> '
@@ -110,7 +106,6 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                             . ' data-changed="' . $ex->getChanged() . '">'
                             . $ex->getQuestion()
                             . $removeExe
-                            . $addImage
                             . $dragExercise
                             . $solution
                             . $explanationSimbol

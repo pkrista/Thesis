@@ -6,6 +6,14 @@
 function setExerciseSeperator(fileName, fileId) {
     
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
+    
+    /**
+     * If cancel on promt then dont load the file
+     */
+    if(exerSeperator === null){
+        return;
+    }
+    
     openUploadedPDF(exerSeperator, fileName, fileId);
 }
 

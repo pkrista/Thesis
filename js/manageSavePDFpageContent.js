@@ -85,11 +85,13 @@ function saveChangesDB(){
         $.notify("Successfuly saved changes in DB", "success");
         spinner.stop();
         hideOverlay();
+        window.location.replace("http://localhost/ThesisProject/");
     })
     .fail(function ( data ) {
         $.notify("Error saving changes in DB", "error");
         spinner.stop();
         hideOverlay();
+        window.location.replace("http://localhost/ThesisProject/");
     });
 }
 
@@ -97,8 +99,7 @@ function saveChangesDB(){
 function saveUploadedPdfInDB(){
     var spinner = createSpinner();
     showOverlay();
-    
-    alert('start saving changes');
+
     $.ajax({
     async: true,
     method: 'post',
@@ -110,11 +111,13 @@ function saveUploadedPdfInDB(){
         $.notify("Successfuly saved in DB", "success");
         spinner.stop();
         hideOverlay();
+        window.location.replace("http://localhost/ThesisProject/");
     })
     .fail(function ( data ) {
         $.notify("Error saving file in DB", "error");
         spinner.stop();
         hideOverlay();
+        window.location.replace("http://localhost/ThesisProject/");
     });
 }
 
@@ -153,13 +156,21 @@ function openExplDiv(elem){
  * To delete DIV
  * 
  */
- function deleteDiv(elem, exercise, message) {
-   message = message === 0 ? 'Delete' : message;
-   // if the ok button is clicked, result will be true (boolean)
-    var result = confirm( message + "?" );
-    if ( result ) {
-        
-        $.ajax({
+ function deleteDiv(elem, exercise, drag) {
+   
+     if(!drag){
+        var result = confirm("Delete?" );
+        if ( result ) {
+            deleteUploaded(exercise);
+        } 
+     }
+     else{
+         deleteUploaded(exercise);
+     }
+}
+
+function deleteUploaded(exercise){
+    $.ajax({
             async: true,
             method: 'post',
             url: 'controller/deleteExerciseController.php',
@@ -173,29 +184,35 @@ function openExplDiv(elem){
         .fail(function ( data ) {
            $.notify("Error deleating the exercise", "error");
         });
-    } 
 }
 
-function deleteDivStored(elem, exercise, message){  
-    message = message === 0 ? 'Delete' : message;
-    // if the ok button is clicked, result will be true (boolean)
-    var result = confirm( message+"?" );
-    if ( result ) {
- 
-        $.ajax({
-            async: true,
-            method: 'post',
-            url: 'controller/deleteStoredExerciseController.php',
-            data: {exercise: exercise}
-        })
-        .success(function( msg ) {
-            $.notify("Successfuly removed", "success");
-            loadFileContent('printStoredDivController.php');
-        })
-        .fail(function ( data ) {
-           $.notify("Error deleating the exercise", "error");
-        });
+function deleteDivStored(elem, exercise, drag){  
+    
+    if(!drag){
+        var result = confirm( "Delete?" );
+        if ( result ) {
+            deleteStored(exercise);
+        }
     }
+    else{
+        deleteStored(exercise);
+    }
+}
+
+function deleteStored(exercise){
+    $.ajax({
+        async: true,
+        method: 'post',
+        url: 'controller/deleteStoredExerciseController.php',
+        data: {exercise: exercise}
+    })
+    .success(function( msg ) {
+        $.notify("Successfuly removed", "success");
+        loadFileContent('printStoredDivController.php');
+    })
+    .fail(function ( data ) {
+       $.notify("Error deleating the exercise", "error");
+    });
 }
 
 /**
@@ -255,13 +272,6 @@ function addContentToStoredPage(exerciseIndex){
     .fail(function ( data ) {
        $.notify("Error adding content", "error");
     });
-}
-
-/**
- * Function to add image to stored exercise
- */
-function addImageStoredExercise(elem, exerciseIndex){
-    $.notify("Not implemented", "error");
 }
 
 /**

@@ -84,10 +84,6 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                     $removeExe = '<a class="fi-x small" id="delDiv" onclick="deleteDivStored(this,'.$key.', 0)"'
                             . 'contenteditable="false" title="Remove"> '
                         . '</a>';
-                    
-                    $addImage = '<a id="addNewImg" class="fi-photo small" onclick="addImageStoredExercise(this,'.$key.')"'
-                            . 'contenteditable="false" title="Add image"> '
-                        . '</a>';
 
                     $dragExercise ='<a class="fi-arrows-out small dragExercise" id="' . $key . '" '
                             . 'ondragstart="drag(event, 1)" draggable="true" '
@@ -102,7 +98,6 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                            .' data-changed="'.$ex->getChanged().'">'
                            . $ex->getQuestion()
                            . $removeExe
-                           . $addImage
                            . $dragExercise
                            . $solution
                            . $explanationSimbol
