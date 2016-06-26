@@ -1,4 +1,5 @@
 <?php
+$_SESSION['categoryList'] = $categoryList;
 $_SESSION['coursesList'] = $coursesList;
 /* 
  * 
@@ -36,6 +37,7 @@ $_SESSION['coursesList'] = $coursesList;
                     /**
                      * Present in screen all files that are uploaded (not saved in the db)
                      */
+                if(count($filesNew) > 0){
                     foreach ($filesNew as $title => $file)  
                     {  
 
@@ -46,6 +48,13 @@ $_SESSION['coursesList'] = $coursesList;
                             . '</tr>';
 
                     }
+                }
+                else{
+                    echo '<tr>'
+                        . '<td>No files</td>'
+                        . '<td> </td>'
+                    . '</tr>'; 
+                }
                 ?>  
             </table> 
 
@@ -62,7 +71,8 @@ $_SESSION['coursesList'] = $coursesList;
                 /**
                  * Present in screen all saved files (saved in db)
                  */
-                    foreach ($filesSaved as $title => $file)  
+                if(count($filesSaved) > 0){
+                foreach ($filesSaved as $title => $file)  
                     {  
 
                         echo '<tr>'
@@ -71,7 +81,16 @@ $_SESSION['coursesList'] = $coursesList;
                                 . '<td>'.$file->date.'</td>'
                                 . '<td><a onclick="doMagic(\''.$file->title.'\')">EPS</a></td>'
                             . '</tr>';
-                    }
+                    }   
+                }
+                else{
+                    echo '<tr>'
+                            . '<td>No files</td>'
+                            . '<td></td>'
+                            . '<td></td>'
+                        . '</tr>';
+                }
+
                 ?>  
             </table>
 

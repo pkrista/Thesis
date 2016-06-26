@@ -34,12 +34,13 @@ foreach ($pages_obj as $page){
     /**
      * prepare insert query
      */
-    $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Course_ID) "
+    $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Category_ID, Course_ID) "
             . "VALUES "
             . "('".$page->getPage_name()."' "
             . ", ".$page->getPage_nr()." "
             . ", ".$paperPageNr." "
             . ", ".$fileId." "
+            . ", ".$page->getCategory()." "
             . ", ".$page->getCourse().")";
     
     /**

@@ -10,13 +10,15 @@ class Page {
     private $Page_name;
     private $page_nr;
     private $course;
+    private $category;
     private $exercisesListObj = array();
     
-    public function __construct($Page_ID, $Page_name, $page_nr, $exercisesListObj, $course) {
+    public function __construct($Page_ID, $Page_name, $page_nr, $exercisesListObj, $category, $course) {
         $this->Page_ID = $Page_ID;
         $this->Page_name = $Page_name;
         $this->page_nr = $page_nr;
         $this->exercisesListObj = $exercisesListObj;
+        $this->category = $category;
         $this->course = $course;
     }
     
@@ -58,6 +60,14 @@ class Page {
     
     public function getCourse(){
         return $this->course;
+    }
+    
+    public function setCategory($category) {
+        $this->category = $category;
+    }
+    
+    public function getCategory(){
+        return $this->category;
     }
     
     public function addExerciseToList($Exercise){

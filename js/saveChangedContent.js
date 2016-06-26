@@ -1,5 +1,5 @@
 /* 
- * maybe rename??? used in both saved and upoaded TODO
+ * Save changes in object session
  */
 
 
@@ -78,41 +78,12 @@ function questionChanged(object, page_nr, exerciseIndex){
 }
 
 /**
- * Call this function when page name was changed (event onChange)
- * 
- * @param {type} object (Page object)
+ * Function to store selected category
+ * @param {type} object
  * @param {type} page_nr
  * @param {type} pageId
  */
-function chagePageName(object, page_nr, pageId){
-    
-    if(pageId===-1){
-        console.log("editSaveContent.js Edited file name from uploaded PDF (cnverted PY)");
-    }
-    else{
-        var page_name = object.childNodes[0].textContent;
-        console.log("New page name" , page_name);
-    
-        $.ajax({
-            async: true,
-            method: 'post',
-            url: 'controller/storeEditedPageExerciseContentController.php',
-            data: { page_name: page_name, page_nr: page_nr, type: "page" , page_id: pageId}
-        })
-        .success(function( msg ) {
-            console.log(msg);
-        })
-        .fail(function ( data ) {
-            $.notify("Error saving changes", "error");
-        });
-    }
-}
-
 function onCategorySelected( object, page_nr, pageId){
-    _object = object;
-    console.log('text = ', object.text);
-    console.log('value = ', object.value);
-    console.log('id = ', object[object.selectedIndex].id);
     $.ajax({
             async: true,
             method: 'post',
@@ -124,6 +95,25 @@ function onCategorySelected( object, page_nr, pageId){
         })
         .fail(function ( data ) {
             $.notify("Error saving changes", "error");
-        });
-    
+    });
+}
+/**
+ * Function to store selected course
+ * @param {type} object
+ * @param {type} page_nr
+ * @param {type} pageId
+ */
+function onCourseSelected(object, page_nr, pageId){
+    $.ajax({
+            async: true,
+            method: 'post',
+            url: 'controller/storeEditedPageExerciseContentController.php',
+            data: { course: object.value, course_id: object[object.selectedIndex].id, page_nr: page_nr, type: "course" , page_id: pageId}
+        })
+        .success(function( msg ) {
+            console.log(msg);
+        })
+        .fail(function ( data ) {
+            $.notify("Error saving changes", "error");
+    });
 }

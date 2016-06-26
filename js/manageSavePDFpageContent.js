@@ -11,12 +11,10 @@ function backToHomePage(){
  */
 //To change pages
 function nextPageStored(){
-    //getalldataTosendStored('next','page');
     loadPageContentStored('next');
 }
 //To change pages
 function prePageStored(){
-    //getalldataTosendStored('pre','page');
     loadPageContentStored('pre');
 }
 
@@ -75,7 +73,7 @@ function saveChangesDB(){
     showOverlay();
     
     $.ajax({
-    async: true,
+    async: false,
     method: 'post',
     url: 'controller/exercisesUpdateDB.php',
     data: {}
@@ -101,7 +99,7 @@ function saveUploadedPdfInDB(){
     showOverlay();
 
     $.ajax({
-    async: true,
+    async: false,
     method: 'post',
     url: 'controller/exercisesInsertDB.php',
     data: {}

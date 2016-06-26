@@ -39,12 +39,12 @@ for($p=0;$p<$pages;$p++){ //Page $p
    // [1] PagePaper
    // [2] PagePen 
    // [3] FileID 
-   // [4] CourseID
+   // [4] Category
    
     array_push($pageInfo, $curPageName, $p+1, $p, $fileId, 2); 
     $lastPageID;
    
-    $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Course_ID) VALUES ('".$pageInfo[0]."' , ".$pageInfo[1]." , ".$pageInfo[2]." , ".$pageInfo[3]." , ".$pageInfo[4].")";
+    $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Category_ID) VALUES ('".$pageInfo[0]."' , ".$pageInfo[1]." , ".$pageInfo[2]." , ".$pageInfo[3]." , ".$pageInfo[4].")";
     if ($db->query($sqlInsertPage)) {
         $lastPageID = $db->lastInsertId(); //Last insert id -> Id for current page
         echo "New Page created successfully ".$lastPageID;    

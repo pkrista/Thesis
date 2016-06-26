@@ -66,22 +66,22 @@ if($_POST['type'] == 'exercise'){
     }
 }
 
-if ($_POST['type'] == 'page') {
-    if ($pages_obj) {
-        foreach ($pages_obj as $page) {
-
-            if ($page->getPage_ID() == $_POST['page_id']) {
-                $page->setPage_name($_POST['page_name']);
-            }
-        }
-    }
-}
 if ($_POST['type'] == 'category') {
     if ($pages_obj[$_SESSION['cur_page']]) {
         
-            if ($pages_obj[$_SESSION['cur_page']]->getPage_ID() == $_POST['page_id']) {
-                $pages_obj[$_SESSION['cur_page']]->setCourse($_POST['category_id']);
-            }
+        if ($pages_obj[$_SESSION['cur_page']]->getPage_ID() == $_POST['page_id']) {
+            $pages_obj[$_SESSION['cur_page']]->setCategory($_POST['category_id']);
+        }
+        
+    }
+}
+
+if ($_POST['type'] == 'course') {
+    if ($pages_obj[$_SESSION['cur_page']]) {
+        
+        if ($pages_obj[$_SESSION['cur_page']]->getPage_ID() == $_POST['page_id']) {
+            $pages_obj[$_SESSION['cur_page']]->setCourse($_POST['course_id']);
+        }
         
     }
 }

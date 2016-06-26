@@ -25,9 +25,14 @@ class Controller {
         $filesSaved = $this->model->getFileListSaved();
         
         /**
-         * Return list of courses
+         * Return list of Categories
          */
-        $coursesList = $this->model->getCategories();
+        $categoryList = $this->model->getCategories();
+        
+        /**
+         * Return list of Courses
+         */
+        $coursesList = $this->model->getCourses();
         
         include 'view/filelist.php';
         

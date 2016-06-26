@@ -27,7 +27,9 @@ if(isset($_SESSION['obj_pages']) && !empty($_SESSION['obj_pages'])){
         if($page->getPage_nr() == $_SESSION['cur_page']){
             $pageName = $page->getPage_name(); 
             $pageId = $page->getPage_ID();
-            $category_id = $page->getCourse();
+            $category_id = $page->getCategory();
+            $course_id = $page->getCourse();
+            echo '$course_id  ' . $page->getCourse();
         }
     }
 }  
@@ -45,7 +47,8 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
         if($page->getPage_nr() == $_SESSION['cur_page']){
             $pageName = $page->getPage_name(); 
             $pageId = $page->getPage_ID();
-            $category_id = $page->getCourse();
+            $category_id = $page->getCategory();
+            $course_id = $page->getCourse();
             echo 'page ID ' . $page->getPage_ID();
         }
     }
@@ -57,18 +60,23 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
     <h5 class="subheader">File Name: <?php echo $_SESSION['filename']; ?></h5>
     <div class="medium-4 columns">
         <h5 class="subheader">Course</h5>
-        <div id="pName" class="select panel" contentEditable=true data-ph="Insert Page Name"  
-             oninput="chagePageName(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)"
-             ><?php
+        <select id="courseSelect" onchange="onCourseSelected(this, <?php echo $_SESSION['cur_page']; ?> , <?php echo $pageId; ?>)">
+        <?php
+            if($course_id == 0){
+                echo '<option class="placeholder" selected default value="">Select course</option>';
+            }
+            foreach ($_SESSION['coursesList'] as $key => $course) {
+                if($course->id == $course_id){
+                   echo '<option id='.$course->id.' value="'.$course->id.'" selected>'.$course->name.'</option>'; 
+                }
+                else{
+                    echo '<option id='.$course->id.' value="'.$course->id.'">'.$course->name.'</option>';
+                }
+                
+            }
+        ?>
+        </select>
 
-                if(isset($_SESSION['obj_pages'])){
-                   echo $pageName;
-                }
-                elseif (isset($_SESSION['obj_pages_upload'])) {
-                    echo $pageName;
-                }
-                ?>
-        </div>
     </div>
     <div class="medium-4 columns">
         <h5 class="subheader">Category</h5>
@@ -77,12 +85,12 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
             if($category_id == 0){
                 echo '<option class="placeholder" selected default value="">Select category</option>';
             }
-            foreach ($_SESSION['coursesList'] as $key => $course) {
-                if($course->id == $category_id){
-                   echo '<option id='.$course->id.' value="'.$course->id.'" selected>'.$course->name.'</option>'; 
+            foreach ($_SESSION['categoryList'] as $key => $category) {
+                if($category->id == $category_id){
+                   echo '<option id='.$category->id.' value="'.$category->id.'" selected>'.$category->name.'</option>'; 
                 }
                 else{
-                    echo '<option id='.$course->id.' value="'.$course->id.'">'.$course->name.'</option>';
+                    echo '<option id='.$category->id.' value="'.$category->id.'">'.$category->name.'</option>';
                 }
                 
             }

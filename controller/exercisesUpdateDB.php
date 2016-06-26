@@ -31,6 +31,7 @@ foreach ($pages_obj as $page){
     //update page info
     $PageUpdateQuery = 'UPDATE page'
             . ' SET Name = "'.$page->getPage_name().'"'
+            . ' , Category_ID = "'.$page->getCategory().'"'
             . ' , Course_ID = "'.$page->getCourse().'"'
             . ' WHERE Page_ID ='.$page->getPage_ID() ;
     updateDB($PageUpdateQuery);

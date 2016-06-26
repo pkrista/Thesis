@@ -8,6 +8,10 @@ function hideOverlay(){
     $("#overlay").hide();
 }
 
+/**
+ * http://spin.js.org/
+ * @see spin.js
+ */
 function createSpinner(){
     
     var opts = {

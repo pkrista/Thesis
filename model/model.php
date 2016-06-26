@@ -39,7 +39,7 @@
         function getFileList(){
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
-            
+            $arrFile = [];
             $sql = "SELECT f.* from file f where f.File_ID NOT IN (SELECT p.File_ID from page p) ORDER BY f.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
             foreach ($db->query($sql) as $row){
                     $name = $row['Name'];
@@ -56,7 +56,7 @@
         function getFileListSaved(){
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
-            
+            $arrFile = [];
             $sql = "select DISTINCT file.* from file, page where file.File_ID = page.File_ID ORDER BY file.date"; //select DISTINCT file.* from file, page where file.File_ID != page.File_ID
             foreach ($db->query($sql) as $row){
                     $name = $row['Name'];
@@ -73,6 +73,21 @@
             include_once 'config/theasisDB.php';
             $db = new theasisDB();
             
+            $sql = "select * from category";
+            foreach ($db->query($sql) as $row){
+                    $id = $row['Category_ID'];
+                    $name = $row['Name'];
+                    
+                    $arrCategory[] = (object) array('name' => $name, 'id' => $id);
+                }
+            
+                return $arrCategory;
+        }
+        
+        function getCourses(){
+            include_once 'config/theasisDB.php';
+            $db = new theasisDB();
+            
             $sql = "select * from course";
             foreach ($db->query($sql) as $row){
                     $id = $row['Course_ID'];
@@ -83,5 +98,5 @@
             
                 return $arrCourse;
         }
-          
+
     } 
