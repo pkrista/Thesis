@@ -68,3 +68,7 @@ button#arrowRight:hover {
     transition: .2s ease-in;
     color: #fff;
 }
+
+div#wrapperApp {
+    margin-bottom:  0px;
+}

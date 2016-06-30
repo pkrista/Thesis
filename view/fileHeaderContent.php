@@ -29,7 +29,6 @@ if(isset($_SESSION['obj_pages']) && !empty($_SESSION['obj_pages'])){
             $pageId = $page->getPage_ID();
             $category_id = $page->getCategory();
             $course_id = $page->getCourse();
-            echo '$course_id  ' . $page->getCourse();
         }
     }
 }  

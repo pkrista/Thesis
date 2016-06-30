@@ -47,6 +47,17 @@ session_start();
       ?>
 
     </div>
+      <div class="row panel">
+        <div class="large-12 columns">
+            <div class="large-2 columns text-left">
+               <img src="view/VUBlogo.png"> 
+            </div> 
+            <div class="large-3 arge-offset-7 columns text-right" style="font-size: 14px;">
+                Part of the master thesis of Krista Puke
+            </div>
+
+        </div>
+    </div>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>

@@ -64,7 +64,10 @@ a.dragExercise {
     font-size: 1rem; 
     position: absolute; 
     right: 20px; 
-    top: -10px 
+    top: -10px;
+    -ms-transform: rotate(45deg)!important;
+    -webkit-transform: rotate(45deg) !important;
+    transform: rotate(45deg) !important;
 }
 
 div#_pageDiv {

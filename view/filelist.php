@@ -25,7 +25,7 @@ $_SESSION['coursesList'] = $coursesList;
     <div class="large-8 medium-8 columns" > 
         <div class="filelist" id="filelist">
 
-            <h5 class="subheader">Unsaved Files</h4>
+            <h5 class="subheader">Uploaded Files</h4>
             <table>  
                 <tbody>
                     <tr>
