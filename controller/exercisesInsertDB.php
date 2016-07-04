@@ -1,7 +1,8 @@
 <?php
 session_start(); 
 /* 
- * 
+ * This file inserts all the pages and exercises 
+ * from the currend PDF document into the DB
  */
 
 /**

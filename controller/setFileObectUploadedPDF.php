@@ -126,7 +126,7 @@ class setFileObectUploadedPDF {
             //Store Pre exercise
             $this->storeExercise();
 
-            $this->ex = new Exercise(null, '', $k, ltrim($object), '', '', 'no', array(), $page_nr);
+            $this->ex = new Exercise(null, '', $k, ltrim($object), '', '', array(), $page_nr);
         }
 
         /**
@@ -163,7 +163,7 @@ class setFileObectUploadedPDF {
             $this->storeExercise();
             //New Ex
             //ltrim cut spaces from begining
-            $this->ex = new Exercise(null, '', $k, ltrim($page), '', '', 'no', array(), $page_nr);
+            $this->ex = new Exercise(null, '', $k, ltrim($page), '', '', array(), $page_nr);
         }
     }
 

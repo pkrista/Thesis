@@ -25,7 +25,7 @@ $pageArray = $page->getExercisesListObj();
  */
 $exerciseFirst = reset($pageArray);
 
-$exercise = new Exercise($exerciseFirst->getPage_ID(), '', $exeIndex+1, 'Exercises question...', '', '', 'no', array(), $exerciseFirst->getPage());
+$exercise = new Exercise($exerciseFirst->getPage_ID(), '', $exeIndex+1, 'Exercises question...', '', '', array(), $exerciseFirst->getPage());
 $exercise->setIsNew('yes');
 $exercise->setIsRemoved('no');
 

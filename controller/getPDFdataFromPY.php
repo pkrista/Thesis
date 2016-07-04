@@ -75,7 +75,7 @@ $_SESSION['cur_page'] = 0;
     
     
 if(strlen($big_string) > 0){
-        require_once('setFileObectUploadedPDF.php');
+    require_once('setFileObectUploadedPDF.php');
 
     //Call fileedit controller. send it 
     $obj = new setFileObectUploadedPDF($big_string);

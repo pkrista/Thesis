@@ -109,8 +109,8 @@ foreach ($result1 as $value) {
     }
     else{
         //create new exe
-        $ex = new Exercise($value[0], $value[1], $value[2], $value[3], $value[4], $value[5], 'no' , array(), $page);
-//        new Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Changes, $Combined, $Images, $Page)
+        $ex = new Exercise($value[0], $value[1], $value[2], $value[3], $value[4], $value[5], array(), $page);
+//        new Exercise($Page_ID, $Page_name, $Ex_ID, $Question, $Solution, $Explanation, $Images, $Page)
         //Add image, if exercise have image
         if(!empty($value[8])){
             $ex->addImage($value[8]);
@@ -126,9 +126,6 @@ foreach ($result1 as $value) {
     //Set current page nr as old one to compare in with page we are
     $PrePageID = $value[0];
 }
-
-//echo 'get saved pdf data (getPDFdataFromDB.php)';
-//print_r($PageObjArray);
 
 /**
  * Set session variable Object $PageObjArray

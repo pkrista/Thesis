@@ -32,7 +32,6 @@ class Exercise {
     private $Solution;
     private $Explanation;
     private $Changed = 'no';
-    private $Combined = 'no';
     private $IsRemoved = 'no';
     private $IsNew = 'no';
     private $Images = array();
@@ -43,7 +42,7 @@ class Exercise {
     //? page nr
     private $Page;
     
-    public function __construct($Page_ID,$Page_name,$Ex_ID,$Question,$Solution,$Explanation,$Combined,$Images,$Page) {
+    public function __construct($Page_ID,$Page_name,$Ex_ID,$Question,$Solution,$Explanation,$Images,$Page) {
         
         $this->Page_ID = $Page_ID;
         $this->Page_name = $Page_name;
@@ -51,7 +50,6 @@ class Exercise {
         $this->Question = $Question;
         $this->Solution = $Solution;
         $this->Explanation = $Explanation;
-        $this->Combined = $Combined;
         $this->Images = $Images;
         $this->Page = $Page; 
         
@@ -72,14 +70,6 @@ class Exercise {
     public function getChanged(){
         return $this->Changed;
     }
-    
-    public function getCombined(){
-        return $this->Combined;
-    }
-    
-//    public function getNumber(){
-//        return $this->Number;
-//    }
     
     public function getQuestion(){
         return $this->Question;
@@ -125,10 +115,6 @@ class Exercise {
     
     public function setExplanation($explanation){
         $this->Explanation = $explanation;
-    }
-    
-    public function setCombined($combined){
-        $this->Combined = $combined;
     }
     
     public function setIsRemoved($isRemoved){

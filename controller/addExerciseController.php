@@ -24,7 +24,7 @@ $pageArray = $page->getExercisesListObj();
  * add element at the begining
  */
 
-$newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', 'no', array(), $cur_page));
+$newExercise = array(new Exercise($cur_page, '', 0, 'Exercises question...', '', '', array(), $cur_page));
 array_splice($pageArray, $exeIndex+1, 0, $newExercise);
 
 $page->setExercisesListObj($pageArray);

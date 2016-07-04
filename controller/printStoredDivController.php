@@ -93,7 +93,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
                     $question = '<br><div id="' . $key . '" class="large-12 columns callout panel qid" '
                            .' data-id="'.$ex->getEx_ID().'" '
                            .' ondrop="drop(event)" ondragover="allowDrop(event)" '
-                           .' contenteditable="true" data-combined="'.$ex->getCombined().'" '
+                           .' contenteditable="true" '
                            .' oninput="questionChanged(this, '.$page->getPage_nr().', ' . $key . ')" '
                            .' data-changed="'.$ex->getChanged().'">'
                            . $ex->getQuestion()

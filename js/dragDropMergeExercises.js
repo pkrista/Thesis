@@ -30,10 +30,7 @@ function drop(ev) {
     
     var parentElement = ev.dataTransfer.mozSourceNode.parentElement;
     
-    console.log(transferId);
-    console.log(targetId);
-    
-    var result = confirm( "Confirm action exercise merge action" );
+    var result = confirm( "Confirm exercise merge action" );
     
     /**
      * If confirm = merge exercises
