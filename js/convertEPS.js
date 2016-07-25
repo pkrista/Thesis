@@ -1,7 +1,5 @@
 /* 
  * This file stores JS functions to convert pdf to multipe EPS files 
- * 
- * 
  */
 
 

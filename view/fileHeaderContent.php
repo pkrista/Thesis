@@ -48,7 +48,6 @@ else if(isset($_SESSION['obj_pages_upload']) && !empty($_SESSION['obj_pages_uplo
             $pageId = $page->getPage_ID();
             $category_id = $page->getCategory();
             $course_id = $page->getCourse();
-            echo 'page ID ' . $page->getPage_ID();
         }
     }
 }    

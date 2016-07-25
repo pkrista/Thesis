@@ -108,7 +108,7 @@ $pages_obj = unserialize($_SESSION['obj_pages']);
 
                     foreach ($ex->getImages() as $img){
                         echo (string) $img
-                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                        .' data-id ="P'.$exercise_id.'" '
                         .' class="columns" id="pid" />';
                     }
                     echo '<hr />';

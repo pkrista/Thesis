@@ -15,12 +15,7 @@ from pdfminer.layout import LAParams
 from pdfminer.layout import LTTextBox
 from pdfminer.layout import LTTextLine
 from pdfminer.layout import LTFigure
-from pdfminer.layout import LTChar
 from pdfminer.layout import LTImage
-
-from pdfminer.layout import LTCurve
-from pdfminer.layout import LTRect
-from pdfminer.layout import LTLine
 
 import png
 __author__ = "Denis Papathanasiou"
@@ -119,11 +114,8 @@ def save_image ( fName, lt_image, page_number, images_folder):
 def save_lt_images (fName, lt_obj, page_number, images_folder):
     saved_images = []
     if isinstance(lt_obj, LTImage):
-        #writer = ImageWriter(images_folder)
-        #saved_file = writer.export_image(lt_obj)
         saved_file = save_image(fName, lt_obj, page_number, images_folder)
         if saved_file:
-#            saved_images.append(os.path.join(images_folder, saved_file))
             saved_images.append(saved_file)
         else:
             print ' Error saving file '
@@ -144,7 +136,6 @@ def to_bytestring (s, enc='utf-8'):
             return s
         else:
             return s.encode('ascii', 'ignore')
-#            return s.encode(enc)
 
 def update_page_hash (h, lt_obj, lt_obj_content):
     #  http://stackoverflow.com/questions/27946677/use-pdfminer-coordinates-for-text-highlighting-on-page-jpeg-files
@@ -160,24 +151,10 @@ def update_page_hash (h, lt_obj, lt_obj_content):
         if x1 == hash_x1:
             key_found = True
             g = v[0]+' '+lt_obj_content
-#            v.append(lt_obj_content)
             h[k] = [g]
 
     if not key_found:
         h[x1] = [lt_obj_content]
-    return h
-
-def update_page_text_hash (h, lt_obj, lt_obj_content, pct=0.2):
-    """Use the bbox x0,x1 values within pct% to produce lists of associated text within the hash"""
-#  http://stackoverflow.com/questions/27946677/use-pdfminer-coordinates-for-text-highlighting-on-page-jpeg-files
-    x0 = lt_obj.bbox[0] # the distance from the left page border to the left character border
-    x1 = lt_obj.bbox[3] # the distance from the bottom page border to the top character border
-    
-    key_found = False
-    if not key_found:
-        # the text, based on width, is a new series,
-        # so it gets its own series (entry in the hash)
-        h[(x0,x1)] = [lt_obj_content]
     return h
 
 def parse_lt_objs (fName, lt_objs, page_number, images_folder, text=[]):
@@ -189,32 +166,13 @@ def parse_lt_objs (fName, lt_objs, page_number, images_folder, text=[]):
     text_content_D = []
     for lt_obj in lt_objs:
         if isinstance(lt_obj, LTFigure) or isinstance(lt_obj, LTImage):
-#            print ' LTFigure ' if isinstance(lt_obj, LTFigure) else ' LTImage '
             saved_file = save_lt_images(fName, lt_obj, page_number, images_folder) #name of the image
             # an image, so save it to the designated folder, and note its place in the text
-#            saved_file = save_image(lt_obj, page_number, images_folder)
-            
-#            lt_IMG_cont = '<img src="'+str(images_folder)+'/'+str(saved_file[0])+'" '
             lt_IMG_cont = '<img src="image/'+str(saved_file[0])+'" '
-            
-#            page_text = update_page_text_hash(page_text, lt_obj, lt_IMG_cont)
             D = update_page_hash(D, lt_obj, lt_IMG_cont)
-#            if saved_file:
-#            # use html style <img /> tag to mark the position of the image within the text
-#                text_content.append('AAAAA') #height="70" width="70"/>
-#
-#            else:
-#                print >> sys.stderr, "error saving image on page", page_number, lt_obj.__repr__
-        elif isinstance(lt_obj, LTTextBox): # or isinstance(lt_obj, LTTextLine):
-#        elif isinstance(lt_obj, LTTextBox) or isinstance(lt_obj, LTTextLine):
-            # text, so arrange is logically based on its column width
-#            page_text = update_page_text_hash(page_text, lt_obj)
-#            print ' LTTextBox '
-            
-            
-            lt_TEXT_cont = to_bytestring(lt_obj.get_text())
 
-#            page_text = update_page_text_hash(page_text, lt_obj, lt_TEXT_cont)
+        elif isinstance(lt_obj, LTTextBox): # or isinstance(lt_obj, LTTextLine):
+            lt_TEXT_cont = to_bytestring(lt_obj.get_text())
             D = update_page_hash(D, lt_obj, lt_TEXT_cont)
 
     sorted_x = sorted(D.items(), key=operator.itemgetter(0))
@@ -226,15 +184,6 @@ def parse_lt_objs (fName, lt_objs, page_number, images_folder, text=[]):
             new_v.append(el.replace('\n',' ')) # of </br> instead of space
         text_content_D.append('**OBJECT**'.join(new_v))
     return '**OBJECT**'.join(text_content_D)
-        
-#    for k, v in sorted([(key, value) for (key, value) in page_text.items()]):
-#        # sort the page_text hash by the keys (x0,x1 values of the bbox),
-#        # which produces a top-down, left-to-right sequence of related columns
-#        new_v = []
-#        for el in v:
-#            new_v.append(el.replace('\n',' ')) # of </br> instead of space
-#        text_content.append('**OBJECT**'.join(new_v))
-#    return '**OBJECT**'.join(text_content)
 
 ###
 ### Processing Pages

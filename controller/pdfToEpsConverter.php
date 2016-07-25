@@ -4,7 +4,7 @@ session_start();
 //set maximum execution time to 5 min (from 30 seconds default)
 ini_set('max_execution_time', 300);
 
-$title = $_POST['fileTitle'];
+$title = $_GET["fileTitle"]; //$_POST['fileTitle'];
 $EPSpath = $_SESSION['eps_dir'];
 
 $pdf_file = '../uploads/'.$title;
@@ -21,11 +21,7 @@ exec('identify  '.$pdf_file, $IdentofyOutput);
 /**
  * Convert images
  */
-exec('convert -density 250  -unsharp 10x4+1+0 '.$pdf_file.' '.$save_to_eps, $output, $return_var);
-//exec('convert -density 250 -resize 2480x3508 '.$pdf_file.' '.$save_to_eps, $output, $return_var);
-
-        //exec('convert -density 250 -quality 100  -unsharp 10x4+1+0 '.$pdf_file .' '.$save_to_eps, $output, $return_var);
-        //exec('composite -gravity South footbtn.png  -quality 100 -density 250 ../files/d15.eps ../files/result14.eps');
+exec('convert -density 250  -unsharp 10x4+1+0 '.$pdf_file.' '.$save_to_eps);
 
 /**
  * Get saved files in list
@@ -37,7 +33,7 @@ while (false !== ($filename = readdir($dh))) {
          $files[] = $filename;
     }
 }
-closedir($EPSpath);
+closedir($dh);
 /**
  * Add footer to each page
  */

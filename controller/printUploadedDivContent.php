@@ -116,7 +116,7 @@ $pages_obj_upload = unserialize($_SESSION['obj_pages_upload']);
                     
                     foreach ($ex->getImages() as $img){
                         echo (string) $img
-                        .' data-id ="P'.$exercise_id.'" onclick="myFunction(this)"'
+                        .' data-id ="P'.$exercise_id.'" '
                         .' class="columns" id="pid" />';
                     }
                     

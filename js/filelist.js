@@ -3,6 +3,12 @@
  * 
  * 
  */
+ 
+ /**
+  * Function to show dialog and get the exercise separator
+  * @param {type} fileName
+  * @param {type} fileId
+  */
 function setExerciseSeperator(fileName, fileId) {
     
     var exerSeperator = prompt("Please enter exercise seperator", "Exercise");
@@ -13,7 +19,6 @@ function setExerciseSeperator(fileName, fileId) {
     if(exerSeperator === null){
         return;
     }
-    
     openUploadedPDF(exerSeperator, fileName, fileId);
 }
 
@@ -37,8 +42,6 @@ function openUploadedPDF(exerSeperator, fileName, fileId){
         data: { fName: fileName, exSep: exerSeperator, fileId: fileId}
       })
     .success(function( msg ) {
-        var result = msg;
-        console.log(result);
         loadFileContent('printUploadedDivContent.php');
         spinner.stop();
         hideOverlay();
@@ -59,7 +62,7 @@ function openSavedPDF(fileName, fileId){
     hideFileListCont();
     
     var spinner = createSpinner();
-    showOverlay()
+    showOverlay();
     
     $.ajax({
     async: true,
@@ -68,9 +71,6 @@ function openSavedPDF(fileName, fileId){
     data: { fName: fileName, fileId: fileId}
     })
     .success(function( msg ) {
-        //To test print in console
-        console.log(msg);
-
         loadFileContent('printStoredDivController.php');    
         spinner.stop();
         hideOverlay();
@@ -98,27 +98,6 @@ function loadFileContent(file){
 function hideFileListCont(){
     var elem = document.getElementById('filesListandupload');
     $(elem).hide();
-}
-
-
-/**
- * To get id of div P - picture A - answer Q - question
- * @param {type} - P or A or Q
- * @param {id} the id of the div
- */
-function myFunction(object) {
-    var id = object.getAttribute("data-id");
-    var type = id.charAt(0);
-    
-    if(type === 'P'){
-           alert('Image id - '+id); 
-    }
-    else if(type === 'A'){
-        alert('Answer id - '+id); 
-    }
-    else if(type === 'Q'){
-        alert('Question id - '+id); 
-    }
 }
 
 /*
