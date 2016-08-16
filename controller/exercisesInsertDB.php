@@ -4,13 +4,12 @@ session_start();
  * This file inserts all the pages and exercises 
  * from the currend PDF document into the DB
  */
-echo 'before';
 /**
  * Include models: Exercise and Page
  */
 include_once'../model/Exercise.php'; 
 include_once'../model/Page.php'; 
-echo 'here';
+
 /**
  * Conection to the database
  */
@@ -19,8 +18,6 @@ $db = new theasisDB();
 $lastInsertedPageId = -1;
 $lastInsertedExeId = -1;
 
-
-print_r(unserialize($_SESSION['obj_pages_upload']));
 print 'In file (exercisesInsertDB.php) to save changed content of uploaded PDF ';
 
 /**
