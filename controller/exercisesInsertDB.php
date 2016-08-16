@@ -4,13 +4,13 @@ session_start();
  * This file inserts all the pages and exercises 
  * from the currend PDF document into the DB
  */
-
+echo 'before';
 /**
  * Include models: Exercise and Page
  */
 include_once'../model/Exercise.php'; 
 include_once'../model/Page.php'; 
-
+echo 'here';
 /**
  * Conection to the database
  */
@@ -19,6 +19,8 @@ $db = new theasisDB();
 $lastInsertedPageId = -1;
 $lastInsertedExeId = -1;
 
+
+print_r(unserialize($_SESSION['obj_pages_upload']));
 print 'In file (exercisesInsertDB.php) to save changed content of uploaded PDF ';
 
 /**
@@ -35,7 +37,34 @@ foreach ($pages_obj as $page){
     /**
      * prepare insert query
      */
-    $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Category_ID, Course_ID) "
+    if(!$page->getCategory() && !$page->getCourse()){
+        $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID) "
+            . "VALUES "
+            . "('".$page->getPage_name()."' "
+            . ", ".$page->getPage_nr()." "
+            . ", ".$paperPageNr." "
+            . ", ".$fileId." )";
+    }
+    else if(!$page->getCategory() && $page->getCourse()){
+        $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Course_ID) "
+            . "VALUES "
+            . "('".$page->getPage_name()."' "
+            . ", ".$page->getPage_nr()." "
+            . ", ".$paperPageNr." "
+            . ", ".$fileId." "
+            . ", ".$page->getCourse().")";
+    }
+    else if($page->getCategory() && !$page->getCourse()){
+        $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Category_ID) "
+            . "VALUES "
+            . "('".$page->getPage_name()."' "
+            . ", ".$page->getPage_nr()." "
+            . ", ".$paperPageNr." "
+            . ", ".$fileId." "
+            . ", ".$page->getCategory().")";
+    }
+    else{
+        $sqlInsertPage = "INSERT INTO Page(Name, PagePaper, PagePen, File_ID, Category_ID, Course_ID) "
             . "VALUES "
             . "('".$page->getPage_name()."' "
             . ", ".$page->getPage_nr()." "
@@ -43,6 +72,7 @@ foreach ($pages_obj as $page){
             . ", ".$fileId." "
             . ", ".$page->getCategory()." "
             . ", ".$page->getCourse().")";
+    }
     
     /**
      * insert in db and get back page id / or -1 if was errer

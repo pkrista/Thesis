@@ -101,8 +101,7 @@ function saveUploadedPdfInDB(){
     $.ajax({
     async: false,
     method: 'post',
-    url: 'controller/exercisesInsertDB.php',
-    data: {}
+    url: 'controller/exercisesInsertDB.php'
     })
     .success(function( msg ) {
         console.log(msg);
